@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Steak Drop — Taze &amp; Helal Et Teslimatı, Berlin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -26,15 +26,15 @@
     a { color: inherit; text-decoration: none; }
     .fd { font-family: 'Playfair Display', serif; }
 
-    /* HERO */
-    .hero-bg {
-      background: #120907;
-      position: relative;
-      overflow: hidden;
+    /* Arabic font override */
+    :lang(ar), :lang(ar) .fd, :lang(ar) button, :lang(ar) input, :lang(ar) select, :lang(ar) label {
+      font-family: 'Cairo', sans-serif;
     }
+
+    /* HERO */
+    .hero-bg { background: #120907; position: relative; overflow: hidden; }
     .hero-bg::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background:
         radial-gradient(ellipse 80% 50% at 50% 20%, rgba(212,43,30,.30) 0%, transparent 70%),
         radial-gradient(ellipse 50% 60% at 90% 85%, rgba(123,24,17,.40) 0%, transparent 60%),
@@ -42,8 +42,7 @@
       pointer-events: none;
     }
     .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
       pointer-events: none;
     }
@@ -54,10 +53,8 @@
       display: flex; align-items: center; gap: 10px;
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.14);
-      border-radius: 10px;
-      padding: 11px 14px;
-      color: rgba(255,248,245,.90);
-      font-size: .875rem; font-weight: 500;
+      border-radius: 10px; padding: 11px 14px;
+      color: rgba(255,248,245,.90); font-size: .875rem; font-weight: 500;
     }
     .tbadge-icon {
       width: 26px; height: 26px; border-radius: 50%;
@@ -66,79 +63,60 @@
       flex-shrink: 0; font-size: .75rem; color: #fff; font-weight: 700;
     }
     .tbadge-icon.blue { background: #1a4a7a; }
+    .tbadge-icon.brown { background: #7B4A1E; }
+
+    /* Arrow that flips in RTL */
+    .arr { display: inline-block; }
+    [dir="rtl"] .arr { transform: scaleX(-1); }
 
     /* PRODUCT CARD */
     .pcard {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
+      background: #fff; border-radius: 16px; overflow: hidden;
       border: 1px solid rgba(212,43,30,.08);
       box-shadow: 0 2px 8px rgba(212,43,30,.06), 0 8px 24px rgba(212,43,30,.04);
       display: flex; flex-direction: column;
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
     }
     .pcard:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(212,43,30,.12), 0 16px 40px rgba(212,43,30,.08); }
-
-    .pimg {
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-    }
+    .pimg { position: relative; aspect-ratio: 4/3; overflow: hidden; }
     .pimg img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
     .pcard:hover .pimg img { transform: scale(1.05); }
-    .pimg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(18,9,7,.45) 0%, transparent 50%);
-    }
-
+    .pimg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,9,7,.45) 0%, transparent 50%); }
     .helalbadge {
-      position: absolute; top: 8px; right: 8px; z-index: 2;
+      position: absolute; top: 8px; inset-inline-end: 8px; z-index: 2;
       background: var(--halal); color: #fff;
       font-size: .6875rem; font-weight: 700;
-      padding: 3px 8px; border-radius: 999px;
-      letter-spacing: .04em;
+      padding: 3px 8px; border-radius: 999px; letter-spacing: .04em;
     }
-
     .pbody { padding: 12px 12px 0; flex: 1; display: flex; flex-direction: column; }
     .pname { font-weight: 600; font-size: .875rem; color: var(--text); line-height: 1.3; }
     .pweight { font-size: .75rem; color: var(--muted); margin-top: 2px; }
     .pprice { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--primary); margin-top: auto; padding-top: 8px; padding-bottom: 10px; }
+    :lang(ar) .pprice { font-family: 'Cairo', sans-serif; }
 
     .btn-cart {
       width: 100%; min-height: 48px;
-      background: var(--primary); color: #fff;
-      border: none; cursor: pointer;
+      background: var(--primary); color: #fff; border: none; cursor: pointer;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: .875rem;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       transition: background .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1);
     }
+    :lang(ar) .btn-cart { font-family: 'Cairo', sans-serif; }
     .btn-cart:hover { background: var(--accent); }
     .btn-cart:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
     .btn-cart:active { transform: scaleY(.97); }
 
-    /* REVIEW CARD */
-    .rcard {
-      background: #fff;
-      border-radius: 14px;
-      padding: 18px;
-      border: 1px solid rgba(212,43,30,.08);
-      box-shadow: 0 2px 8px rgba(212,43,30,.04);
-    }
+    /* REVIEW */
+    .rcard { background: #fff; border-radius: 14px; padding: 18px; border: 1px solid rgba(212,43,30,.08); box-shadow: 0 2px 8px rgba(212,43,30,.04); }
     .stars { color: #F59E0B; }
 
-    /* TRUST SECTION cards */
-    .tcard {
-      background: #fff; border-radius: 20px; overflow: hidden;
-      border: 1px solid rgba(42,122,80,.12);
-      box-shadow: 0 4px 16px rgba(42,122,80,.07);
-    }
+    /* TRUST CARDS */
+    .tcard { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid rgba(42,122,80,.12); box-shadow: 0 4px 16px rgba(42,122,80,.07); }
 
-    /* CART DRAWER */
+    /* CART DRAWER — LTR: slides in from right */
     .drawer {
       position: fixed; top: 0; right: 0; height: 100%;
-      width: min(420px, 100vw);
-      background: #fff; z-index: 200;
+      width: min(420px, 100vw); background: #fff; z-index: 200;
       box-shadow: -4px 0 32px rgba(0,0,0,.16);
       transform: translateX(100%);
       transition: transform .3s cubic-bezier(.4,0,.2,1);
@@ -146,82 +124,105 @@
     }
     .drawer.open { transform: translateX(0); }
 
-    .backdrop {
-      position: fixed; inset: 0;
-      background: rgba(18,9,7,.55); z-index: 199;
-      opacity: 0; pointer-events: none;
-      transition: opacity .3s ease;
-    }
+    /* RTL: slides in from left */
+    [dir="rtl"] .drawer { right: auto; left: 0; transform: translateX(-100%); box-shadow: 4px 0 32px rgba(0,0,0,.16); }
+    [dir="rtl"] .drawer.open { transform: translateX(0); }
+
+    .backdrop { position: fixed; inset: 0; background: rgba(18,9,7,.55); z-index: 199; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
     .backdrop.on { opacity: 1; pointer-events: all; }
 
-    /* CART FAB */
+    /* FAB */
     .fab {
-      position: fixed; bottom: 24px; right: 24px; z-index: 100;
-      background: var(--primary); color: #fff;
-      border: none; border-radius: 999px;
+      position: fixed; bottom: 24px; inset-inline-end: 24px; z-index: 100;
+      background: var(--primary); color: #fff; border: none; border-radius: 999px;
       padding: 14px 20px; min-height: 52px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: .9375rem;
-      cursor: pointer;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: .9375rem; cursor: pointer;
       display: flex; align-items: center; gap: 8px;
       box-shadow: 0 4px 12px rgba(212,43,30,.40), 0 12px 32px rgba(212,43,30,.22);
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
     }
+    :lang(ar) .fab { font-family: 'Cairo', sans-serif; }
     .fab:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 18px rgba(212,43,30,.50), 0 16px 40px rgba(212,43,30,.28); }
     .fab:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
     .fab:active { transform: scale(.98); }
-
-    .fab-badge {
-      background: #fff; color: var(--primary);
-      font-size: .8125rem; font-weight: 700;
-      width: 22px; height: 22px; border-radius: 50%;
-      display: none; align-items: center; justify-content: center;
-    }
+    .fab-badge { background: #fff; color: var(--primary); font-size: .8125rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
 
     /* FORM */
     .finput {
       width: 100%; padding: 12px 14px; min-height: 48px;
       border: 1.5px solid #E5DDD9; border-radius: 8px;
       font-family: 'Inter', sans-serif; font-size: .9375rem; color: var(--text);
-      background: #FAFAF9;
-      transition: border-color .2s ease, box-shadow .2s ease;
+      background: #FAFAF9; transition: border-color .2s ease, box-shadow .2s ease;
+      text-align: inherit;
     }
+    :lang(ar) .finput { font-family: 'Cairo', sans-serif; }
     .finput:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(212,43,30,.11); }
 
     .btn-primary {
-      width: 100%; min-height: 52px;
-      background: var(--primary); color: #fff;
+      width: 100%; min-height: 52px; background: var(--primary); color: #fff;
       border: none; border-radius: 10px; cursor: pointer;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
       box-shadow: 0 4px 12px rgba(212,43,30,.35), 0 8px 24px rgba(212,43,30,.18);
       transition: background .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
     }
+    :lang(ar) .btn-primary { font-family: 'Cairo', sans-serif; }
     .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
     .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .btn-primary:active { transform: translateY(0); }
     .btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
-
     .drawer-scroll { flex: 1; overflow-y: auto; }
+
+    /* LANG SWITCHER */
+    .lang-switcher { display: flex; align-items: center; gap: 0; direction: ltr; }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: .75rem; font-weight: 500;
+      color: var(--muted); padding: 6px 7px; min-height: 36px; min-width: 36px;
+      border-radius: 5px; transition: color .15s ease, background .15s ease; line-height: 1;
+    }
+    .lang-btn:hover { color: var(--primary); background: var(--surface); }
+    .lang-btn:focus-visible { outline: 2px solid var(--accent); border-radius: 4px; }
+    .lang-btn.active-lang { color: var(--primary); font-weight: 700; }
+    .lang-sep { color: #D5C8C4; font-size: .75rem; line-height: 1; user-select: none; }
   </style>
 </head>
 <body>
 
 <!-- ══════════ HEADER ══════════ -->
 <header class="sticky top-0 z-50 bg-white border-b border-[rgba(212,43,30,0.10)]" style="box-shadow:0 1px 3px rgba(212,43,30,.06),0 4px 16px rgba(212,43,30,.04)">
-  <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5" aria-label="Steak Drop ana sayfa">
+  <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+
+    <!-- Logotype -->
+    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Steak Drop">
       <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-10 w-auto" />
       <div class="leading-none">
-        <p class="text-[#1A1A1A] text-base tracking-wide" style="letter-spacing:0.06em">
+        <p class="text-[#1A1A1A] text-base" style="letter-spacing:0.06em">
           <strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span>
         </p>
-        <p class="text-[#4A3A38] text-[0.6875rem] tracking-widest uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
+        <p class="text-[#4A3A38] text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
       </div>
     </a>
-    <button onclick="openDrawer()" class="flex items-center gap-2 text-[#4A3A38] hover:text-[#D42B1E] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Sepeti aç">
-      <span class="text-xl">🛒</span>
-      <span class="hidden sm:inline font-semibold">Sepet</span>
-      <span id="hdr-badge" class="hidden bg-[#D42B1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
-    </button>
+
+    <!-- Right side: lang switcher + cart -->
+    <div class="flex items-center gap-2 shrink-0">
+      <!-- Language switcher — always LTR order -->
+      <div class="lang-switcher" dir="ltr">
+        <button class="lang-btn active-lang" data-lang="tr" onclick="setLang('tr')">TR</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">AR</button>
+      </div>
+
+      <!-- Cart button -->
+      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#4A3A38] hover:text-[#D42B1E] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Cart">
+        <span class="text-xl">🛒</span>
+        <span class="hidden sm:inline font-semibold" data-i18n="cart.fab">Sepet</span>
+        <span id="hdr-badge" class="hidden bg-[#D42B1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -230,24 +231,33 @@
   <div class="hero-inner max-w-5xl mx-auto px-4 py-12 sm:py-20">
     <div class="max-w-xl">
       <p class="flex items-center gap-2 text-[#EF4530] text-xs font-semibold tracking-widest uppercase mb-4">
-        <span class="block w-5 h-0.5 bg-[#EF4530] rounded"></span>Berlin · Helal Et Teslimatı
+        <span class="block w-5 h-0.5 bg-[#EF4530] rounded shrink-0"></span>
+        <span data-i18n="hero.eyebrow">Berlin · Helal Et Teslimatı</span>
       </p>
-      <h1 class="fd text-[2rem] sm:text-5xl font-black text-white mb-6 leading-tight" style="letter-spacing:-0.03em">
+
+      <h1 class="fd text-[2rem] sm:text-5xl font-black text-white mb-6 leading-tight" style="letter-spacing:-0.03em" data-i18n-html="hero.h1">
         Mezbahadan kapınıza<br />
         <em class="not-italic text-[#EF4530]">24 saatte taze</em><br />
         ve %100 Helal et.
       </h1>
 
-      <!-- 3 TRUST BADGES — mobilde first screen'de görünür -->
+      <!-- 3 TRUST BADGES -->
       <div class="flex flex-col gap-2.5 mb-8">
-        <div class="tbadge"><span class="tbadge-icon">✓</span>Resmi Helal Sertifikası</div>
-        <div class="tbadge"><span class="tbadge-icon blue">❄</span>Kesintisiz Soğuk Zincir Garantisi</div>
-        <div class="tbadge"><span class="tbadge-icon" style="background:#7B4A1E">→</span>Berlin İçi Ertesi Gün Teslimat</div>
+        <div class="tbadge">
+          <span class="tbadge-icon">✓</span>
+          <span data-i18n="hero.badge1">Resmi Helal Sertifikası</span>
+        </div>
+        <div class="tbadge">
+          <span class="tbadge-icon blue">❄</span>
+          <span data-i18n="hero.badge2">Kesintisiz Soğuk Zincir Garantisi</span>
+        </div>
+        <div class="tbadge">
+          <span class="tbadge-icon brown"><span class="arr">→</span></span>
+          <span data-i18n="hero.badge3">Berlin İçi Ertesi Gün Teslimat</span>
+        </div>
       </div>
 
-      <a href="#products" class="inline-flex items-center gap-2 bg-[#D42B1E] text-white font-semibold px-7 py-4 rounded-xl text-base hover:bg-[#EF4530] transition-all focus-visible:outline-2 focus-visible:outline-white" style="min-height:52px;box-shadow:0 4px 12px rgba(212,43,30,.40),0 10px 28px rgba(212,43,30,.22)">
-        Ürünleri Gör &darr;
-      </a>
+      <a href="#products" class="inline-flex items-center gap-2 bg-[#D42B1E] text-white font-semibold px-7 py-4 rounded-xl text-base hover:bg-[#EF4530] transition-all focus-visible:outline-2 focus-visible:outline-white" style="min-height:52px;box-shadow:0 4px 12px rgba(212,43,30,.40),0 10px 28px rgba(212,43,30,.22)" data-i18n="hero.cta">Ürünleri Gör ↓</a>
     </div>
   </div>
 </section>
@@ -255,31 +265,31 @@
 <!-- ══════════ TRUST ══════════ -->
 <section class="py-14 px-4 bg-[#F5EDEA]" id="trust">
   <div class="max-w-5xl mx-auto">
-    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-10" style="letter-spacing:-0.02em">Güveninizi Kazanmak İçin Buradayız</h2>
+    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-10" style="letter-spacing:-0.02em" data-i18n="trust.h2">Güveninizi Kazanmak İçin Buradayız</h2>
     <div class="grid md:grid-cols-2 gap-5">
 
       <div class="tcard">
         <div class="aspect-video bg-[#E8F5EE] flex flex-col items-center justify-center gap-3 px-6">
           <div class="w-20 h-20 rounded-full bg-[#2A7A50] flex items-center justify-center text-white text-4xl font-bold">✓</div>
-          <p class="text-[#2A7A50] font-semibold text-sm tracking-widest uppercase">Resmi Helal Sertifikası</p>
+          <p class="text-[#2A7A50] font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cert.label">Resmi Helal Sertifikası</p>
         </div>
         <div class="p-5">
-          <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em">%100 Helal Güvencesi</h3>
-          <p class="text-[#4A3A38] text-sm leading-relaxed">Tüm etlerimiz Almanya'da geçerli resmi helal sertifikasına sahip mezbahalardan temin edilmektedir. Sertifikamız talep üzerine iletilir.</p>
+          <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="trust.cert.h3">%100 Helal Güvencesi</h3>
+          <p class="text-[#4A3A38] text-sm leading-relaxed" data-i18n="trust.cert.p">Tüm etlerimiz Almanya'da geçerli resmi helal sertifikasına sahip mezbahalardan temin edilmektedir. Sertifikamız talep üzerine iletilir.</p>
         </div>
       </div>
 
       <div class="tcard" style="border-color:rgba(212,43,30,.10)">
         <div class="aspect-video flex flex-col items-center justify-center gap-3 px-6" style="background:linear-gradient(135deg,#1a3a5c,#0e2340)">
           <div class="w-20 h-20 rounded-full flex items-center justify-center text-4xl" style="background:rgba(255,255,255,.12)">❄️</div>
-          <p class="text-white/80 font-semibold text-sm tracking-widest uppercase">Soğuk Zincir</p>
+          <p class="text-white/80 font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cold.label">Soğuk Zincir</p>
         </div>
         <div class="p-5">
-          <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em">Soğuk Zinciri Nasıl Koruyoruz?</h3>
+          <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="trust.cold.h3">Soğuk Zinciri Nasıl Koruyoruz?</h3>
           <ul class="text-[#4A3A38] text-sm leading-relaxed space-y-2">
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5">→</span>Özel soğutuculu, izole ambalajlarda paketleme</li>
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5">→</span>0–4°C kesintisiz soğutma zinciri</li>
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5">→</span>Aynı gün kesim ve paketleme, ertesi gün kapıda</li>
+            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li1">Özel soğutuculu, izole ambalajlarda paketleme</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li2">0–4°C kesintisiz soğutma zinciri</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li3">Aynı gün kesim ve paketleme, ertesi gün kapıda</span></li>
           </ul>
         </div>
       </div>
@@ -291,28 +301,28 @@
 <!-- ══════════ PRODUCTS ══════════ -->
 <section class="py-14 px-4" id="products">
   <div class="max-w-5xl mx-auto">
-    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-1" style="letter-spacing:-0.02em">Taze Ürünlerimiz</h2>
-    <p class="text-center text-[#4A3A38] text-sm mb-8">Her sipariş günlük taze kesim.</p>
+    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-1" style="letter-spacing:-0.02em" data-i18n="products.h2">Taze Ürünlerimiz</h2>
+    <p class="text-center text-[#4A3A38] text-sm mb-8" data-i18n="products.sub">Her sipariş günlük taze kesim.</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="pgrid"></div>
 
     <!-- REVIEWS -->
     <div class="mt-14">
-      <h3 class="fd text-xl font-bold text-center mb-6" style="letter-spacing:-0.02em">Müşterilerimiz Ne Diyor?</h3>
+      <h3 class="fd text-xl font-bold text-center mb-6" style="letter-spacing:-0.02em" data-i18n="reviews.h3">Müşterilerimiz Ne Diyor?</h3>
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="rcard">
           <p class="stars text-sm mb-2">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3">"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold">— Ahmet K., Neukölln</p>
+          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r1.text">"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."</p>
+          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r1.author">— Ahmet K., Neukölln</p>
         </div>
         <div class="rcard">
           <p class="stars text-sm mb-2">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3">"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin'de bu kalitede helal et bulmak zordu."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold">— Fatima S., Tempelhof</p>
+          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r2.text">"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin'de bu kalitede helal et bulmak zordu."</p>
+          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r2.author">— Fatima S., Tempelhof</p>
         </div>
         <div class="rcard">
           <p class="stars text-sm mb-2">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3">"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold">— Mehmet Y., Kreuzberg</p>
+          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r3.text">"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."</p>
+          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r3.author">— Mehmet Y., Kreuzberg</p>
         </div>
       </div>
     </div>
@@ -321,46 +331,48 @@
 
 <!-- ══════════ CART DRAWER ══════════ -->
 <div class="backdrop" id="backdrop" onclick="closeDrawer()"></div>
-
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Sepet">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true">
 
   <!-- VIEW: cart -->
   <div id="v-cart" class="flex flex-col h-full">
     <div class="flex items-center justify-between px-5 py-4 border-b border-[#F5EDEA] shrink-0">
-      <h2 class="fd text-xl font-bold">Sepetim</h2>
-      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Kapat">✕</button>
+      <h2 class="fd text-xl font-bold" data-i18n="cart.title">Sepetim</h2>
+      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Close">✕</button>
     </div>
     <div id="cart-items" class="drawer-scroll px-5 py-3"></div>
     <div class="px-5 py-4 border-t border-[#F5EDEA] bg-[#FAFAF8] shrink-0">
       <div class="flex justify-between items-baseline mb-4">
-        <span class="text-[#4A3A38] font-medium text-sm">Sipariş Toplamı</span>
+        <span class="text-[#4A3A38] font-medium text-sm" data-i18n="cart.subtotal">Sipariş Toplamı</span>
         <span class="fd text-2xl font-bold text-[#D42B1E]" id="cart-total">€0.00</span>
       </div>
-      <button id="btn-checkout" onclick="showView('checkout')" class="btn-primary" disabled>Siparişe Devam →</button>
+      <button id="btn-checkout" onclick="showView('checkout')" class="btn-primary" disabled data-i18n="cart.checkout">Siparişe Devam →</button>
     </div>
   </div>
 
   <!-- VIEW: checkout -->
   <div id="v-checkout" class="flex flex-col h-full" hidden>
     <div class="flex items-center gap-3 px-5 py-4 border-b border-[#F5EDEA] shrink-0">
-      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Geri">←</button>
-      <h2 class="fd text-xl font-bold">Teslimat Bilgileri</h2>
+      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Back">←</button>
+      <h2 class="fd text-xl font-bold" data-i18n="co.title">Teslimat Bilgileri</h2>
     </div>
     <form id="co-form" class="drawer-scroll px-5 py-5 space-y-4" onsubmit="submitOrder(event)">
       <div>
-        <label class="block text-sm font-semibold mb-1.5" for="f-name">Ad Soyad</label>
-        <input class="finput" type="text" id="f-name" placeholder="Adınız ve soyadınız" required autocomplete="name" />
+        <label class="block text-sm font-semibold mb-1.5" for="f-name" data-i18n="co.name.label">Ad Soyad</label>
+        <input class="finput" type="text" id="f-name" placeholder="Adınız ve soyadınız" required autocomplete="name" data-i18n-ph="co.name.placeholder" />
       </div>
       <div>
-        <label class="block text-sm font-semibold mb-1.5" for="f-addr">Teslimat Adresi <span class="text-[#2A7A50] font-normal text-xs">(Yalnızca Berlin)</span></label>
-        <input class="finput" type="text" id="f-addr" placeholder="Sokak No, Daire, PLZ Berlin" required autocomplete="street-address" />
+        <label class="block text-sm font-semibold mb-1.5" for="f-addr">
+          <span data-i18n="co.addr.label">Teslimat Adresi</span>
+          <span class="text-[#2A7A50] font-normal text-xs ms-1" data-i18n="co.addr.note">(Yalnızca Berlin)</span>
+        </label>
+        <input class="finput" type="text" id="f-addr" placeholder="Sokak No, Daire, PLZ Berlin" required autocomplete="street-address" data-i18n-ph="co.addr.placeholder" />
       </div>
       <div>
-        <label class="block text-sm font-semibold mb-1.5" for="f-phone">Telefon</label>
-        <input class="finput" type="tel" id="f-phone" placeholder="+49 …" required autocomplete="tel" />
+        <label class="block text-sm font-semibold mb-1.5" for="f-phone" data-i18n="co.phone.label">Telefon</label>
+        <input class="finput" type="tel" id="f-phone" placeholder="+49 …" required autocomplete="tel" data-i18n-ph="co.phone.placeholder" />
       </div>
       <div>
-        <label class="block text-sm font-semibold mb-1.5" for="f-time">Teslimat Saati</label>
+        <label class="block text-sm font-semibold mb-1.5" for="f-time" data-i18n="co.time.label">Teslimat Saati</label>
         <select class="finput" id="f-time" required>
           <option value="">Saat aralığı seçin</option>
           <option value="10-13">10:00 – 13:00</option>
@@ -370,64 +382,325 @@
         </select>
       </div>
       <div>
-        <p class="block text-sm font-semibold mb-1.5">Ödeme Yöntemi</p>
+        <p class="block text-sm font-semibold mb-1.5" data-i18n="co.payment.label">Ödeme Yöntemi</p>
         <div class="flex items-center gap-3 rounded-xl px-4 py-3.5 border" style="background:var(--halal-lt);border-color:rgba(42,122,80,.25)">
-          <span class="text-2xl">💵</span>
-          <div>
-            <p class="font-semibold text-sm text-[#1A1A1A]">Kapıda Nakit Ödeme</p>
-            <p class="text-xs text-[#4A3A38]">Teslimat sırasında kapıda ödeme yapılır</p>
+          <span class="text-2xl shrink-0">💵</span>
+          <div class="min-w-0">
+            <p class="font-semibold text-sm text-[#1A1A1A]" data-i18n="co.payment.title">Kapıda Nakit Ödeme</p>
+            <p class="text-xs text-[#4A3A38]" data-i18n="co.payment.sub">Teslimat sırasında kapıda ödeme yapılır</p>
           </div>
-          <span class="ml-auto text-[#2A7A50] text-xl font-bold">✓</span>
+          <span class="ms-auto text-[#2A7A50] text-xl font-bold shrink-0">✓</span>
         </div>
       </div>
       <div class="rounded-xl p-4 border" style="background:var(--bg);border-color:rgba(212,43,30,.08)">
         <div class="flex justify-between items-center">
-          <span class="text-sm text-[#4A3A38]">Toplam</span>
+          <span class="text-sm text-[#4A3A38]" data-i18n="co.total.label">Toplam</span>
           <span class="font-bold text-[#D42B1E]" id="co-total">€0.00</span>
         </div>
         <div class="flex justify-between items-center mt-1">
-          <span class="text-xs text-[#4A3A38]">Teslimat ücreti</span>
-          <span class="text-xs font-semibold text-[#2A7A50]">Ücretsiz</span>
+          <span class="text-xs text-[#4A3A38]" data-i18n="co.delivery.label">Teslimat ücreti</span>
+          <span class="text-xs font-semibold text-[#2A7A50]" data-i18n="co.free">Ücretsiz</span>
         </div>
       </div>
-      <button type="submit" class="btn-primary">Siparişi Tamamla →</button>
+      <button type="submit" class="btn-primary" data-i18n="co.submit">Siparişi Tamamla →</button>
     </form>
   </div>
 
   <!-- VIEW: success -->
   <div id="v-success" class="flex flex-col items-center justify-center h-full px-8 text-center gap-5" hidden>
     <div class="w-24 h-24 rounded-full flex items-center justify-center text-5xl" style="background:var(--halal-lt)">✓</div>
-    <h2 class="fd text-2xl font-bold text-[#2A7A50]">Teşekkürler!</h2>
-    <p class="text-[#1A1A1A] font-semibold text-lg">Siparişiniz alındı.</p>
-    <p class="text-[#4A3A38] text-sm leading-relaxed max-w-xs">Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.</p>
-    <button onclick="closeDrawer()" class="btn-primary mt-2" style="max-width:240px">Alışverişe Devam</button>
+    <h2 class="fd text-2xl font-bold text-[#2A7A50]" data-i18n="success.h2">Teşekkürler!</h2>
+    <p class="text-[#1A1A1A] font-semibold text-lg" data-i18n="success.p1">Siparişiniz alındı.</p>
+    <p class="text-[#4A3A38] text-sm leading-relaxed max-w-xs" data-i18n="success.p2">Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.</p>
+    <button onclick="closeDrawer()" class="btn-primary mt-2" style="max-width:240px" data-i18n="success.btn">Alışverişe Devam</button>
   </div>
 </div>
 
 <!-- ══════════ FAB ══════════ -->
-<button class="fab" id="fab" onclick="openDrawer()" aria-label="Sepeti aç">
+<button class="fab" id="fab" onclick="openDrawer()" aria-label="Cart">
   <span class="text-xl">🛒</span>
-  <span class="hidden sm:inline">Sepet</span>
+  <span class="hidden sm:inline" data-i18n="cart.fab">Sepet</span>
   <span class="fab-badge" id="fab-badge">0</span>
 </button>
 
 <!-- ══════════ JS ══════════ -->
 <script>
+/* ── Translations ────────────────────────────────── */
+const T = {
+  tr: {
+    'hero.eyebrow':'Berlin · Helal Et Teslimatı',
+    'hero.h1':'Mezbahadan kapınıza<br /><em class="not-italic text-[#EF4530]">24 saatte taze</em><br />ve %100 Helal et.',
+    'hero.badge1':'Resmi Helal Sertifikası',
+    'hero.badge2':'Kesintisiz Soğuk Zincir Garantisi',
+    'hero.badge3':'Berlin İçi Ertesi Gün Teslimat',
+    'hero.cta':'Ürünleri Gör ↓',
+    'trust.h2':'Güveninizi Kazanmak İçin Buradayız',
+    'trust.cert.label':'Resmi Helal Sertifikası',
+    'trust.cert.h3':'%100 Helal Güvencesi',
+    'trust.cert.p':'Tüm etlerimiz Almanya\'da geçerli resmi helal sertifikasına sahip mezbahalardan temin edilmektedir. Sertifikamız talep üzerine iletilir.',
+    'trust.cold.label':'Kesintisiz Soğuk Zincir',
+    'trust.cold.h3':'Soğuk Zinciri Nasıl Koruyoruz?',
+    'trust.cold.li1':'Özel soğutuculu, izole ambalajlarda paketleme',
+    'trust.cold.li2':'0–4°C kesintisiz soğutma zinciri',
+    'trust.cold.li3':'Aynı gün kesim ve paketleme, ertesi gün kapıda',
+    'products.h2':'Taze Ürünlerimiz',
+    'products.sub':'Her sipariş günlük taze kesim.',
+    'p1.name':'Dana Kıyma','p1.weight':'500g',
+    'p2.name':'Antrikot','p2.weight':'300g',
+    'p3.name':'Tavuk Göğsü','p3.weight':'500g',
+    'p4.name':'Kuzu Pirzola','p4.weight':'400g',
+    'p5.name':'Dana Kuşbaşı','p5.weight':'500g',
+    'btn.addcart':'+ Sepete Ekle',
+    'halal.badge':'✓ Helal',
+    'reviews.h3':'Müşterilerimiz Ne Diyor?',
+    'r1.text':'"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."',
+    'r1.author':'— Ahmet K., Neukölln',
+    'r2.text':'"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin\'de bu kalitede helal et bulmak zordu."',
+    'r2.author':'— Fatima S., Tempelhof',
+    'r3.text':'"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."',
+    'r3.author':'— Mehmet Y., Kreuzberg',
+    'cart.fab':'Sepet','cart.title':'Sepetim',
+    'cart.empty':'Sepetiniz boş. Ürün ekleyin!',
+    'cart.subtotal':'Sipariş Toplamı','cart.checkout':'Siparişe Devam →',
+    'co.title':'Teslimat Bilgileri',
+    'co.name.label':'Ad Soyad','co.name.placeholder':'Adınız ve soyadınız',
+    'co.addr.label':'Teslimat Adresi','co.addr.note':'(Yalnızca Berlin)',
+    'co.addr.placeholder':'Sokak No, Daire, PLZ Berlin',
+    'co.phone.label':'Telefon','co.phone.placeholder':'+49 …',
+    'co.time.label':'Teslimat Saati','co.time.placeholder':'Saat aralığı seçin',
+    'co.time.1':'10:00 – 13:00','co.time.2':'13:00 – 16:00',
+    'co.time.3':'16:00 – 19:00','co.time.4':'19:00 – 22:00',
+    'co.payment.label':'Ödeme Yöntemi',
+    'co.payment.title':'Kapıda Nakit Ödeme',
+    'co.payment.sub':'Teslimat sırasında kapıda ödeme yapılır',
+    'co.total.label':'Toplam','co.delivery.label':'Teslimat ücreti','co.free':'Ücretsiz',
+    'co.submit':'Siparişi Tamamla →',
+    'success.h2':'Teşekkürler!','success.p1':'Siparişiniz alındı.',
+    'success.p2':'Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.',
+    'success.btn':'Alışverişe Devam',
+  },
+  de: {
+    'hero.eyebrow':'Berlin · Halal Fleischlieferung',
+    'hero.h1':'Vom Schlachthof zu Ihrer Tür —<br /><em class="not-italic text-[#EF4530]">frisch in 24 Stunden</em><br />und 100% Halal.',
+    'hero.badge1':'Offizielle Halal-Zertifizierung',
+    'hero.badge2':'Lückenlose Kühlkette garantiert',
+    'hero.badge3':'Lieferung am nächsten Tag in Berlin',
+    'hero.cta':'Produkte ansehen ↓',
+    'trust.h2':'Ihr Vertrauen ist uns wichtig',
+    'trust.cert.label':'Offizielle Halal-Zertifizierung',
+    'trust.cert.h3':'100% Halal-Garantie',
+    'trust.cert.p':'Unser Fleisch stammt ausschließlich aus Schlachthöfen mit offizieller, in Deutschland anerkannter Halal-Zertifizierung. Zertifikat auf Anfrage erhältlich.',
+    'trust.cold.label':'Lückenlose Kühlkette',
+    'trust.cold.h3':'Wie schützen wir die Kühlkette?',
+    'trust.cold.li1':'Verpackung in speziell isolierten Kühltaschen',
+    'trust.cold.li2':'Durchgehende Kühlung zwischen 0–4 °C',
+    'trust.cold.li3':'Tagesfrische Verarbeitung, Lieferung am nächsten Tag',
+    'products.h2':'Unsere frischen Produkte',
+    'products.sub':'Täglich frisch geschnitten.',
+    'p1.name':'Rinderhackfleisch','p1.weight':'500g',
+    'p2.name':'Entrecôte','p2.weight':'300g',
+    'p3.name':'Hühnerbrust','p3.weight':'500g',
+    'p4.name':'Lammkotelett','p4.weight':'400g',
+    'p5.name':'Rindergulasch','p5.weight':'500g',
+    'btn.addcart':'+ In den Warenkorb',
+    'halal.badge':'✓ Halal',
+    'reviews.h3':'Was unsere Kunden sagen',
+    'r1.text':'"Das Entrecôte war fantastisch — frisch, Kühlkette einwandfrei. Ich bestelle definitiv wieder."',
+    'r1.author':'— Ahmet K., Neukölln',
+    'r2.text':'"Die Lammkoteletts waren sehr frisch, Verpackung tadellos. So gutes Halal-Fleisch in Berlin war schwer zu finden."',
+    'r2.author':'— Fatima S., Tempelhof',
+    'r3.text':'"Wir bestellen das Rinderhackfleisch jetzt wöchentlich. Schnelle Lieferung, frische Ware — die Familie ist begeistert."',
+    'r3.author':'— Mehmet Y., Kreuzberg',
+    'cart.fab':'Warenkorb','cart.title':'Warenkorb',
+    'cart.empty':'Ihr Warenkorb ist leer.',
+    'cart.subtotal':'Bestellsumme','cart.checkout':'Zur Kasse →',
+    'co.title':'Lieferangaben',
+    'co.name.label':'Vor- und Nachname','co.name.placeholder':'Ihr vollständiger Name',
+    'co.addr.label':'Lieferadresse','co.addr.note':'(Nur Berlin)',
+    'co.addr.placeholder':'Straße Nr., Wohnung, PLZ Berlin',
+    'co.phone.label':'Telefon','co.phone.placeholder':'+49 …',
+    'co.time.label':'Lieferzeitfenster','co.time.placeholder':'Zeitfenster auswählen',
+    'co.time.1':'10:00 – 13:00 Uhr','co.time.2':'13:00 – 16:00 Uhr',
+    'co.time.3':'16:00 – 19:00 Uhr','co.time.4':'19:00 – 22:00 Uhr',
+    'co.payment.label':'Zahlungsmethode',
+    'co.payment.title':'Barzahlung bei Lieferung',
+    'co.payment.sub':'Sie zahlen bar bei Erhalt Ihrer Bestellung',
+    'co.total.label':'Gesamtsumme','co.delivery.label':'Lieferung','co.free':'Kostenlos',
+    'co.submit':'Bestellung aufgeben →',
+    'success.h2':'Vielen Dank!','success.p1':'Ihre Bestellung ist eingegangen.',
+    'success.p2':'Wir liefern im gewählten Zeitfenster. Sie werden kurz vor der Ankunft per SMS benachrichtigt.',
+    'success.btn':'Weiter einkaufen',
+  },
+  en: {
+    'hero.eyebrow':'Berlin · Halal Meat Delivery',
+    'hero.h1':'From the butcher to your door —<br /><em class="not-italic text-[#EF4530]">fresh in 24 hours</em><br />and 100% Halal.',
+    'hero.badge1':'Official Halal Certification',
+    'hero.badge2':'Unbroken Cold Chain Guarantee',
+    'hero.badge3':'Next-Day Delivery Within Berlin',
+    'hero.cta':'Browse Products ↓',
+    'trust.h2':'We Earn Your Trust',
+    'trust.cert.label':'Official Halal Certification',
+    'trust.cert.h3':'100% Halal Guarantee',
+    'trust.cert.p':'All our meat comes from slaughterhouses with official Halal certification recognized in Germany. Certificate available on request.',
+    'trust.cold.label':'Unbroken Cold Chain',
+    'trust.cold.h3':'How Do We Protect the Cold Chain?',
+    'trust.cold.li1':'Packed in specially insulated cooling boxes',
+    'trust.cold.li2':'Continuous 0–4 °C cold chain maintained',
+    'trust.cold.li3':'Same-day prep and packing, next-day delivery',
+    'products.h2':'Our Fresh Products',
+    'products.sub':'Every order is cut fresh daily.',
+    'p1.name':'Ground Beef','p1.weight':'500g',
+    'p2.name':'Ribeye Steak','p2.weight':'300g',
+    'p3.name':'Chicken Breast','p3.weight':'500g',
+    'p4.name':'Lamb Chops','p4.weight':'400g',
+    'p5.name':'Beef Stew Chunks','p5.weight':'500g',
+    'btn.addcart':'+ Add to Cart',
+    'halal.badge':'✓ Halal',
+    'reviews.h3':'What Our Customers Say',
+    'r1.text':'"The ribeye was incredible — arrived fresh, cold chain intact. I\'ll definitely be ordering again."',
+    'r1.author':'— Ahmet K., Neukölln',
+    'r2.text':'"Lamb chops were very fresh, packaging excellent. Finding halal meat this good in Berlin was hard before."',
+    'r2.author':'— Fatima S., Tempelhof',
+    'r3.text':'"We order the ground beef every week now. Fast delivery, fresh product — the whole family loves it."',
+    'r3.author':'— Mehmet Y., Kreuzberg',
+    'cart.fab':'Cart','cart.title':'My Cart',
+    'cart.empty':'Your cart is empty. Add some products!',
+    'cart.subtotal':'Order Total','cart.checkout':'Proceed to Checkout →',
+    'co.title':'Delivery Details',
+    'co.name.label':'Full Name','co.name.placeholder':'Your full name',
+    'co.addr.label':'Delivery Address','co.addr.note':'(Berlin only)',
+    'co.addr.placeholder':'Street No., Apt, Postcode Berlin',
+    'co.phone.label':'Phone','co.phone.placeholder':'+49 …',
+    'co.time.label':'Delivery Time Slot','co.time.placeholder':'Select a time slot',
+    'co.time.1':'10:00 – 13:00','co.time.2':'13:00 – 16:00',
+    'co.time.3':'16:00 – 19:00','co.time.4':'19:00 – 22:00',
+    'co.payment.label':'Payment Method',
+    'co.payment.title':'Cash on Delivery',
+    'co.payment.sub':'Pay in cash when your order arrives',
+    'co.total.label':'Total','co.delivery.label':'Delivery','co.free':'Free',
+    'co.submit':'Place Order →',
+    'success.h2':'Thank You!','success.p1':'Your order has been received.',
+    'success.p2':'We\'ll arrive during your chosen time slot. You\'ll receive an SMS shortly before delivery.',
+    'success.btn':'Continue Shopping',
+  },
+  ar: {
+    'hero.eyebrow':'برلين · توصيل لحوم حلال',
+    'hero.h1':'من المجزرة إلى بابك —<br /><em class="not-italic text-[#EF4530]">طازج خلال ٢٤ ساعة</em><br />و١٠٠٪ حلال.',
+    'hero.badge1':'شهادة حلال رسمية',
+    'hero.badge2':'ضمان سلسلة التبريد المتواصلة',
+    'hero.badge3':'توصيل في اليوم التالي داخل برلين',
+    'hero.cta':'تصفح المنتجات ↓',
+    'trust.h2':'نسعى لكسب ثقتكم',
+    'trust.cert.label':'شهادة حلال رسمية',
+    'trust.cert.h3':'ضمان ١٠٠٪ حلال',
+    'trust.cert.p':'جميع لحومنا مصدرها مسالخ معتمدة بشهادة حلال رسمية معترف بها في ألمانيا. الشهادة متاحة عند الطلب.',
+    'trust.cold.label':'سلسلة التبريد المتواصلة',
+    'trust.cold.h3':'كيف نحافظ على سلسلة التبريد؟',
+    'trust.cold.li1':'تعبئة في صناديق عازلة مبردة خصيصاً',
+    'trust.cold.li2':'تبريد متواصل بين ٠–٤ درجات مئوية',
+    'trust.cold.li3':'تحضير وتعبئة في نفس اليوم، توصيل في اليوم التالي',
+    'products.h2':'منتجاتنا الطازجة',
+    'products.sub':'كل طلب يُقطع طازجاً يومياً.',
+    'p1.name':'لحم بقري مفروم','p1.weight':'٥٠٠ غ',
+    'p2.name':'ستيك ريبآي','p2.weight':'٣٠٠ غ',
+    'p3.name':'صدر دجاج','p3.weight':'٥٠٠ غ',
+    'p4.name':'قطع لحم ضأن','p4.weight':'٤٠٠ غ',
+    'p5.name':'مكعبات لحم بقري','p5.weight':'٥٠٠ غ',
+    'btn.addcart':'+ أضف إلى السلة',
+    'halal.badge':'✓ حلال',
+    'reviews.h3':'ماذا يقول عملاؤنا؟',
+    'r1.text':'"ستيك الريبآي كان رائعاً — وصل طازجاً وسلسلة التبريد سليمة. سأطلب مجدداً بالتأكيد."',
+    'r1.author':'— أحمد ك.، نويكولن',
+    'r2.text':'"قطع اللحم كانت طازجة جداً والتغليف ممتاز. كان من الصعب إيجاد لحم حلال بهذه الجودة في برلين."',
+    'r2.author':'— فاطمة س.، تمبلهوف',
+    'r3.text':'"نطلب اللحم المفروم كل أسبوع الآن. توصيل سريع، منتج طازج — العائلة كلها سعيدة."',
+    'r3.author':'— محمد ي.، كروتسبرغ',
+    'cart.fab':'السلة','cart.title':'سلتي',
+    'cart.empty':'سلتك فارغة. أضف منتجات!',
+    'cart.subtotal':'إجمالي الطلب','cart.checkout':'متابعة الطلب ←',
+    'co.title':'تفاصيل التوصيل',
+    'co.name.label':'الاسم الكامل','co.name.placeholder':'اسمك الكامل',
+    'co.addr.label':'عنوان التوصيل','co.addr.note':'(برلين فقط)',
+    'co.addr.placeholder':'الشارع، الرقم، الرمز البريدي، برلين',
+    'co.phone.label':'رقم الهاتف','co.phone.placeholder':'+49 …',
+    'co.time.label':'فترة التوصيل','co.time.placeholder':'اختر فترة زمنية',
+    'co.time.1':'١٠:٠٠ – ١٣:٠٠','co.time.2':'١٣:٠٠ – ١٦:٠٠',
+    'co.time.3':'١٦:٠٠ – ١٩:٠٠','co.time.4':'١٩:٠٠ – ٢٢:٠٠',
+    'co.payment.label':'طريقة الدفع',
+    'co.payment.title':'الدفع نقداً عند التسليم',
+    'co.payment.sub':'تدفع نقداً عند استلام طلبك',
+    'co.total.label':'الإجمالي','co.delivery.label':'التوصيل','co.free':'مجاني',
+    'co.submit':'إتمام الطلب ←',
+    'success.h2':'شكراً لك!','success.p1':'تم استلام طلبك.',
+    'success.p2':'سنصل إليك خلال الفترة الزمنية التي اخترتها. ستتلقى رسالة SMS قبيل الوصول.',
+    'success.btn':'مواصلة التسوق',
+  }
+}
+
+/* ── Language engine ─────────────────────────────── */
+let currentLang = localStorage.getItem('sd_lang') || 'tr'
+
+function tx(key) { return (T[currentLang] && T[currentLang][key]) || (T.tr[key]) || key }
+
+function setLang(lang) {
+  currentLang = lang
+  localStorage.setItem('sd_lang', lang)
+
+  const html = document.documentElement
+  html.setAttribute('lang', lang)
+  html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr')
+
+  // textContent
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = tx(el.dataset.i18n)
+    if (v != null) el.textContent = v
+  })
+
+  // innerHTML (for elements with embedded HTML tags)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = tx(el.dataset.i18nHtml)
+    if (v != null) el.innerHTML = v
+  })
+
+  // placeholder
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const v = tx(el.dataset.i18nPh)
+    if (v != null) el.placeholder = v
+  })
+
+  // select options (f-time)
+  const sel = document.getElementById('f-time')
+  if (sel) {
+    sel.options[0].text = tx('co.time.placeholder')
+    sel.options[1].text = tx('co.time.1')
+    sel.options[2].text = tx('co.time.2')
+    sel.options[3].text = tx('co.time.3')
+    sel.options[4].text = tx('co.time.4')
+  }
+
+  // lang button active state
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active-lang', btn.dataset.lang === lang)
+  })
+
+  // re-render JS content
+  renderProducts()
+  renderItems()
+}
+
+/* ── Products ────────────────────────────────────── */
 const PRODUCTS = [
-  { id:1, name:'Dana Kıyma',    price:4.99,  weight:'500g', img:'https://placehold.co/600x450/5C1A10/FFF8F5?text=Dana+K%C4%B1yma' },
-  { id:2, name:'Antrikot',      price:8.99,  weight:'300g', img:'https://placehold.co/600x450/7B1811/FFF8F5?text=Antrikot' },
-  { id:3, name:'Tavuk Göğsü',   price:3.99,  weight:'500g', img:'https://placehold.co/600x450/C8956C/3A1A0A?text=Tavuk+G%C3%B6%C4%9F%C3%BCs%C3%BC' },
-  { id:4, name:'Kuzu Pirzola',  price:9.99,  weight:'400g', img:'https://placehold.co/600x450/8B3A30/FFF8F5?text=Kuzu+Pirzola' },
-  { id:5, name:'Dana Kuşbaşı',  price:5.99,  weight:'500g', img:'https://placehold.co/600x450/6B2020/FFF8F5?text=Dana+Ku%C5%9Fba%C5%9F%C4%B1' },
+  { id:1, nk:'p1.name', wk:'p1.weight', price:4.99,  img:'https://placehold.co/600x450/5C1A10/FFF8F5?text=.' },
+  { id:2, nk:'p2.name', wk:'p2.weight', price:8.99,  img:'https://placehold.co/600x450/7B1811/FFF8F5?text=.' },
+  { id:3, nk:'p3.name', wk:'p3.weight', price:3.99,  img:'https://placehold.co/600x450/C8956C/3A1A0A?text=.' },
+  { id:4, nk:'p4.name', wk:'p4.weight', price:9.99,  img:'https://placehold.co/600x450/8B3A30/FFF8F5?text=.' },
+  { id:5, nk:'p5.name', wk:'p5.weight', price:5.99,  img:'https://placehold.co/600x450/6B2020/FFF8F5?text=.' },
 ]
 
+/* ── Cart ────────────────────────────────────────── */
 let cart = {}
 
-function addToCart(id) {
-  cart[id] = (cart[id] || 0) + 1
-  sync()
-  openDrawer()
-}
+function addToCart(id) { cart[id] = (cart[id] || 0) + 1; sync(); openDrawer() }
 
 function changeQty(id, d) {
   const n = (cart[id] || 0) + d
@@ -436,32 +709,18 @@ function changeQty(id, d) {
   sync()
 }
 
-function total() {
-  return Object.entries(cart).reduce((s,[id,q]) => s + PRODUCTS.find(p=>p.id===+id).price*q, 0)
-}
-function count() {
-  return Object.values(cart).reduce((s,q)=>s+q, 0)
-}
+function total() { return Object.entries(cart).reduce((s,[id,q]) => s + PRODUCTS.find(p=>p.id===+id).price*q, 0) }
+function count() { return Object.values(cart).reduce((s,q)=>s+q, 0) }
 
 function sync() {
   const c = count(), t = '€' + total().toFixed(2)
-
-  // header badge
   const hb = document.getElementById('hdr-badge')
   hb.textContent = c; hb.style.display = c ? 'flex' : 'none'
-
-  // fab badge
   const fb = document.getElementById('fab-badge')
   fb.textContent = c; fb.style.display = c ? 'flex' : 'none'
-
-  // totals
   document.getElementById('cart-total').textContent = t
   document.getElementById('co-total').textContent = t
-
-  // checkout button
-  const btn = document.getElementById('btn-checkout')
-  btn.disabled = !c
-
+  document.getElementById('btn-checkout').disabled = !c
   renderItems()
 }
 
@@ -469,44 +728,44 @@ function renderItems() {
   const el = document.getElementById('cart-items')
   const entries = Object.entries(cart)
   if (!entries.length) {
-    el.innerHTML = '<p style="text-align:center;color:#4A3A38;padding:40px 0;font-size:.875rem">Sepetiniz boş. Ürün ekleyin!</p>'
+    el.innerHTML = `<p style="text-align:center;color:#4A3A38;padding:40px 0;font-size:.875rem">${tx('cart.empty')}</p>`
     return
   }
   el.innerHTML = entries.map(([id,qty]) => {
     const p = PRODUCTS.find(x=>x.id===+id)
+    const name = tx(p.nk), weight = tx(p.wk)
     return `<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #F5EDEA">
-      <img src="${p.img}" alt="${p.name}" style="width:56px;height:56px;object-fit:cover;border-radius:10px;flex-shrink:0" />
+      <img src="${p.img}" alt="${name}" style="width:56px;height:56px;object-fit:cover;border-radius:10px;flex-shrink:0" />
       <div style="flex:1;min-width:0">
-        <p style="font-weight:600;font-size:.875rem;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</p>
-        <p style="font-size:.75rem;color:#4A3A38">${p.weight} · €${p.price.toFixed(2)}</p>
+        <p style="font-weight:600;font-size:.875rem;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${name}</p>
+        <p style="font-size:.75rem;color:#4A3A38">${weight} · €${p.price.toFixed(2)}</p>
       </div>
       <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-        <button onclick="changeQty(${id},-1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-size:.875rem;font-weight:700;display:flex;align-items:center;justify-content:center" aria-label="Azalt">−</button>
+        <button onclick="changeQty(${id},-1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">−</button>
         <span style="width:20px;text-align:center;font-weight:600;font-size:.875rem">${qty}</span>
-        <button onclick="changeQty(${id},1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-size:.875rem;font-weight:700;display:flex;align-items:center;justify-content:center" aria-label="Artır">+</button>
+        <button onclick="changeQty(${id},1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">+</button>
       </div>
-      <p style="font-weight:700;font-size:.875rem;color:#D42B1E;width:52px;text-align:right;flex-shrink:0">€${(p.price*qty).toFixed(2)}</p>
+      <p style="font-weight:700;font-size:.875rem;color:#D42B1E;width:52px;text-align:end;flex-shrink:0">€${(p.price*qty).toFixed(2)}</p>
     </div>`
   }).join('')
 }
 
 function renderProducts() {
-  document.getElementById('pgrid').innerHTML = PRODUCTS.map(p => `
-    <div class="pcard">
+  document.getElementById('pgrid').innerHTML = PRODUCTS.map(p => {
+    const name = tx(p.nk), weight = tx(p.wk)
+    return `<div class="pcard">
       <div class="pimg">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" />
-        <span class="helalbadge">✓ Helal</span>
+        <img src="${p.img}" alt="${name}" loading="lazy" />
+        <span class="helalbadge">${tx('halal.badge')}</span>
       </div>
       <div class="pbody">
-        <p class="pname">${p.name}</p>
-        <p class="pweight">${p.weight}</p>
+        <p class="pname">${name}</p>
+        <p class="pweight">${weight}</p>
         <p class="pprice">€${p.price.toFixed(2)}</p>
       </div>
-      <button class="btn-cart" onclick="addToCart(${p.id})" aria-label="${p.name} sepete ekle">
-        + Sepete Ekle
-      </button>
-    </div>
-  `).join('')
+      <button class="btn-cart" onclick="addToCart(${p.id})">${tx('btn.addcart')}</button>
+    </div>`
+  }).join('')
 }
 
 function openDrawer() {
@@ -531,8 +790,8 @@ function submitOrder(e) {
   sync()
 }
 
-renderProducts()
-sync()
+/* ── Init ────────────────────────────────────────── */
+setLang(currentLang)
 </script>
 </body>
 </html>
