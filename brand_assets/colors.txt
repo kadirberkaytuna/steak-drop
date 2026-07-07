@@ -1,0 +1,12 @@
+STEAK DROP — Brand Color Palette
+Derived from logo.jpeg
+
+primary:    #D42B1E   — dominant flame red (outer flame body)
+dark:       #7B1811   — deep crimson (steak interior shadow)
+accent:     #EF4530   — bright ember (flame highlight / CTA)
+background: #FFF8F5   — warm white (matches logo background)
+
+Supporting:
+text:       #1A1A1A   — near-black (logo wordmark)
+text-muted: #4A3A38   — warm dark brown (logo subtitle)
+surface:    #F5EDEA   — light warm surface (cards, inputs)

@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Temporary screenshots from the visual QA workflow
+temporary screenshots/
+
+# IntelliJ IDEA
+.idea/
+out/
+*.iml
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
