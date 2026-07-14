@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Steak Drop — Taze &amp; Helal Et Teslimatı, Berlin</title>
   <meta name="description" content="Resmi sertifikalı %100 helal et, kesintisiz soğuk zincirle ertesi gün Berlin içinde kapınızda. Kapıda nakit ödeme, ücretsiz teslimat." />
-  <meta name="theme-color" content="#D42B1E" />
+  <meta name="theme-color" content="#050505" />
   <link rel="icon" type="image/png" href="brand_assets/logo-icon.png" />
   <link rel="apple-touch-icon" href="brand_assets/logo-icon.png" />
   <meta property="og:type" content="website" />
@@ -21,17 +21,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --primary: #D42B1E;
-      --primary-dk: #7B1811;
-      --accent: #EF4530;
-      --halal: #2A7A50;
-      --halal-lt: #E8F5EE;
-      --bg: #FFF8F5;
-      --surface: #F5EDEA;
-      --text: #1A1A1A;
-      --muted: #4A3A38;
+      --primary: #8B1E1E;   /* premium bordo */
+      --primary-dk: #5E1414;
+      --accent: #A32626;    /* bordo hover */
+      --gold: #C9A45C;      /* seyrek kullanılan altın vurgu */
+      --halal: #1E5C3C;
+      --halal-lt: #12241B;  /* koyu yeşil yüzey */
+      --bg: #050505;        /* mat siyah */
+      --bg-warm: #16100E;   /* sıcak koyu bölüm zemini */
+      --surface: #1E1613;   /* kart yüzeyi */
+      --line: rgba(245,239,231,.08);
+      --text: #F5EFE7;      /* sıcak beyaz */
+      --muted: #B8AFA6;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; color-scheme: dark; }
+    ::selection { background: #8B1E1E; color: #F5EFE7; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
@@ -47,7 +51,7 @@
        değeri büyütmek scrub'ı yavaşlatır, küçültmek hızlandırır.
        İçindeki .scrub-stage ekrana yapışık kalır; JS kaydırma ilerlemesini
        videonun currentTime değerine çevirir. */
-    .scrub { --scrub-length: 300vh; height: var(--scrub-length); position: relative; background: #0B0908; }
+    .scrub { --scrub-length: 300vh; height: var(--scrub-length); position: relative; background: #050505; }
     .scrub-stage {
       position: sticky; top: 0;
       height: 100vh; height: 100svh; /* svh: mobil adres çubuğuna dayanıklı */
@@ -61,7 +65,7 @@
       position: absolute; inset: 0; z-index: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center center;
-      background: #0B0908;
+      background: #050505;
     }
     /* Statik katmanlar (scroll maliyeti yok): metin için alt scrim, header altına
        ince üst geçiş, kenarlarda mat vinyet + çok hafif film greni */
@@ -81,7 +85,7 @@
       will-change: transform, opacity;
     }
     .scrub-copy h1 {
-      color: #fff; font-weight: 900; line-height: 1.1;
+      color: #F5EFE7; font-weight: 900; line-height: 1.1;
       font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em;
     }
     .scrub-copy p {
@@ -112,53 +116,55 @@
 
     /* PRODUCT CARD */
     .pcard {
-      background: #fff; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(212,43,30,.08);
-      box-shadow: 0 2px 8px rgba(212,43,30,.06), 0 8px 24px rgba(212,43,30,.04);
+      background: var(--surface); border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(0,0,0,.35), 0 14px 36px rgba(0,0,0,.28);
       display: flex; flex-direction: column;
-      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, border-color .2s ease;
     }
-    .pcard:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(212,43,30,.12), 0 16px 40px rgba(212,43,30,.08); }
+    .pcard:hover { transform: translateY(-4px); border-color: rgba(201,164,92,.30); box-shadow: 0 8px 22px rgba(0,0,0,.45), 0 22px 56px rgba(0,0,0,.40); }
     .pimg { position: relative; aspect-ratio: 4/3; overflow: hidden; }
     .pimg img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
     .pcard:hover .pimg img { transform: scale(1.05); }
-    .pimg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,9,7,.45) 0%, transparent 50%); }
+    .pimg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,.50) 0%, transparent 50%); }
     .helalbadge {
       position: absolute; top: 8px; inset-inline-end: 8px; z-index: 2;
-      background: var(--halal); color: #fff;
+      background: rgba(8,20,14,.78); color: #9FD4B4;
+      border: 1px solid rgba(159,212,180,.32);
       font-size: .6875rem; font-weight: 700;
       padding: 3px 8px; border-radius: 999px; letter-spacing: .04em;
     }
     .pbody { padding: 12px 12px 0; flex: 1; display: flex; flex-direction: column; }
     .pname { font-weight: 600; font-size: .875rem; color: var(--text); line-height: 1.3; }
     .pweight { font-size: .75rem; color: var(--muted); margin-top: 2px; }
-    .pprice { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--primary); margin-top: auto; padding-top: 8px; padding-bottom: 10px; }
+    .pprice { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--gold); margin-top: auto; padding-top: 8px; padding-bottom: 10px; }
     :lang(ar) .pprice { font-family: 'Cairo', sans-serif; }
 
     .btn-cart {
       width: 100%; min-height: 48px;
-      background: var(--primary); color: #fff; border: none; cursor: pointer;
+      background: var(--primary); color: #F5EFE7; border: none; cursor: pointer;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: .875rem;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       transition: background .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1);
     }
     :lang(ar) .btn-cart { font-family: 'Cairo', sans-serif; }
     .btn-cart:hover { background: var(--accent); }
-    .btn-cart:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .btn-cart:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
     .btn-cart:active { transform: scaleY(.97); }
 
     /* REVIEW */
-    .rcard { background: #fff; border-radius: 14px; padding: 18px; border: 1px solid rgba(212,43,30,.08); box-shadow: 0 2px 8px rgba(212,43,30,.04); }
-    .stars { color: #F59E0B; }
+    .rcard { background: var(--bg-warm); border-radius: 16px; padding: 22px; border: 1px solid var(--line); box-shadow: 0 2px 10px rgba(0,0,0,.30); }
+    .stars { color: var(--gold); letter-spacing: .12em; }
 
     /* TRUST CARDS */
-    .tcard { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid rgba(42,122,80,.12); box-shadow: 0 4px 16px rgba(42,122,80,.07); }
+    .tcard { background: var(--surface); border-radius: 20px; overflow: hidden; border: 1px solid rgba(201,164,92,.12); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
 
     /* CART DRAWER — LTR: slides in from right */
     .drawer {
       position: fixed; top: 0; right: 0; height: 100%;
-      width: min(420px, 100vw); background: #fff; z-index: 200;
-      box-shadow: -4px 0 32px rgba(0,0,0,.16);
+      width: min(420px, 100vw); background: var(--bg-warm); z-index: 200;
+      border-inline-start: 1px solid var(--line);
+      box-shadow: -4px 0 40px rgba(0,0,0,.55);
       transform: translateX(100%);
       visibility: hidden; /* kapalıyken tab odağına ve mobil viewport hesabına girmesin */
       transition: transform .3s cubic-bezier(.4,0,.2,1), visibility 0s linear .3s;
@@ -167,49 +173,50 @@
     .drawer.open { transform: translateX(0); visibility: visible; transition: transform .3s cubic-bezier(.4,0,.2,1), visibility 0s; }
 
     /* RTL: slides in from left */
-    [dir="rtl"] .drawer { right: auto; left: 0; transform: translateX(-100%); box-shadow: 4px 0 32px rgba(0,0,0,.16); }
+    [dir="rtl"] .drawer { right: auto; left: 0; transform: translateX(-100%); box-shadow: 4px 0 40px rgba(0,0,0,.55); }
     [dir="rtl"] .drawer.open { transform: translateX(0); }
 
-    .backdrop { position: fixed; inset: 0; background: rgba(18,9,7,.55); z-index: 199; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+    .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.62); z-index: 199; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
     .backdrop.on { opacity: 1; pointer-events: all; }
 
     /* FAB */
     .fab {
       position: fixed; bottom: 24px; inset-inline-end: 24px; z-index: 100;
-      background: var(--primary); color: #fff; border: none; border-radius: 999px;
+      background: var(--primary); color: #F5EFE7; border: none; border-radius: 999px;
       padding: 14px 20px; min-height: 52px;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: .9375rem; cursor: pointer;
       display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 4px 12px rgba(212,43,30,.40), 0 12px 32px rgba(212,43,30,.22);
+      box-shadow: 0 4px 14px rgba(0,0,0,.45), 0 12px 32px rgba(139,30,30,.30);
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
     }
     :lang(ar) .fab { font-family: 'Cairo', sans-serif; }
-    .fab:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 18px rgba(212,43,30,.50), 0 16px 40px rgba(212,43,30,.28); }
-    .fab:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .fab:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.55), 0 16px 40px rgba(139,30,30,.36); }
+    .fab:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     .fab:active { transform: scale(.98); }
-    .fab-badge { background: #fff; color: var(--primary); font-size: .8125rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+    .fab-badge { background: #F5EFE7; color: var(--primary); font-size: .8125rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
 
     /* FORM */
     .finput {
       width: 100%; padding: 12px 14px; min-height: 48px;
-      border: 1.5px solid #E5DDD9; border-radius: 8px;
+      border: 1.5px solid #3A2E28; border-radius: 8px;
       font-family: 'Inter', sans-serif; font-size: .9375rem; color: var(--text);
-      background: #FAFAF9; transition: border-color .2s ease, box-shadow .2s ease;
+      background: #0F0B09; transition: border-color .2s ease, box-shadow .2s ease;
       text-align: inherit;
     }
+    .finput::placeholder { color: #7E7268; }
     :lang(ar) .finput { font-family: 'Cairo', sans-serif; }
-    .finput:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(212,43,30,.11); }
+    .finput:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139,30,30,.28); }
 
     .btn-primary {
-      width: 100%; min-height: 52px; background: var(--primary); color: #fff;
+      width: 100%; min-height: 52px; background: var(--primary); color: #F5EFE7;
       border: none; border-radius: 10px; cursor: pointer;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(212,43,30,.35), 0 8px 24px rgba(212,43,30,.18);
+      box-shadow: 0 6px 18px rgba(0,0,0,.40), 0 10px 28px rgba(139,30,30,.26);
       transition: background .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
     }
     :lang(ar) .btn-primary { font-family: 'Cairo', sans-serif; }
     .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .btn-primary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     .btn-primary:active { transform: translateY(0); }
     .btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
     .drawer-scroll { flex: 1; overflow-y: auto; }
@@ -222,10 +229,10 @@
       color: var(--muted); padding: 6px 7px; min-height: 36px; min-width: 36px;
       border-radius: 5px; transition: color .15s ease, background .15s ease; line-height: 1;
     }
-    .lang-btn:hover { color: var(--primary); background: var(--surface); }
-    .lang-btn:focus-visible { outline: 2px solid var(--accent); border-radius: 4px; }
-    .lang-btn.active-lang { color: var(--primary); font-weight: 700; }
-    .lang-sep { color: #D5C8C4; font-size: .75rem; line-height: 1; user-select: none; }
+    .lang-btn:hover { color: var(--gold); background: rgba(245,239,231,.06); }
+    .lang-btn:focus-visible { outline: 2px solid var(--gold); border-radius: 4px; }
+    .lang-btn.active-lang { color: var(--gold); font-weight: 700; }
+    .lang-sep { color: #3B322C; font-size: .75rem; line-height: 1; user-select: none; }
 
     /* Dar ekranlarda başlık tek satıra sığsın (mobil yatay taşmayı önler) */
     @media (max-width: 430px) {
@@ -234,38 +241,38 @@
     }
 
     /* FORM ERROR */
-    .ferr { display: none; color: #B3261E; font-size: .75rem; font-weight: 600; margin-top: 6px; }
+    .ferr { display: none; color: #E5735F; font-size: .75rem; font-weight: 600; margin-top: 6px; }
     .ferr.show { display: block; }
-    .finput.invalid { border-color: #B3261E; box-shadow: 0 0 0 3px rgba(179,38,30,.12); }
+    .finput.invalid { border-color: #C4574A; box-shadow: 0 0 0 3px rgba(196,87,74,.18); }
 
     /* FOOTER */
-    .flink { color: rgba(255,255,255,.65); transition: color .15s ease; border-radius: 4px; }
-    .flink:hover { color: #fff; }
-    .flink:focus-visible { outline: 2px solid #EF4530; outline-offset: 2px; }
+    .flink { color: rgba(245,239,231,.65); transition: color .15s ease; border-radius: 4px; }
+    .flink:hover { color: var(--gold); }
+    .flink:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     .flink:active { color: rgba(255,255,255,.85); }
 
     /* LEGAL MODAL */
-    .lmodal-backdrop { position: fixed; inset: 0; background: rgba(18,9,7,.55); z-index: 299; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+    .lmodal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.66); z-index: 299; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
     .lmodal-backdrop.on { opacity: 1; pointer-events: all; }
     .lmodal { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
     .lmodal.open { display: flex; }
-    .lmodal-panel { position: relative; background: #fff; width: 100%; max-width: 640px; max-height: 82vh; overflow-y: auto; border-radius: 16px; padding: 28px; box-shadow: 0 12px 32px rgba(18,9,7,.25), 0 32px 80px rgba(18,9,7,.30); }
+    .lmodal-panel { position: relative; background: var(--bg-warm); border: 1px solid var(--line); width: 100%; max-width: 640px; max-height: 82vh; overflow-y: auto; border-radius: 16px; padding: 28px; box-shadow: 0 12px 32px rgba(0,0,0,.5), 0 32px 80px rgba(0,0,0,.55); }
   </style>
 </head>
 <body>
 
 <!-- ══════════ HEADER ══════════ -->
-<header class="sticky top-0 z-50 bg-white border-b border-[rgba(212,43,30,0.10)]" style="box-shadow:0 1px 3px rgba(212,43,30,.06),0 4px 16px rgba(212,43,30,.04)">
-  <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+<header class="sticky top-0 z-50 bg-[#050505] border-b border-[rgba(201,164,92,0.16)]">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
 
     <!-- Logotype -->
     <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Steak Drop">
-      <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-10 w-auto" />
+      <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-10 w-auto rounded-xl" style="background:#F5EFE7;padding:3px" />
       <div class="leading-none">
-        <p class="text-[#1A1A1A] text-base" style="letter-spacing:0.06em">
+        <p class="text-[#F5EFE7] text-base" style="letter-spacing:0.06em">
           <strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span>
         </p>
-        <p class="text-[#4A3A38] text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
+        <p class="text-[#B8AFA6] text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
       </div>
     </a>
 
@@ -283,10 +290,10 @@
       </div>
 
       <!-- Cart button -->
-      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#4A3A38] hover:text-[#D42B1E] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
+      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#B8AFA6] hover:text-[#C9A45C] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
         <span class="text-xl" aria-hidden="true">🛒</span>
         <span class="hidden sm:inline font-semibold" data-i18n="cart.fab">Sepet</span>
-        <span id="hdr-badge" class="hidden bg-[#D42B1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
+        <span id="hdr-badge" class="hidden bg-[#8B1E1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
       </button>
     </div>
   </div>
@@ -315,7 +322,7 @@
     </div>
 
     <div class="scrub-foot" id="scrub-foot">
-      <a href="#products" class="inline-flex items-center gap-2 bg-[#D42B1E] text-white font-semibold px-7 py-3.5 rounded-xl text-base hover:bg-[#EF4530] transition-colors focus-visible:outline-2 focus-visible:outline-white" style="min-height:50px;box-shadow:0 4px 12px rgba(212,43,30,.35),0 10px 28px rgba(212,43,30,.20)" data-i18n="hero.cta">Ürünleri Keşfet</a>
+      <a href="#products" class="inline-flex items-center gap-2 bg-[#8B1E1E] text-[#F5EFE7] font-semibold px-8 py-3.5 rounded-xl text-base hover:bg-[#A32626] transition-colors focus-visible:outline-2 focus-visible:outline-[#C9A45C]" style="min-height:50px;box-shadow:0 6px 18px rgba(0,0,0,.40),0 10px 28px rgba(139,30,30,.28)" data-i18n="hero.cta">Ürünleri Keşfet</a>
       <div class="scroll-hint" aria-hidden="true"></div>
     </div>
 
@@ -323,33 +330,33 @@
 </section>
 
 <!-- ══════════ TRUST ══════════ -->
-<section class="py-14 px-4 bg-[#F5EDEA]" id="trust">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-10" style="letter-spacing:-0.02em" data-i18n="trust.h2">Güveninizi Kazanmak İçin Buradayız</h2>
+<section class="py-20 sm:py-28 px-4 bg-[#16100E]" id="trust">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-12" style="letter-spacing:-0.02em" data-i18n="trust.h2">Güveninizi Kazanmak İçin Buradayız</h2>
     <div class="grid md:grid-cols-2 gap-5">
 
       <div class="tcard">
-        <div class="aspect-video bg-[#E8F5EE] flex flex-col items-center justify-center gap-3 px-6">
-          <div class="w-20 h-20 rounded-full bg-[#2A7A50] flex items-center justify-center text-white text-4xl font-bold" aria-hidden="true">✓</div>
-          <p class="text-[#2A7A50] font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cert.label">Resmi Helal Sertifikası</p>
+        <div class="aspect-video bg-[#0F1F17] flex flex-col items-center justify-center gap-3 px-6">
+          <div class="w-20 h-20 rounded-full bg-[#1E5C3C] flex items-center justify-center text-white text-4xl font-bold" aria-hidden="true">✓</div>
+          <p class="text-[#93C7A4] font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cert.label">Resmi Helal Sertifikası</p>
         </div>
         <div class="p-5">
           <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="trust.cert.h3">%100 Helal Güvencesi</h3>
-          <p class="text-[#4A3A38] text-sm leading-relaxed" data-i18n="trust.cert.p">Tüm etlerimiz Almanya'da geçerli resmi helal sertifikasına sahip mezbahalardan temin edilmektedir. Sertifikamız talep üzerine iletilir.</p>
+          <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="trust.cert.p">Tüm etlerimiz Almanya'da geçerli resmi helal sertifikasına sahip mezbahalardan temin edilmektedir. Sertifikamız talep üzerine iletilir.</p>
         </div>
       </div>
 
-      <div class="tcard" style="border-color:rgba(212,43,30,.10)">
-        <div class="aspect-video flex flex-col items-center justify-center gap-3 px-6" style="background:linear-gradient(135deg,#1a3a5c,#0e2340)">
+      <div class="tcard">
+        <div class="aspect-video flex flex-col items-center justify-center gap-3 px-6" style="background:linear-gradient(135deg,#10222F,#081019)">
           <div class="w-20 h-20 rounded-full flex items-center justify-center text-4xl" style="background:rgba(255,255,255,.12)" aria-hidden="true">❄️</div>
           <p class="text-white/80 font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cold.label">Soğuk Zincir</p>
         </div>
         <div class="p-5">
           <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="trust.cold.h3">Soğuk Zinciri Nasıl Koruyoruz?</h3>
-          <ul class="text-[#4A3A38] text-sm leading-relaxed space-y-2">
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li1">Özel soğutuculu, izole ambalajlarda paketleme</span></li>
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li2">0–4°C kesintisiz soğutma zinciri</span></li>
-            <li class="flex items-start gap-2"><span class="text-[#D42B1E] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li3">Aynı gün kesim ve paketleme, ertesi gün kapıda</span></li>
+          <ul class="text-[#B8AFA6] text-sm leading-relaxed space-y-2">
+            <li class="flex items-start gap-2"><span class="text-[#C9A45C] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li1">Özel soğutuculu, izole ambalajlarda paketleme</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#C9A45C] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li2">0–4°C kesintisiz soğutma zinciri</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#C9A45C] font-bold shrink-0 mt-0.5 arr">→</span><span data-i18n="trust.cold.li3">Aynı gün kesim ve paketleme, ertesi gün kapıda</span></li>
           </ul>
         </div>
       </div>
@@ -359,31 +366,31 @@
 </section>
 
 <!-- ══════════ PRODUCTS ══════════ -->
-<section class="py-14 px-4" id="products">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="fd text-2xl sm:text-3xl font-bold text-center mb-1" style="letter-spacing:-0.02em" data-i18n="products.h2">Taze Ürünlerimiz</h2>
-    <p class="text-center text-[#4A3A38] text-sm mb-8" data-i18n="products.sub">Her sipariş günlük taze kesim.</p>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="pgrid"></div>
+<section class="py-20 sm:py-28 px-4" id="products">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="products.h2">Taze Ürünlerimiz</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-12" data-i18n="products.sub">Her sipariş günlük taze kesim.</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5" id="pgrid"></div>
 
     <!-- REVIEWS -->
-    <div class="mt-14">
-      <h3 class="fd text-xl font-bold text-center mb-1" style="letter-spacing:-0.02em" data-i18n="reviews.h3">Müşterilerimiz Ne Diyor?</h3>
-      <p class="text-center text-[#4A3A38] text-xs mb-6" data-i18n="reviews.note">Örnek yorumlar — prototip içeriğidir.</p>
+    <div class="mt-20 sm:mt-28">
+      <h3 class="fd text-2xl font-bold text-center mb-1" style="letter-spacing:-0.02em" data-i18n="reviews.h3">Müşterilerimiz Ne Diyor?</h3>
+      <p class="text-center text-[#B8AFA6] text-xs mb-6" data-i18n="reviews.note">Örnek yorumlar — prototip içeriğidir.</p>
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="rcard">
           <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r1.text">"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r1.author">— Ahmet K., Neukölln</p>
+          <p class="text-[#F5EFE7] text-sm leading-relaxed mb-3" data-i18n="r1.text">"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."</p>
+          <p class="text-[#B8AFA6] text-xs font-semibold" data-i18n="r1.author">— Ahmet K., Neukölln</p>
         </div>
         <div class="rcard">
           <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r2.text">"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin'de bu kalitede helal et bulmak zordu."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r2.author">— Fatima S., Tempelhof</p>
+          <p class="text-[#F5EFE7] text-sm leading-relaxed mb-3" data-i18n="r2.text">"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin'de bu kalitede helal et bulmak zordu."</p>
+          <p class="text-[#B8AFA6] text-xs font-semibold" data-i18n="r2.author">— Fatima S., Tempelhof</p>
         </div>
         <div class="rcard">
           <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
-          <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r3.text">"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."</p>
-          <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r3.author">— Mehmet Y., Kreuzberg</p>
+          <p class="text-[#F5EFE7] text-sm leading-relaxed mb-3" data-i18n="r3.text">"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."</p>
+          <p class="text-[#B8AFA6] text-xs font-semibold" data-i18n="r3.author">— Mehmet Y., Kreuzberg</p>
         </div>
       </div>
     </div>
@@ -396,15 +403,15 @@
 
   <!-- VIEW: cart -->
   <div id="v-cart" class="flex flex-col h-full">
-    <div class="flex items-center justify-between px-5 py-4 border-b border-[#F5EDEA] shrink-0">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-[#2A211D] shrink-0">
       <h2 class="fd text-xl font-bold" data-i18n="cart.title">Sepetim</h2>
-      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
+      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#B8AFA6] hover:bg-[#241B17] hover:text-[#C9A45C] transition-colors focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
     </div>
     <div id="cart-items" class="drawer-scroll px-5 py-3"></div>
-    <div class="px-5 py-4 border-t border-[#F5EDEA] bg-[#FAFAF8] shrink-0">
+    <div class="px-5 py-4 border-t border-[#2A211D] bg-[#100B09] shrink-0">
       <div class="flex justify-between items-baseline mb-4">
-        <span class="text-[#4A3A38] font-medium text-sm" data-i18n="cart.subtotal">Sipariş Toplamı</span>
-        <span class="fd text-2xl font-bold text-[#D42B1E]" id="cart-total">€0.00</span>
+        <span class="text-[#B8AFA6] font-medium text-sm" data-i18n="cart.subtotal">Sipariş Toplamı</span>
+        <span class="fd text-2xl font-bold text-[#C9A45C]" id="cart-total">€0.00</span>
       </div>
       <button id="btn-checkout" onclick="showView('checkout')" class="btn-primary" disabled data-i18n="cart.checkout">Siparişe Devam →</button>
     </div>
@@ -412,8 +419,8 @@
 
   <!-- VIEW: checkout -->
   <div id="v-checkout" class="flex flex-col h-full" hidden style="display:none">
-    <div class="flex items-center gap-3 px-5 py-4 border-b border-[#F5EDEA] shrink-0">
-      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Geri" data-i18n-aria="a11y.back"><span class="arr">←</span></button>
+    <div class="flex items-center gap-3 px-5 py-4 border-b border-[#2A211D] shrink-0">
+      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#B8AFA6] hover:bg-[#241B17] hover:text-[#C9A45C] transition-colors focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Geri" data-i18n-aria="a11y.back"><span class="arr">←</span></button>
       <h2 class="fd text-xl font-bold" data-i18n="co.title">Teslimat Bilgileri</h2>
     </div>
     <form id="co-form" class="drawer-scroll px-5 py-5 space-y-4" onsubmit="submitOrder(event)">
@@ -424,7 +431,7 @@
       <div>
         <label class="block text-sm font-semibold mb-1.5" for="f-addr">
           <span data-i18n="co.addr.label">Teslimat Adresi</span>
-          <span class="text-[#2A7A50] font-normal text-xs ms-1" data-i18n="co.addr.note">(Yalnızca Berlin)</span>
+          <span class="text-[#93C7A4] font-normal text-xs ms-1" data-i18n="co.addr.note">(Yalnızca Berlin)</span>
         </label>
         <input class="finput" type="text" id="f-addr" placeholder="Sokak No, Daire, PLZ Berlin" required autocomplete="street-address" data-i18n-ph="co.addr.placeholder" />
         <p class="ferr" id="f-addr-err" role="alert" data-i18n="co.addr.error">Lütfen geçerli bir Berlin posta kodu (10115–14199) içeren adres girin. Şimdilik yalnızca Berlin içine teslimat yapıyoruz.</p>
@@ -445,23 +452,23 @@
       </div>
       <div>
         <p class="block text-sm font-semibold mb-1.5" data-i18n="co.payment.label">Ödeme Yöntemi</p>
-        <div class="flex items-center gap-3 rounded-xl px-4 py-3.5 border" style="background:var(--halal-lt);border-color:rgba(42,122,80,.25)">
+        <div class="flex items-center gap-3 rounded-xl px-4 py-3.5 border" style="background:var(--halal-lt);border-color:rgba(147,199,164,.22)">
           <span class="text-2xl shrink-0" aria-hidden="true">💵</span>
           <div class="min-w-0">
-            <p class="font-semibold text-sm text-[#1A1A1A]" data-i18n="co.payment.title">Kapıda Nakit Ödeme</p>
-            <p class="text-xs text-[#4A3A38]" data-i18n="co.payment.sub">Teslimat sırasında kapıda ödeme yapılır</p>
+            <p class="font-semibold text-sm text-[#F5EFE7]" data-i18n="co.payment.title">Kapıda Nakit Ödeme</p>
+            <p class="text-xs text-[#B8AFA6]" data-i18n="co.payment.sub">Teslimat sırasında kapıda ödeme yapılır</p>
           </div>
-          <span class="ms-auto text-[#2A7A50] text-xl font-bold shrink-0" aria-hidden="true">✓</span>
+          <span class="ms-auto text-[#93C7A4] text-xl font-bold shrink-0" aria-hidden="true">✓</span>
         </div>
       </div>
-      <div class="rounded-xl p-4 border" style="background:var(--bg);border-color:rgba(212,43,30,.08)">
+      <div class="rounded-xl p-4 border" style="background:#0F0B09;border-color:rgba(201,164,92,.14)">
         <div class="flex justify-between items-center">
-          <span class="text-sm text-[#4A3A38]" data-i18n="co.total.label">Toplam</span>
-          <span class="font-bold text-[#D42B1E]" id="co-total">€0.00</span>
+          <span class="text-sm text-[#B8AFA6]" data-i18n="co.total.label">Toplam</span>
+          <span class="font-bold text-[#C9A45C]" id="co-total">€0.00</span>
         </div>
         <div class="flex justify-between items-center mt-1">
-          <span class="text-xs text-[#4A3A38]" data-i18n="co.delivery.label">Teslimat ücreti</span>
-          <span class="text-xs font-semibold text-[#2A7A50]" data-i18n="co.free">Ücretsiz</span>
+          <span class="text-xs text-[#B8AFA6]" data-i18n="co.delivery.label">Teslimat ücreti</span>
+          <span class="text-xs font-semibold text-[#93C7A4]" data-i18n="co.free">Ücretsiz</span>
         </div>
       </div>
       <button type="submit" class="btn-primary" data-i18n="co.submit">Siparişi Tamamla →</button>
@@ -471,9 +478,9 @@
   <!-- VIEW: success -->
   <div id="v-success" class="flex flex-col items-center justify-center h-full px-8 text-center gap-5" hidden style="display:none">
     <div class="w-24 h-24 rounded-full flex items-center justify-center text-5xl" style="background:var(--halal-lt)" aria-hidden="true">✓</div>
-    <h2 class="fd text-2xl font-bold text-[#2A7A50]" data-i18n="success.h2">Teşekkürler!</h2>
-    <p class="text-[#1A1A1A] font-semibold text-lg" data-i18n="success.p1">Siparişiniz alındı.</p>
-    <p class="text-[#4A3A38] text-sm leading-relaxed max-w-xs" data-i18n="success.p2">Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.</p>
+    <h2 class="fd text-2xl font-bold text-[#93C7A4]" data-i18n="success.h2">Teşekkürler!</h2>
+    <p class="text-[#F5EFE7] font-semibold text-lg" data-i18n="success.p1">Siparişiniz alındı.</p>
+    <p class="text-[#B8AFA6] text-sm leading-relaxed max-w-xs" data-i18n="success.p2">Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.</p>
     <button onclick="closeDrawer()" class="btn-primary mt-2" style="max-width:240px" data-i18n="success.btn">Alışverişe Devam</button>
   </div>
 </div>
@@ -486,11 +493,11 @@
 </button>
 
 <!-- ══════════ FOOTER ══════════ -->
-<footer class="bg-[#120907]">
-  <div class="max-w-5xl mx-auto px-4 py-12 grid gap-10 sm:grid-cols-3">
+<footer class="bg-[#16100E] border-t border-[rgba(201,164,92,0.14)]">
+  <div class="max-w-6xl mx-auto px-4 py-12 grid gap-10 sm:grid-cols-3">
     <div>
       <div class="flex items-center gap-2.5 mb-3">
-        <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-9 w-auto" />
+        <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-9 w-auto rounded-lg" style="background:#F5EFE7;padding:3px" />
         <p class="text-white text-base" style="letter-spacing:0.06em"><strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span></p>
       </div>
       <p class="text-white/60 text-sm leading-relaxed" data-i18n="footer.tagline">Berlin içi taze, %100 helal et teslimatı. Mezbahadan kapınıza 24 saatte.</p>
@@ -511,8 +518,8 @@
       </ul>
     </div>
   </div>
-  <div class="border-t border-white/10">
-    <p class="max-w-5xl mx-auto px-4 py-5 pe-24 sm:pe-4 text-xs text-white/45" data-i18n="footer.copy">© 2026 Steak Drop — MVP prototip sürümü.</p>
+  <div class="border-t border-[rgba(201,164,92,0.14)]">
+    <p class="max-w-6xl mx-auto px-4 py-5 pe-24 sm:pe-4 text-xs text-white/45" data-i18n="footer.copy">© 2026 Steak Drop — MVP prototip sürümü.</p>
   </div>
 </footer>
 
@@ -520,10 +527,10 @@
 <div class="lmodal-backdrop" id="legal-backdrop" onclick="closeLegal()"></div>
 <div class="lmodal" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
   <div class="lmodal-panel">
-    <button onclick="closeLegal()" id="legal-close" class="absolute top-4 end-4 w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
+    <button onclick="closeLegal()" id="legal-close" class="absolute top-4 end-4 w-10 h-10 flex items-center justify-center rounded-full text-[#B8AFA6] hover:bg-[#241B17] hover:text-[#C9A45C] transition-colors focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
     <h2 id="legal-title" class="fd text-2xl font-bold pe-10 mb-1" style="letter-spacing:-0.02em"></h2>
-    <p class="text-xs font-semibold text-[#B3261E] mb-5" data-i18n="legal.draft">Taslak içerik — yayından önce tamamlanmalıdır.</p>
-    <div id="legal-body" class="text-sm leading-relaxed space-y-3 text-[#1A1A1A]" lang="de" dir="ltr"></div>
+    <p class="text-xs font-semibold text-[#E5735F] mb-5" data-i18n="legal.draft">Taslak içerik — yayından önce tamamlanmalıdır.</p>
+    <div id="legal-body" class="text-sm leading-relaxed space-y-3 text-[#F5EFE7]" lang="de" dir="ltr"></div>
   </div>
 </div>
 
@@ -939,24 +946,24 @@ function renderItems() {
   const el = document.getElementById('cart-items')
   const entries = Object.entries(cart)
   if (!entries.length) {
-    el.innerHTML = `<p style="text-align:center;color:#4A3A38;padding:40px 0;font-size:.875rem">${tx('cart.empty')}</p>`
+    el.innerHTML = `<p style="text-align:center;color:#B8AFA6;padding:40px 0;font-size:.875rem">${tx('cart.empty')}</p>`
     return
   }
   el.innerHTML = entries.map(([id,qty]) => {
     const p = PRODUCTS.find(x=>x.id===+id)
     const name = tx(p.nk), weight = tx(p.wk)
-    return `<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #F5EDEA">
+    return `<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #2A211D">
       <img src="${p.img}" alt="${name}" style="width:56px;height:56px;object-fit:cover;border-radius:10px;flex-shrink:0" />
       <div style="flex:1;min-width:0">
-        <p style="font-weight:600;font-size:.875rem;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${name}</p>
-        <p style="font-size:.75rem;color:#4A3A38">${weight} · €${p.price.toFixed(2)}</p>
+        <p style="font-weight:600;font-size:.875rem;color:#F5EFE7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${name}</p>
+        <p style="font-size:.75rem;color:#B8AFA6">${weight} · €${p.price.toFixed(2)}</p>
       </div>
       <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-        <button onclick="changeQty(${id},-1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">−</button>
+        <button onclick="changeQty(${id},-1)" style="width:32px;height:32px;border-radius:50%;background:#2A211D;color:#F5EFE7;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">−</button>
         <span style="width:20px;text-align:center;font-weight:600;font-size:.875rem">${qty}</span>
-        <button onclick="changeQty(${id},1)" style="width:32px;height:32px;border-radius:50%;background:#F5EDEA;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">+</button>
+        <button onclick="changeQty(${id},1)" style="width:32px;height:32px;border-radius:50%;background:#2A211D;color:#F5EFE7;border:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center">+</button>
       </div>
-      <p style="font-weight:700;font-size:.875rem;color:#D42B1E;width:52px;text-align:end;flex-shrink:0">€${(p.price*qty).toFixed(2)}</p>
+      <p style="font-weight:700;font-size:.875rem;color:#C9A45C;width:52px;text-align:end;flex-shrink:0">€${(p.price*qty).toFixed(2)}</p>
     </div>`
   }).join('')
 }
