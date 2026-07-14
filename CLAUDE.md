@@ -1,7 +1,7 @@
 # CLAUDE.md — Frontend Website Rules
 
 ## Always Do First
-- **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
+- **Invoke the `frontend-design` skill** (when it is available in the session) before writing any frontend code.
 
 ## Reference Images
 - If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
@@ -15,7 +15,7 @@
 - If the server is already running, do not start a second instance.
 
 ## Screenshot Workflow
-- Puppeteer is installed at `C:/Users/crazy/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/crazy/.cache/puppeteer/`.
+- Puppeteer is installed locally via `npm install` (project `node_modules/`). Chrome cache lives at `~/.cache/puppeteer/`.
 - **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
 - Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
 - Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
@@ -51,4 +51,4 @@
 - Do not "improve" a reference design — match it
 - Do not stop after one screenshot pass
 - Do not use `transition-all`
-- Do not use default Tailwind blue/indigo as primary colorthe project.
+- Do not use default Tailwind blue/indigo as primary color.

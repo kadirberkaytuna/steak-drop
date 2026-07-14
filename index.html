@@ -4,9 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Steak Drop — Taze &amp; Helal Et Teslimatı, Berlin</title>
+  <meta name="description" content="Resmi sertifikalı %100 helal et, kesintisiz soğuk zincirle ertesi gün Berlin içinde kapınızda. Kapıda nakit ödeme, ücretsiz teslimat." />
+  <meta name="theme-color" content="#D42B1E" />
+  <link rel="icon" type="image/png" href="brand_assets/logo-icon.png" />
+  <link rel="apple-touch-icon" href="brand_assets/logo-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Steak Drop" />
+  <meta property="og:title" content="Steak Drop — Taze & Helal Et Teslimatı, Berlin" />
+  <meta property="og:description" content="Resmi sertifikalı %100 helal et, ertesi gün Berlin içi teslimat. Kapıda nakit ödeme." />
+  <meta property="og:url" content="https://www.steakdrop.com/" />
+  <meta property="og:image" content="https://www.steakdrop.com/brand_assets/logo.jpeg" />
+  <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -31,39 +42,69 @@
       font-family: 'Cairo', sans-serif;
     }
 
-    /* HERO */
-    .hero-bg { background: #120907; position: relative; overflow: hidden; }
-    .hero-bg::before {
-      content: ''; position: absolute; inset: 0;
+    /* ══ HERO — SCROLL-SCRUB VİDEO ══════════════════
+       .scrub yüksekliği (--scrub-length) toplam kaydırma mesafesini belirler:
+       değeri büyütmek scrub'ı yavaşlatır, küçültmek hızlandırır.
+       İçindeki .scrub-stage ekrana yapışık kalır; JS kaydırma ilerlemesini
+       videonun currentTime değerine çevirir. */
+    .scrub { --scrub-length: 300vh; height: var(--scrub-length); position: relative; background: #0B0908; }
+    .scrub-stage {
+      position: sticky; top: 0;
+      height: 100vh; height: 100svh; /* svh: mobil adres çubuğuna dayanıklı */
+      overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 0 20px calc(4vh + 16px);
+    }
+    /* Video sahnenin tamamını kaplar: sinematik, merkez odaklı; kırpmayı
+       object-fit üstlenir, scroll sırasında hiçbir boyut animasyonu yoktur */
+    .scrub-video {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      background: #0B0908;
+    }
+    /* Statik katmanlar (scroll maliyeti yok): metin için alt scrim, header altına
+       ince üst geçiş, kenarlarda mat vinyet + çok hafif film greni */
+    .scrub-stage::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
-        radial-gradient(ellipse 80% 50% at 50% 20%, rgba(212,43,30,.30) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 90% 85%, rgba(123,24,17,.40) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 5% 55%, rgba(239,69,48,.12) 0%, transparent 55%);
-      pointer-events: none;
+        linear-gradient(to top, rgba(8,6,5,.80) 0%, rgba(8,6,5,.30) 24%, transparent 44%),
+        linear-gradient(to bottom, rgba(8,6,5,.42) 0%, transparent 16%),
+        radial-gradient(ellipse 130% 100% at 50% 42%, transparent 58%, rgba(0,0,0,.36) 100%);
     }
-    .hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-      pointer-events: none;
+    .scrub-stage::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     }
-    .hero-inner { position: relative; z-index: 1; }
-
-    /* TRUST BADGES */
-    .tbadge {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 10px; padding: 11px 14px;
-      color: rgba(255,248,245,.90); font-size: .875rem; font-weight: 500;
+    .scrub-copy {
+      position: relative; z-index: 2; text-align: center; max-width: 720px;
+      will-change: transform, opacity;
     }
-    .tbadge-icon {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: var(--halal);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: .75rem; color: #fff; font-weight: 700;
+    .scrub-copy h1 {
+      color: #fff; font-weight: 900; line-height: 1.1;
+      font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em;
     }
-    .tbadge-icon.blue { background: #1a4a7a; }
-    .tbadge-icon.brown { background: #7B4A1E; }
+    .scrub-copy p {
+      color: rgba(255,248,245,.72); line-height: 1.7; margin-top: 12px;
+      font-size: clamp(.9375rem, 1.4vw, 1.0625rem);
+    }
+    .scrub-foot {
+      position: relative; z-index: 2; display: flex; flex-direction: column;
+      align-items: center; gap: 18px; margin-top: 26px;
+      will-change: transform, opacity;
+    }
+    .scroll-hint {
+      width: 1px; height: 30px;
+      background: linear-gradient(rgba(255,255,255,.55), transparent);
+      animation: hintFade 2.6s ease-in-out infinite;
+    }
+    @keyframes hintFade { 0%, 100% { opacity: .25 } 50% { opacity: .7 } }
+    /* Fallback modları (JS ekler): sabitleme kalkar, video normal hero gibi durur */
+    .scrub.scrub-fallback { height: auto; }
+    .scrub.scrub-fallback .scrub-stage { position: relative; }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint { animation: none; opacity: .35; }
+    }
 
     /* Arrow that flips in RTL */
     .arr { display: inline-block; }
@@ -119,10 +160,11 @@
       width: min(420px, 100vw); background: #fff; z-index: 200;
       box-shadow: -4px 0 32px rgba(0,0,0,.16);
       transform: translateX(100%);
-      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      visibility: hidden; /* kapalıyken tab odağına ve mobil viewport hesabına girmesin */
+      transition: transform .3s cubic-bezier(.4,0,.2,1), visibility 0s linear .3s;
       display: flex; flex-direction: column;
     }
-    .drawer.open { transform: translateX(0); }
+    .drawer.open { transform: translateX(0); visibility: visible; transition: transform .3s cubic-bezier(.4,0,.2,1), visibility 0s; }
 
     /* RTL: slides in from left */
     [dir="rtl"] .drawer { right: auto; left: 0; transform: translateX(-100%); box-shadow: 4px 0 32px rgba(0,0,0,.16); }
@@ -184,6 +226,30 @@
     .lang-btn:focus-visible { outline: 2px solid var(--accent); border-radius: 4px; }
     .lang-btn.active-lang { color: var(--primary); font-weight: 700; }
     .lang-sep { color: #D5C8C4; font-size: .75rem; line-height: 1; user-select: none; }
+
+    /* Dar ekranlarda başlık tek satıra sığsın (mobil yatay taşmayı önler) */
+    @media (max-width: 430px) {
+      .lang-sep { display: none; }
+      .lang-btn { min-width: 30px; padding: 6px 4px; }
+    }
+
+    /* FORM ERROR */
+    .ferr { display: none; color: #B3261E; font-size: .75rem; font-weight: 600; margin-top: 6px; }
+    .ferr.show { display: block; }
+    .finput.invalid { border-color: #B3261E; box-shadow: 0 0 0 3px rgba(179,38,30,.12); }
+
+    /* FOOTER */
+    .flink { color: rgba(255,255,255,.65); transition: color .15s ease; border-radius: 4px; }
+    .flink:hover { color: #fff; }
+    .flink:focus-visible { outline: 2px solid #EF4530; outline-offset: 2px; }
+    .flink:active { color: rgba(255,255,255,.85); }
+
+    /* LEGAL MODAL */
+    .lmodal-backdrop { position: fixed; inset: 0; background: rgba(18,9,7,.55); z-index: 299; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+    .lmodal-backdrop.on { opacity: 1; pointer-events: all; }
+    .lmodal { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lmodal.open { display: flex; }
+    .lmodal-panel { position: relative; background: #fff; width: 100%; max-width: 640px; max-height: 82vh; overflow-y: auto; border-radius: 16px; padding: 28px; box-shadow: 0 12px 32px rgba(18,9,7,.25), 0 32px 80px rgba(18,9,7,.30); }
   </style>
 </head>
 <body>
@@ -217,8 +283,8 @@
       </div>
 
       <!-- Cart button -->
-      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#4A3A38] hover:text-[#D42B1E] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Cart">
-        <span class="text-xl">🛒</span>
+      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#4A3A38] hover:text-[#D42B1E] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
+        <span class="text-xl" aria-hidden="true">🛒</span>
         <span class="hidden sm:inline font-semibold" data-i18n="cart.fab">Sepet</span>
         <span id="hdr-badge" class="hidden bg-[#D42B1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
       </button>
@@ -226,39 +292,33 @@
   </div>
 </header>
 
-<!-- ══════════ HERO ══════════ -->
-<section class="hero-bg">
-  <div class="hero-inner max-w-5xl mx-auto px-4 py-12 sm:py-20">
-    <div class="max-w-xl">
-      <p class="flex items-center gap-2 text-[#EF4530] text-xs font-semibold tracking-widest uppercase mb-4">
-        <span class="block w-5 h-0.5 bg-[#EF4530] rounded shrink-0"></span>
-        <span data-i18n="hero.eyebrow">Berlin · Helal Et Teslimatı</span>
-      </p>
+<!-- ══════════ HERO — SCROLL-SCRUB VIDEO ══════════
+  Nasıl çalışır:
+  • Video dosyası: assets/videos/hero-halal-meat.mp4 (proje köküne göre)
+  • Dış .scrub bölümü uzundur (CSS --scrub-length); iç .scrub-stage yapışkandır.
+  • Sayfa kaydıkça JS (aşağıda "Hero scroll-scrub" bloğu) ilerlemeyi videonun
+    currentTime değerine çevirir: aşağı = ileri sar, yukarı = geri sar.
+  • Scrub bitince bölüm serbest kalır ve sayfa normal akışına devam eder.
+-->
+<section class="scrub" id="hero">
+  <div class="scrub-stage">
 
-      <h1 class="fd text-[2rem] sm:text-5xl font-black text-white mb-6 leading-tight" style="letter-spacing:-0.03em" data-i18n-html="hero.h1">
-        Mezbahadan kapınıza<br />
-        <em class="not-italic text-[#EF4530]">24 saatte taze</em><br />
-        ve %100 Helal et.
-      </h1>
+    <!-- Tam ekran sahne: video arka plan katmanıdır, sahneyi kaplar (object-fit: cover) -->
+    <video id="scrub-video" class="scrub-video" muted playsinline preload="auto" aria-hidden="true">
+      <source src="assets/videos/hero-halal-meat.mp4" type="video/mp4" />
+    </video>
 
-      <!-- 3 TRUST BADGES -->
-      <div class="flex flex-col gap-2.5 mb-8">
-        <div class="tbadge">
-          <span class="tbadge-icon">✓</span>
-          <span data-i18n="hero.badge1">Resmi Helal Sertifikası</span>
-        </div>
-        <div class="tbadge">
-          <span class="tbadge-icon blue">❄</span>
-          <span data-i18n="hero.badge2">Kesintisiz Soğuk Zincir Garantisi</span>
-        </div>
-        <div class="tbadge">
-          <span class="tbadge-icon brown"><span class="arr">→</span></span>
-          <span data-i18n="hero.badge3">Berlin İçi Ertesi Gün Teslimat</span>
-        </div>
-      </div>
-
-      <a href="#products" class="inline-flex items-center gap-2 bg-[#D42B1E] text-white font-semibold px-7 py-4 rounded-xl text-base hover:bg-[#EF4530] transition-all focus-visible:outline-2 focus-visible:outline-white" style="min-height:52px;box-shadow:0 4px 12px rgba(212,43,30,.40),0 10px 28px rgba(212,43,30,.22)" data-i18n="hero.cta">Ürünleri Gör ↓</a>
+    <!-- Minimal metin alt üçte birlik alanda oturur; ilk %25'te zarifçe çekilir -->
+    <div class="scrub-copy" id="scrub-copy">
+      <h1 class="fd" data-i18n="hero.h1">Premium Helal Et, Taptaze Kapınızda</h1>
+      <p data-i18n="hero.sub">Güvenilir tedarikten sofranıza.</p>
     </div>
+
+    <div class="scrub-foot" id="scrub-foot">
+      <a href="#products" class="inline-flex items-center gap-2 bg-[#D42B1E] text-white font-semibold px-7 py-3.5 rounded-xl text-base hover:bg-[#EF4530] transition-colors focus-visible:outline-2 focus-visible:outline-white" style="min-height:50px;box-shadow:0 4px 12px rgba(212,43,30,.35),0 10px 28px rgba(212,43,30,.20)" data-i18n="hero.cta">Ürünleri Keşfet</a>
+      <div class="scroll-hint" aria-hidden="true"></div>
+    </div>
+
   </div>
 </section>
 
@@ -270,7 +330,7 @@
 
       <div class="tcard">
         <div class="aspect-video bg-[#E8F5EE] flex flex-col items-center justify-center gap-3 px-6">
-          <div class="w-20 h-20 rounded-full bg-[#2A7A50] flex items-center justify-center text-white text-4xl font-bold">✓</div>
+          <div class="w-20 h-20 rounded-full bg-[#2A7A50] flex items-center justify-center text-white text-4xl font-bold" aria-hidden="true">✓</div>
           <p class="text-[#2A7A50] font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cert.label">Resmi Helal Sertifikası</p>
         </div>
         <div class="p-5">
@@ -281,7 +341,7 @@
 
       <div class="tcard" style="border-color:rgba(212,43,30,.10)">
         <div class="aspect-video flex flex-col items-center justify-center gap-3 px-6" style="background:linear-gradient(135deg,#1a3a5c,#0e2340)">
-          <div class="w-20 h-20 rounded-full flex items-center justify-center text-4xl" style="background:rgba(255,255,255,.12)">❄️</div>
+          <div class="w-20 h-20 rounded-full flex items-center justify-center text-4xl" style="background:rgba(255,255,255,.12)" aria-hidden="true">❄️</div>
           <p class="text-white/80 font-semibold text-sm tracking-widest uppercase" data-i18n="trust.cold.label">Soğuk Zincir</p>
         </div>
         <div class="p-5">
@@ -307,20 +367,21 @@
 
     <!-- REVIEWS -->
     <div class="mt-14">
-      <h3 class="fd text-xl font-bold text-center mb-6" style="letter-spacing:-0.02em" data-i18n="reviews.h3">Müşterilerimiz Ne Diyor?</h3>
+      <h3 class="fd text-xl font-bold text-center mb-1" style="letter-spacing:-0.02em" data-i18n="reviews.h3">Müşterilerimiz Ne Diyor?</h3>
+      <p class="text-center text-[#4A3A38] text-xs mb-6" data-i18n="reviews.note">Örnek yorumlar — prototip içeriğidir.</p>
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="rcard">
-          <p class="stars text-sm mb-2">★★★★★</p>
+          <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
           <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r1.text">"Antrikot gerçekten müthiş geldi, soğuk zincir bozulmamış. Kesinlikle tekrar sipariş vereceğim."</p>
           <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r1.author">— Ahmet K., Neukölln</p>
         </div>
         <div class="rcard">
-          <p class="stars text-sm mb-2">★★★★★</p>
+          <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
           <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r2.text">"Kuzu pirzola çok tazeydi, paketleme harikaydı. Berlin'de bu kalitede helal et bulmak zordu."</p>
           <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r2.author">— Fatima S., Tempelhof</p>
         </div>
         <div class="rcard">
-          <p class="stars text-sm mb-2">★★★★★</p>
+          <p class="stars text-sm mb-2" aria-hidden="true">★★★★★</p>
           <p class="text-[#1A1A1A] text-sm leading-relaxed mb-3" data-i18n="r3.text">"Dana kıymayı her hafta sipariş ediyoruz artık. Hızlı teslimat, taze ürün, ailece memnunuz."</p>
           <p class="text-[#4A3A38] text-xs font-semibold" data-i18n="r3.author">— Mehmet Y., Kreuzberg</p>
         </div>
@@ -331,13 +392,13 @@
 
 <!-- ══════════ CART DRAWER ══════════ -->
 <div class="backdrop" id="backdrop" onclick="closeDrawer()"></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Sepetim" data-i18n-aria="cart.title">
 
   <!-- VIEW: cart -->
   <div id="v-cart" class="flex flex-col h-full">
     <div class="flex items-center justify-between px-5 py-4 border-b border-[#F5EDEA] shrink-0">
       <h2 class="fd text-xl font-bold" data-i18n="cart.title">Sepetim</h2>
-      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Close">✕</button>
+      <button onclick="closeDrawer()" class="w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
     </div>
     <div id="cart-items" class="drawer-scroll px-5 py-3"></div>
     <div class="px-5 py-4 border-t border-[#F5EDEA] bg-[#FAFAF8] shrink-0">
@@ -350,9 +411,9 @@
   </div>
 
   <!-- VIEW: checkout -->
-  <div id="v-checkout" class="flex flex-col h-full" hidden>
+  <div id="v-checkout" class="flex flex-col h-full" hidden style="display:none">
     <div class="flex items-center gap-3 px-5 py-4 border-b border-[#F5EDEA] shrink-0">
-      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Back">←</button>
+      <button onclick="showView('cart')" class="w-9 h-9 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Geri" data-i18n-aria="a11y.back"><span class="arr">←</span></button>
       <h2 class="fd text-xl font-bold" data-i18n="co.title">Teslimat Bilgileri</h2>
     </div>
     <form id="co-form" class="drawer-scroll px-5 py-5 space-y-4" onsubmit="submitOrder(event)">
@@ -366,6 +427,7 @@
           <span class="text-[#2A7A50] font-normal text-xs ms-1" data-i18n="co.addr.note">(Yalnızca Berlin)</span>
         </label>
         <input class="finput" type="text" id="f-addr" placeholder="Sokak No, Daire, PLZ Berlin" required autocomplete="street-address" data-i18n-ph="co.addr.placeholder" />
+        <p class="ferr" id="f-addr-err" role="alert" data-i18n="co.addr.error">Lütfen geçerli bir Berlin posta kodu (10115–14199) içeren adres girin. Şimdilik yalnızca Berlin içine teslimat yapıyoruz.</p>
       </div>
       <div>
         <label class="block text-sm font-semibold mb-1.5" for="f-phone" data-i18n="co.phone.label">Telefon</label>
@@ -384,12 +446,12 @@
       <div>
         <p class="block text-sm font-semibold mb-1.5" data-i18n="co.payment.label">Ödeme Yöntemi</p>
         <div class="flex items-center gap-3 rounded-xl px-4 py-3.5 border" style="background:var(--halal-lt);border-color:rgba(42,122,80,.25)">
-          <span class="text-2xl shrink-0">💵</span>
+          <span class="text-2xl shrink-0" aria-hidden="true">💵</span>
           <div class="min-w-0">
             <p class="font-semibold text-sm text-[#1A1A1A]" data-i18n="co.payment.title">Kapıda Nakit Ödeme</p>
             <p class="text-xs text-[#4A3A38]" data-i18n="co.payment.sub">Teslimat sırasında kapıda ödeme yapılır</p>
           </div>
-          <span class="ms-auto text-[#2A7A50] text-xl font-bold shrink-0">✓</span>
+          <span class="ms-auto text-[#2A7A50] text-xl font-bold shrink-0" aria-hidden="true">✓</span>
         </div>
       </div>
       <div class="rounded-xl p-4 border" style="background:var(--bg);border-color:rgba(212,43,30,.08)">
@@ -407,8 +469,8 @@
   </div>
 
   <!-- VIEW: success -->
-  <div id="v-success" class="flex flex-col items-center justify-center h-full px-8 text-center gap-5" hidden>
-    <div class="w-24 h-24 rounded-full flex items-center justify-center text-5xl" style="background:var(--halal-lt)">✓</div>
+  <div id="v-success" class="flex flex-col items-center justify-center h-full px-8 text-center gap-5" hidden style="display:none">
+    <div class="w-24 h-24 rounded-full flex items-center justify-center text-5xl" style="background:var(--halal-lt)" aria-hidden="true">✓</div>
     <h2 class="fd text-2xl font-bold text-[#2A7A50]" data-i18n="success.h2">Teşekkürler!</h2>
     <p class="text-[#1A1A1A] font-semibold text-lg" data-i18n="success.p1">Siparişiniz alındı.</p>
     <p class="text-[#4A3A38] text-sm leading-relaxed max-w-xs" data-i18n="success.p2">Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.</p>
@@ -417,23 +479,62 @@
 </div>
 
 <!-- ══════════ FAB ══════════ -->
-<button class="fab" id="fab" onclick="openDrawer()" aria-label="Cart">
-  <span class="text-xl">🛒</span>
+<button class="fab" id="fab" onclick="openDrawer()" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
+  <span class="text-xl" aria-hidden="true">🛒</span>
   <span class="hidden sm:inline" data-i18n="cart.fab">Sepet</span>
   <span class="fab-badge" id="fab-badge">0</span>
 </button>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="bg-[#120907]">
+  <div class="max-w-5xl mx-auto px-4 py-12 grid gap-10 sm:grid-cols-3">
+    <div>
+      <div class="flex items-center gap-2.5 mb-3">
+        <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-9 w-auto" />
+        <p class="text-white text-base" style="letter-spacing:0.06em"><strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span></p>
+      </div>
+      <p class="text-white/60 text-sm leading-relaxed" data-i18n="footer.tagline">Berlin içi taze, %100 helal et teslimatı. Mezbahadan kapınıza 24 saatte.</p>
+    </div>
+    <div>
+      <h3 class="text-white font-semibold text-xs uppercase tracking-widest mb-4" data-i18n="footer.contact">İletişim</h3>
+      <ul class="space-y-2.5 text-sm text-white/65">
+        <li><a href="mailto:info@steakdrop.com" class="flink underline underline-offset-2">info@steakdrop.com</a></li>
+        <li data-i18n="footer.area">Teslimat bölgesi: Berlin içi</li>
+        <li data-i18n="footer.hours">Teslimat saatleri: 10:00 – 22:00</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-white font-semibold text-xs uppercase tracking-widest mb-4" data-i18n="footer.legal">Yasal</h3>
+      <ul class="space-y-2.5 text-sm">
+        <li><button id="btn-imprint" class="flink underline underline-offset-2" onclick="openLegal('imprint')" data-i18n="footer.imprint">Künye (Impressum)</button></li>
+        <li><button id="btn-privacy" class="flink underline underline-offset-2" onclick="openLegal('privacy')" data-i18n="footer.privacy">Gizlilik (Datenschutz)</button></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <p class="max-w-5xl mx-auto px-4 py-5 pe-24 sm:pe-4 text-xs text-white/45" data-i18n="footer.copy">© 2026 Steak Drop — MVP prototip sürümü.</p>
+  </div>
+</footer>
+
+<!-- ══════════ LEGAL MODAL ══════════ -->
+<div class="lmodal-backdrop" id="legal-backdrop" onclick="closeLegal()"></div>
+<div class="lmodal" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="lmodal-panel">
+    <button onclick="closeLegal()" id="legal-close" class="absolute top-4 end-4 w-10 h-10 flex items-center justify-center rounded-full text-[#4A3A38] hover:bg-[#F5EDEA] hover:text-[#D42B1E] transition-colors focus-visible:outline-2 focus-visible:outline-[#EF4530]" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
+    <h2 id="legal-title" class="fd text-2xl font-bold pe-10 mb-1" style="letter-spacing:-0.02em"></h2>
+    <p class="text-xs font-semibold text-[#B3261E] mb-5" data-i18n="legal.draft">Taslak içerik — yayından önce tamamlanmalıdır.</p>
+    <div id="legal-body" class="text-sm leading-relaxed space-y-3 text-[#1A1A1A]" lang="de" dir="ltr"></div>
+  </div>
+</div>
 
 <!-- ══════════ JS ══════════ -->
 <script>
 /* ── Translations ────────────────────────────────── */
 const T = {
   tr: {
-    'hero.eyebrow':'Berlin · Helal Et Teslimatı',
-    'hero.h1':'Mezbahadan kapınıza<br /><em class="not-italic text-[#EF4530]">24 saatte taze</em><br />ve %100 Helal et.',
-    'hero.badge1':'Resmi Helal Sertifikası',
-    'hero.badge2':'Kesintisiz Soğuk Zincir Garantisi',
-    'hero.badge3':'Berlin İçi Ertesi Gün Teslimat',
-    'hero.cta':'Ürünleri Gör ↓',
+    'hero.h1':'Premium Helal Et, Taptaze Kapınızda',
+    'hero.sub':'Güvenilir tedarikten sofranıza.',
+    'hero.cta':'Ürünleri Keşfet',
     'trust.h2':'Güveninizi Kazanmak İçin Buradayız',
     'trust.cert.label':'Resmi Helal Sertifikası',
     'trust.cert.h3':'%100 Helal Güvencesi',
@@ -478,14 +579,26 @@ const T = {
     'success.h2':'Teşekkürler!','success.p1':'Siparişiniz alındı.',
     'success.p2':'Seçtiğiniz teslimat saatinde kapınızda olacağız. Varış öncesinde SMS ile bilgilendirileceksiniz.',
     'success.btn':'Alışverişe Devam',
+    'meta.title':'Steak Drop — Taze & Helal Et Teslimatı, Berlin',
+    'meta.desc':'Resmi sertifikalı %100 helal et, kesintisiz soğuk zincirle ertesi gün Berlin içinde kapınızda. Kapıda nakit ödeme, ücretsiz teslimat.',
+    'reviews.note':'Örnek yorumlar — prototip içeriğidir.',
+    'co.addr.error':'Lütfen geçerli bir Berlin posta kodu (10115–14199) içeren adres girin. Şimdilik yalnızca Berlin içine teslimat yapıyoruz.',
+    'order.new':'Yeni Sipariş',
+    'a11y.cart':'Sepeti aç','a11y.close':'Kapat','a11y.back':'Geri',
+    'footer.tagline':'Berlin içi taze, %100 helal et teslimatı. Mezbahadan kapınıza 24 saatte.',
+    'footer.contact':'İletişim',
+    'footer.area':'Teslimat bölgesi: Berlin içi',
+    'footer.hours':'Teslimat saatleri: 10:00 – 22:00',
+    'footer.legal':'Yasal',
+    'footer.imprint':'Künye (Impressum)',
+    'footer.privacy':'Gizlilik (Datenschutz)',
+    'footer.copy':'© 2026 Steak Drop — MVP prototip sürümü.',
+    'legal.draft':'Taslak içerik — yayından önce tamamlanmalıdır.',
   },
   de: {
-    'hero.eyebrow':'Berlin · Halal Fleischlieferung',
-    'hero.h1':'Vom Schlachthof zu Ihrer Tür —<br /><em class="not-italic text-[#EF4530]">frisch in 24 Stunden</em><br />und 100% Halal.',
-    'hero.badge1':'Offizielle Halal-Zertifizierung',
-    'hero.badge2':'Lückenlose Kühlkette garantiert',
-    'hero.badge3':'Lieferung am nächsten Tag in Berlin',
-    'hero.cta':'Produkte ansehen ↓',
+    'hero.h1':'Premium-Halal-Fleisch, frisch geliefert',
+    'hero.sub':'Von vertrauensvoller Herkunft bis an Ihre Tür.',
+    'hero.cta':'Produkte entdecken',
     'trust.h2':'Ihr Vertrauen ist uns wichtig',
     'trust.cert.label':'Offizielle Halal-Zertifizierung',
     'trust.cert.h3':'100% Halal-Garantie',
@@ -530,14 +643,26 @@ const T = {
     'success.h2':'Vielen Dank!','success.p1':'Ihre Bestellung ist eingegangen.',
     'success.p2':'Wir liefern im gewählten Zeitfenster. Sie werden kurz vor der Ankunft per SMS benachrichtigt.',
     'success.btn':'Weiter einkaufen',
+    'meta.title':'Steak Drop — Frische Halal-Fleischlieferung, Berlin',
+    'meta.desc':'Offiziell zertifiziertes 100% Halal-Fleisch, mit lückenloser Kühlkette am nächsten Tag in Berlin geliefert. Barzahlung bei Lieferung, kostenlose Lieferung.',
+    'reviews.note':'Beispielbewertungen — Prototyp-Inhalt.',
+    'co.addr.error':'Bitte geben Sie eine Adresse mit gültiger Berliner PLZ (10115–14199) an. Wir liefern derzeit nur innerhalb Berlins.',
+    'order.new':'Neue Bestellung',
+    'a11y.cart':'Warenkorb öffnen','a11y.close':'Schließen','a11y.back':'Zurück',
+    'footer.tagline':'Frische, 100% Halal-Fleischlieferung in Berlin. Vom Schlachthof zu Ihrer Tür in 24 Stunden.',
+    'footer.contact':'Kontakt',
+    'footer.area':'Liefergebiet: Berlin',
+    'footer.hours':'Lieferzeiten: 10:00 – 22:00 Uhr',
+    'footer.legal':'Rechtliches',
+    'footer.imprint':'Impressum',
+    'footer.privacy':'Datenschutzerklärung',
+    'footer.copy':'© 2026 Steak Drop — MVP-Prototyp.',
+    'legal.draft':'Entwurf — vor Veröffentlichung zu vervollständigen.',
   },
   en: {
-    'hero.eyebrow':'Berlin · Halal Meat Delivery',
-    'hero.h1':'From the butcher to your door —<br /><em class="not-italic text-[#EF4530]">fresh in 24 hours</em><br />and 100% Halal.',
-    'hero.badge1':'Official Halal Certification',
-    'hero.badge2':'Unbroken Cold Chain Guarantee',
-    'hero.badge3':'Next-Day Delivery Within Berlin',
-    'hero.cta':'Browse Products ↓',
+    'hero.h1':'Premium Halal Meat, Delivered Fresh',
+    'hero.sub':'From trusted sourcing to your doorstep.',
+    'hero.cta':'Explore Products',
     'trust.h2':'We Earn Your Trust',
     'trust.cert.label':'Official Halal Certification',
     'trust.cert.h3':'100% Halal Guarantee',
@@ -582,14 +707,26 @@ const T = {
     'success.h2':'Thank You!','success.p1':'Your order has been received.',
     'success.p2':'We\'ll arrive during your chosen time slot. You\'ll receive an SMS shortly before delivery.',
     'success.btn':'Continue Shopping',
+    'meta.title':'Steak Drop — Fresh Halal Meat Delivery, Berlin',
+    'meta.desc':'Officially certified 100% halal meat, delivered next day across Berlin with an unbroken cold chain. Cash on delivery, free shipping.',
+    'reviews.note':'Sample reviews — prototype content.',
+    'co.addr.error':'Please enter an address with a valid Berlin postcode (10115–14199). We currently deliver within Berlin only.',
+    'order.new':'New Order',
+    'a11y.cart':'Open cart','a11y.close':'Close','a11y.back':'Back',
+    'footer.tagline':'Fresh, 100% halal meat delivery in Berlin. From the slaughterhouse to your door in 24 hours.',
+    'footer.contact':'Contact',
+    'footer.area':'Delivery area: Berlin',
+    'footer.hours':'Delivery hours: 10:00 – 22:00',
+    'footer.legal':'Legal',
+    'footer.imprint':'Imprint (Impressum)',
+    'footer.privacy':'Privacy Policy',
+    'footer.copy':'© 2026 Steak Drop — MVP prototype.',
+    'legal.draft':'Draft — must be completed before launch.',
   },
   ar: {
-    'hero.eyebrow':'برلين · توصيل لحوم حلال',
-    'hero.h1':'من المجزرة إلى بابك —<br /><em class="not-italic text-[#EF4530]">طازج خلال ٢٤ ساعة</em><br />و١٠٠٪ حلال.',
-    'hero.badge1':'شهادة حلال رسمية',
-    'hero.badge2':'ضمان سلسلة التبريد المتواصلة',
-    'hero.badge3':'توصيل في اليوم التالي داخل برلين',
-    'hero.cta':'تصفح المنتجات ↓',
+    'hero.h1':'لحوم حلال فاخرة تصلك طازجة',
+    'hero.sub':'من مصادر موثوقة إلى باب منزلك.',
+    'hero.cta':'تصفح المنتجات',
     'trust.h2':'نسعى لكسب ثقتكم',
     'trust.cert.label':'شهادة حلال رسمية',
     'trust.cert.h3':'ضمان ١٠٠٪ حلال',
@@ -634,21 +771,65 @@ const T = {
     'success.h2':'شكراً لك!','success.p1':'تم استلام طلبك.',
     'success.p2':'سنصل إليك خلال الفترة الزمنية التي اخترتها. ستتلقى رسالة SMS قبيل الوصول.',
     'success.btn':'مواصلة التسوق',
+    'meta.title':'ستيك دروب — توصيل لحوم حلال طازجة في برلين',
+    'meta.desc':'لحوم ١٠٠٪ حلال بشهادة رسمية تصل إلى بابك في اليوم التالي داخل برلين مع سلسلة تبريد متواصلة. الدفع عند الاستلام والتوصيل مجاني.',
+    'reviews.note':'تقييمات توضيحية — محتوى تجريبي.',
+    'co.addr.error':'يرجى إدخال عنوان يحتوي على رمز بريدي صالح في برلين (10115–14199). نوصّل حالياً داخل برلين فقط.',
+    'order.new':'طلب جديد',
+    'a11y.cart':'فتح السلة','a11y.close':'إغلاق','a11y.back':'رجوع',
+    'footer.tagline':'توصيل لحوم طازجة ١٠٠٪ حلال داخل برلين. من المجزرة إلى بابك خلال ٢٤ ساعة.',
+    'footer.contact':'تواصل معنا',
+    'footer.area':'منطقة التوصيل: برلين',
+    'footer.hours':'أوقات التوصيل: ١٠:٠٠ – ٢٢:٠٠',
+    'footer.legal':'قانوني',
+    'footer.imprint':'بيانات الناشر (Impressum)',
+    'footer.privacy':'سياسة الخصوصية',
+    'footer.copy':'© 2026 ستيك دروب — نسخة MVP تجريبية.',
+    'legal.draft':'مسودة — يجب استكمالها قبل النشر.',
   }
 }
 
+/* ── Config ──────────────────────────────────────── */
+// Sipariş kanalı: whatsapp alanına uluslararası formatta numara girildiğinde
+// (örn. '4917612345678') siparişler wa.me linkiyle WhatsApp'a iletilir;
+// boş bırakılırsa e-posta (mailto) kullanılır.
+const ORDER_CONFIG = {
+  whatsapp: '',
+  email: 'info@steakdrop.com',
+}
+
+/* ── Safe storage ────────────────────────────────── */
+const store = {
+  get(k) { try { return localStorage.getItem(k) } catch { return null } },
+  set(k, v) { try { localStorage.setItem(k, v) } catch {} },
+}
+
 /* ── Language engine ─────────────────────────────── */
-let currentLang = localStorage.getItem('sd_lang') || 'tr'
+let currentLang = store.get('sd_lang') || 'tr'
 
 function tx(key) { return (T[currentLang] && T[currentLang][key]) || (T.tr[key]) || key }
 
+function ensureCairo() {
+  if (document.getElementById('font-cairo')) return
+  const l = document.createElement('link')
+  l.id = 'font-cairo'
+  l.rel = 'stylesheet'
+  l.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap'
+  document.head.appendChild(l)
+}
+
 function setLang(lang) {
   currentLang = lang
-  localStorage.setItem('sd_lang', lang)
+  store.set('sd_lang', lang)
 
   const html = document.documentElement
   html.setAttribute('lang', lang)
   html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr')
+  if (lang === 'ar') ensureCairo()
+
+  document.title = tx('meta.title')
+  const md = document.querySelector('meta[name="description"]')
+  if (md) md.setAttribute('content', tx('meta.desc'))
 
   // textContent
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -668,6 +849,12 @@ function setLang(lang) {
     if (v != null) el.placeholder = v
   })
 
+  // aria-label
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const v = tx(el.dataset.i18nAria)
+    if (v != null) el.setAttribute('aria-label', v)
+  })
+
   // select options (f-time)
   const sel = document.getElementById('f-time')
   if (sel) {
@@ -681,6 +868,7 @@ function setLang(lang) {
   // lang button active state
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active-lang', btn.dataset.lang === lang)
+    btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang))
   })
 
   // re-render JS content
@@ -689,16 +877,33 @@ function setLang(lang) {
 }
 
 /* ── Products ────────────────────────────────────── */
+// Yerel SVG placeholder — dış servis (placehold.co) bağımlılığını kaldırır.
+// Gerçek ürün fotoğrafları hazır olduğunda img alanına dosya yolu yazmak yeterli.
+const ph = (c1, c2) => 'data:image/svg+xml,' + encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs><rect width='600' height='450' fill='url(#g)'/></svg>`
+)
+
 const PRODUCTS = [
-  { id:1, nk:'p1.name', wk:'p1.weight', price:4.99,  img:'https://placehold.co/600x450/5C1A10/FFF8F5?text=.' },
-  { id:2, nk:'p2.name', wk:'p2.weight', price:8.99,  img:'https://placehold.co/600x450/7B1811/FFF8F5?text=.' },
-  { id:3, nk:'p3.name', wk:'p3.weight', price:3.99,  img:'https://placehold.co/600x450/C8956C/3A1A0A?text=.' },
-  { id:4, nk:'p4.name', wk:'p4.weight', price:9.99,  img:'https://placehold.co/600x450/8B3A30/FFF8F5?text=.' },
-  { id:5, nk:'p5.name', wk:'p5.weight', price:5.99,  img:'https://placehold.co/600x450/6B2020/FFF8F5?text=.' },
+  { id:1, nk:'p1.name', wk:'p1.weight', price:4.99,  img: ph('#6B2318', '#48140B') },
+  { id:2, nk:'p2.name', wk:'p2.weight', price:8.99,  img: ph('#8B281B', '#5C1A10') },
+  { id:3, nk:'p3.name', wk:'p3.weight', price:3.99,  img: ph('#D8A87C', '#B07A4E') },
+  { id:4, nk:'p4.name', wk:'p4.weight', price:9.99,  img: ph('#9C4436', '#6B2318') },
+  { id:5, nk:'p5.name', wk:'p5.weight', price:5.99,  img: ph('#7B2A24', '#521815') },
 ]
 
 /* ── Cart ────────────────────────────────────────── */
-let cart = {}
+function loadCart() {
+  try {
+    const raw = JSON.parse(store.get('sd_cart') || '{}')
+    const clean = {}
+    for (const [id, q] of Object.entries(raw)) {
+      if (PRODUCTS.some(p => p.id === +id) && Number.isInteger(q) && q > 0) clean[id] = Math.min(q, 99)
+    }
+    return clean
+  } catch { return {} }
+}
+
+let cart = loadCart()
 
 function addToCart(id) { cart[id] = (cart[id] || 0) + 1; sync(); openDrawer() }
 
@@ -709,10 +914,16 @@ function changeQty(id, d) {
   sync()
 }
 
-function total() { return Object.entries(cart).reduce((s,[id,q]) => s + PRODUCTS.find(p=>p.id===+id).price*q, 0) }
+function total() {
+  return Object.entries(cart).reduce((s, [id, q]) => {
+    const p = PRODUCTS.find(p => p.id === +id)
+    return p ? s + p.price * q : s
+  }, 0)
+}
 function count() { return Object.values(cart).reduce((s,q)=>s+q, 0) }
 
 function sync() {
+  store.set('sd_cart', JSON.stringify(cart))
   const c = count(), t = '€' + total().toFixed(2)
   const hb = document.getElementById('hdr-badge')
   hb.textContent = c; hb.style.display = c ? 'flex' : 'none'
@@ -755,7 +966,7 @@ function renderProducts() {
     const name = tx(p.nk), weight = tx(p.wk)
     return `<div class="pcard">
       <div class="pimg">
-        <img src="${p.img}" alt="${name}" loading="lazy" />
+        <img src="${p.img}" alt="${name}" />
         <span class="helalbadge">${tx('halal.badge')}</span>
       </div>
       <div class="pbody">
@@ -768,30 +979,291 @@ function renderProducts() {
   }).join('')
 }
 
+let drawerReturnFocus = null
+
 function openDrawer() {
+  // Önceki siparişin "teşekkürler" ekranı açık kalmışsa sepete dön
+  if (!document.getElementById('v-success').hidden) showView('cart')
   document.getElementById('drawer').classList.add('open')
   document.getElementById('backdrop').classList.add('on')
   document.body.style.overflow = 'hidden'
+  drawerReturnFocus = document.activeElement
+  requestAnimationFrame(() => {
+    const b = document.querySelector('#drawer [id^="v-"]:not([hidden]) button')
+    if (b) b.focus()
+  })
 }
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open')
   document.getElementById('backdrop').classList.remove('on')
   document.body.style.overflow = ''
+  if (drawerReturnFocus && drawerReturnFocus.focus) drawerReturnFocus.focus()
+  drawerReturnFocus = null
 }
 function showView(v) {
-  document.getElementById('v-cart').hidden     = v !== 'cart'
-  document.getElementById('v-checkout').hidden = v !== 'checkout'
-  document.getElementById('v-success').hidden  = v !== 'success'
+  // Tailwind'in .flex sınıfı [hidden] özniteliğini ezdiği için display da yönetiliyor
+  for (const key of ['cart', 'checkout', 'success']) {
+    const el = document.getElementById('v-' + key)
+    el.hidden = key !== v
+    el.style.display = key === v ? 'flex' : 'none'
+  }
 }
+
+/* ── Focus trap + Escape ─────────────────────────── */
+function focusables(container) {
+  return [...container.querySelectorAll('button, [href], input, select, textarea')]
+    .filter(el => !el.disabled && el.offsetParent !== null)
+}
+function trapTab(e, container) {
+  const f = focusables(container)
+  if (!f.length) return
+  const first = f[0], last = f[f.length - 1]
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+}
+document.addEventListener('keydown', e => {
+  const legalIsOpen = document.getElementById('legal-modal').classList.contains('open')
+  const drawerIsOpen = document.getElementById('drawer').classList.contains('open')
+  if (e.key === 'Escape') {
+    if (legalIsOpen) closeLegal()
+    else if (drawerIsOpen) closeDrawer()
+    return
+  }
+  if (e.key === 'Tab') {
+    if (legalIsOpen) trapTab(e, document.getElementById('legal-modal'))
+    else if (drawerIsOpen) trapTab(e, document.getElementById('drawer'))
+  }
+})
+
+/* ── Order submission ────────────────────────────── */
+function validBerlinAddress(addr) {
+  const norm = addr.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+  const m = norm.match(/\b(\d{5})\b/)
+  if (!m) return false
+  const plz = +m[1]
+  return plz >= 10115 && plz <= 14199
+}
+
+function orderText() {
+  const items = Object.entries(cart).map(([id, q]) => {
+    const p = PRODUCTS.find(x => x.id === +id)
+    return `${q}× ${tx(p.nk)} (${tx(p.wk)}) — €${(p.price * q).toFixed(2)}`
+  })
+  const time = document.getElementById('f-time')
+  return [
+    '🥩 STEAK DROP — ' + tx('order.new'),
+    '─────────────',
+    ...items,
+    '─────────────',
+    `${tx('co.total.label')}: €${total().toFixed(2)}`,
+    `${tx('co.payment.label')}: ${tx('co.payment.title')}`,
+    '',
+    `${tx('co.name.label')}: ${document.getElementById('f-name').value.trim()}`,
+    `${tx('co.addr.label')}: ${document.getElementById('f-addr').value.trim()}`,
+    `${tx('co.phone.label')}: ${document.getElementById('f-phone').value.trim()}`,
+    `${tx('co.time.label')}: ${time.selectedOptions[0] ? time.selectedOptions[0].text : ''}`,
+  ].join('\n')
+}
+
 function submitOrder(e) {
   e.preventDefault()
+  const addr = document.getElementById('f-addr')
+  if (!validBerlinAddress(addr.value)) {
+    addr.classList.add('invalid')
+    document.getElementById('f-addr-err').classList.add('show')
+    addr.focus()
+    return
+  }
+  const msg = orderText()
+  if (ORDER_CONFIG.whatsapp) {
+    window.open('https://wa.me/' + ORDER_CONFIG.whatsapp + '?text=' + encodeURIComponent(msg), '_blank', 'noopener')
+  } else if (ORDER_CONFIG.email) {
+    location.href = 'mailto:' + ORDER_CONFIG.email +
+      '?subject=' + encodeURIComponent('Steak Drop — ' + tx('order.new')) +
+      '&body=' + encodeURIComponent(msg)
+  }
   showView('success')
   cart = {}
   sync()
+  document.getElementById('co-form').reset()
+}
+
+/* ── Legal modal ─────────────────────────────────── */
+// Gövde metinleri bilinçli olarak Almanca (Alman hukuku gereği); [köşeli] alanlar
+// yayına almadan önce gerçek şirket bilgileriyle doldurulmalıdır.
+const LEGAL = {
+  imprint: {
+    title: { tr:'Künye (Impressum)', de:'Impressum', en:'Legal Notice (Impressum)', ar:'بيانات الناشر (Impressum)' },
+    body: `
+      <p><strong>Angaben gemäß § 5 DDG</strong></p>
+      <p>[Firmenname / Inhaber]<br />[Straße und Hausnummer]<br />[PLZ] Berlin, Deutschland</p>
+      <p>Kontakt: <a href="mailto:info@steakdrop.com" class="underline">info@steakdrop.com</a><br />Telefon: [+49 …]</p>
+      <p>Umsatzsteuer-ID gemäß § 27a UStG: [DE…]</p>
+      <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: [Name, Anschrift]</p>
+      <p><em>Hinweis: Platzhalter-Impressum — vor der Veröffentlichung mit den echten Unternehmensdaten vervollständigen.</em></p>`,
+  },
+  privacy: {
+    title: { tr:'Gizlilik (Datenschutz)', de:'Datenschutzerklärung', en:'Privacy Policy', ar:'سياسة الخصوصية' },
+    body: `
+      <p><strong>Datenschutz auf einen Blick</strong></p>
+      <p>Diese Website ist ein statischer Prototyp. Es werden keine Tracking-Cookies gesetzt und keine Analysedienste eingesetzt.</p>
+      <p>Im Browser (localStorage) werden ausschließlich Ihre Sprachauswahl und der Inhalt Ihres Warenkorbs gespeichert; diese Daten verlassen Ihr Gerät nicht.</p>
+      <p>Schriftarten werden von Google Fonts geladen; dabei wird Ihre IP-Adresse an Google übertragen. Für eine datenschutzfreundlichere Lösung können die Schriftarten lokal eingebunden werden.</p>
+      <p>Bei einer Bestellung werden die eingegebenen Daten (Name, Adresse, Telefon, Zeitfenster) per WhatsApp bzw. E-Mail an uns übermittelt; es gelten die Datenschutzbestimmungen des jeweiligen Dienstes.</p>
+      <p>Verantwortlicher: siehe Impressum. Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer gespeicherten Daten.</p>
+      <p><em>Hinweis: Entwurf — vor der Veröffentlichung juristisch prüfen lassen.</em></p>`,
+  },
+}
+
+let legalReturnFocus = null
+
+function openLegal(kind) {
+  const item = LEGAL[kind]
+  if (!item) return
+  document.getElementById('legal-title').textContent = item.title[currentLang] || item.title.de
+  document.getElementById('legal-body').innerHTML = item.body
+  document.getElementById('legal-modal').classList.add('open')
+  document.getElementById('legal-backdrop').classList.add('on')
+  document.body.style.overflow = 'hidden'
+  legalReturnFocus = document.activeElement
+  requestAnimationFrame(() => document.getElementById('legal-close').focus())
+}
+function closeLegal() {
+  document.getElementById('legal-modal').classList.remove('open')
+  document.getElementById('legal-backdrop').classList.remove('on')
+  document.body.style.overflow = ''
+  if (legalReturnFocus && legalReturnFocus.focus) legalReturnFocus.focus()
+  legalReturnFocus = null
+}
+
+/* ── Hero scroll-scrub ───────────────────────────── */
+// Kaydırma ilerlemesi → video zaman çizelgesi eşlemesi.
+// Modlar:
+//   scrub  : varsayılan — currentTime, rAF + lerp ile yumuşatılarak sürülür
+//   loop   : akıcı seek yapamayan cihazlar — sabitleme kalkar, video döngüde oynar
+//   static : prefers-reduced-motion veya video hatası — ilk kare, hareket yok
+// Performans kuralları: scroll dinleyicisi yalnızca aritmetik yapar (DOM okuma/
+// yazma yok); geometri resize'da bir kez ölçülür; tüm DOM yazımları rAF
+// döngüsünde ve yalnızca değer gerçekten değiştiğinde gerçekleşir.
+const SCRUB = {
+  el: document.getElementById('hero'),
+  video: document.getElementById('scrub-video'),
+  copy: document.getElementById('scrub-copy'),
+  foot: document.getElementById('scrub-foot'),
+  mode: 'scrub',
+  duration: 0,       // videodan okunur (loadedmetadata)
+  top: 0, travel: 1, // bölüm geometrisi önbelleği (scrubMeasure doldurur)
+  target: 0,         // kaydırmanın istediği zaman
+  cur: 0,            // lerp ile hedefe yaklaşan zaman
+  shown: -1,         // en son seek edilen zaman (gereksiz seek'leri atlamak için)
+  fade: 1,           // metin görünürlük hedefi (0–1)
+  fadeShown: -1,     // en son uygulanan görünürlük
+  raf: null,
+  probes: 0, slow: 0, seekAt: 0, // seek hızı ölçümü (fallback kararı)
+}
+
+// Bölüm geometrisini önbelleğe al — scroll başına layout okuması yapılmasın
+function scrubMeasure() {
+  const r = SCRUB.el.getBoundingClientRect()
+  SCRUB.top = r.top + window.scrollY
+  SCRUB.travel = Math.max(1, r.height - window.innerHeight)
+  scrubOnScroll()
+}
+
+function scrubOnScroll() {
+  if (SCRUB.mode !== 'scrub' || !SCRUB.duration) return
+  const p = Math.min(1, Math.max(0, (window.scrollY - SCRUB.top) / SCRUB.travel))
+  SCRUB.target = p * SCRUB.duration
+  // Metin ve CTA ilk %25'te çekilir; yukarı kaydırınca geri gelir.
+  // (0.25 eşiğini büyütmek metni daha uzun süre ekranda tutar)
+  SCRUB.fade = Math.max(0, 1 - p / 0.25)
+}
+
+function scrubTick() {
+  // 1) Metin solması — yalnızca görünür biçimde değiştiyse DOM'a yaz
+  if (Math.abs(SCRUB.fade - SCRUB.fadeShown) > 0.01) {
+    SCRUB.fadeShown = SCRUB.fade
+    const y = (-14 * (1 - SCRUB.fade)).toFixed(1)
+    for (const el of [SCRUB.copy, SCRUB.foot]) {
+      el.style.opacity = SCRUB.fade.toFixed(3)
+      el.style.transform = `translateY(${y}px)`
+      el.style.pointerEvents = SCRUB.fade < 0.4 ? 'none' : ''
+    }
+  }
+  // 2) Video zamanı — önceki seek bitmeden yenisini kuyruğa alma (decoder yığılması
+  //    takılmanın ana kaynağıdır), kare-altı farklar için seek üretme
+  SCRUB.cur += (SCRUB.target - SCRUB.cur) * 0.16 // yumuşatma; büyütmek tepkiyi sertleştirir
+  if (!SCRUB.video.seeking && Math.abs(SCRUB.cur - SCRUB.shown) > 1 / 30) {
+    SCRUB.shown = SCRUB.cur
+    if (SCRUB.probes < 12) SCRUB.seekAt = performance.now()
+    SCRUB.video.currentTime = SCRUB.cur
+  }
+  SCRUB.raf = requestAnimationFrame(scrubTick)
+}
+
+function scrubMode(mode) {
+  SCRUB.mode = mode
+  if (SCRUB.raf) { cancelAnimationFrame(SCRUB.raf); SCRUB.raf = null }
+  for (const el of [SCRUB.copy, SCRUB.foot]) {
+    el.style.opacity = ''; el.style.transform = ''; el.style.pointerEvents = ''
+  }
+  if (mode !== 'scrub') SCRUB.el.classList.add('scrub-fallback')
+  if (mode === 'loop') {
+    SCRUB.video.loop = true
+    SCRUB.video.play().catch(() => scrubMode('static'))
+  }
+  if (mode === 'static') { try { SCRUB.video.pause() } catch {} }
+}
+
+if (SCRUB.el && SCRUB.video) {
+  // İlk kare: metadata gelir gelmez minik bir seek ile kareyi boyat
+  SCRUB.video.addEventListener('loadedmetadata', () => {
+    SCRUB.duration = Math.max(0, SCRUB.video.duration - 0.05) // tam sonda takılmayı önle
+    SCRUB.video.currentTime = 0.001 // ilk kareyi boyat
+    scrubMeasure()
+  })
+  // Kaynak yüklenemezse sahne mat siyah + metinle ayakta kalır
+  SCRUB.video.addEventListener('error', () => scrubMode('static'), true)
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    scrubMode('static')
+  } else {
+    // Yavaş seek tespiti: ilk 12 seek'ten ≥4'ü 250ms'i aşarsa loop moduna geç
+    SCRUB.video.addEventListener('seeked', () => {
+      if (SCRUB.mode !== 'scrub' || SCRUB.probes >= 12 || !SCRUB.seekAt) return
+      SCRUB.probes++
+      if (performance.now() - SCRUB.seekAt > 250) SCRUB.slow++
+      if (SCRUB.slow >= 4) scrubMode('loop')
+    })
+    // rAF döngüsü yalnızca hero görünürken çalışsın (pil dostu)
+    const scrubIO = new IntersectionObserver(entries => {
+      for (const en of entries) {
+        if (SCRUB.mode !== 'scrub') return
+        if (en.isIntersecting && !SCRUB.raf) SCRUB.raf = requestAnimationFrame(scrubTick)
+        else if (!en.isIntersecting && SCRUB.raf) { cancelAnimationFrame(SCRUB.raf); SCRUB.raf = null }
+      }
+    })
+    scrubIO.observe(SCRUB.el)
+    scrubMeasure()
+    addEventListener('scroll', scrubOnScroll, { passive: true })
+    addEventListener('resize', scrubMeasure)
+    addEventListener('load', scrubMeasure)
+    // iOS: kare çizimini ilk dokunuşta play/pause ile kilidini açarak garantile
+    addEventListener('touchstart', () => {
+      SCRUB.video.play()
+        .then(() => { SCRUB.video.pause(); SCRUB.video.currentTime = SCRUB.cur })
+        .catch(() => {})
+    }, { once: true, passive: true })
+  }
 }
 
 /* ── Init ────────────────────────────────────────── */
 setLang(currentLang)
+sync()
+document.getElementById('f-addr').addEventListener('input', e => {
+  e.target.classList.remove('invalid')
+  document.getElementById('f-addr-err').classList.remove('show')
+})
 </script>
 </body>
 </html>

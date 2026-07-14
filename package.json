@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "serve": "node serve.mjs",
+    "shot": "node screenshot.mjs",
+    "shot:lang": "node screenshot-lang.mjs"
+  },
   "dependencies": {
     "puppeteer": "^25.3.0"
   }
