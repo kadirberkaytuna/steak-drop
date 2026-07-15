@@ -2,12 +2,12 @@
 <html lang="tr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Steak Drop — Taze &amp; Helal Et Teslimatı, Berlin</title>
   <meta name="description" content="Resmi sertifikalı %100 helal et, kesintisiz soğuk zincirle ertesi gün Berlin içinde kapınızda. Kapıda nakit ödeme, ücretsiz teslimat." />
   <meta name="theme-color" content="#050505" />
-  <link rel="icon" type="image/png" href="brand_assets/logo-icon.png" />
-  <link rel="apple-touch-icon" href="brand_assets/logo-icon.png" />
+  <link rel="icon" type="image/png" href="brand_assets/logo-icon-180.png" />
+  <link rel="apple-touch-icon" href="brand_assets/logo-icon-180.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Steak Drop" />
   <meta property="og:title" content="Steak Drop — Taze & Helal Et Teslimatı, Berlin" />
@@ -33,6 +33,8 @@
       --line: rgba(245,239,231,.08);
       --text: #F5EFE7;      /* sıcak beyaz */
       --muted: #B8AFA6;
+      /* Mat film greni — birden çok yüzeyde ortak kullanılır */
+      --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     }
     html { scroll-behavior: smooth; color-scheme: dark; }
     ::selection { background: #8B1E1E; color: #F5EFE7; }
@@ -78,7 +80,7 @@
     }
     .scrub-stage::after {
       content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: var(--grain);
     }
     .scrub-copy {
       position: relative; z-index: 2; text-align: center; max-width: 720px;
@@ -158,6 +160,273 @@
 
     /* TRUST CARDS */
     .tcard { background: var(--surface); border-radius: 20px; overflow: hidden; border: 1px solid rgba(201,164,92,.12); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+
+    /* HOW IT WORKS */
+    .hiw-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .hiw-num { font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: .02em; }
+    :lang(ar) .hiw-num { font-family: 'Cairo', sans-serif; }
+    .hiw-line { flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,164,92,.45), rgba(201,164,92,0)); }
+    [dir="rtl"] .hiw-line { background: linear-gradient(to left, rgba(201,164,92,.45), rgba(201,164,92,0)); }
+
+    /* CATEGORY CARDS */
+    .ccard {
+      position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 220px; border-radius: 18px; overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(0,0,0,.35), 0 14px 36px rgba(0,0,0,.28);
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, border-color .2s ease;
+    }
+    .ccard:hover { transform: translateY(-4px); border-color: rgba(201,164,92,.32); box-shadow: 0 8px 22px rgba(0,0,0,.45), 0 22px 56px rgba(0,0,0,.40); }
+    .ccard:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .ccard:active { transform: translateY(-1px); }
+    /* Görsel alanı: şimdilik marka tonlarında degrade placeholder.
+       Gerçek fotoğraf geldiğinde ilgili c-* sınıfına background-image eklemek yeterli;
+       üstteki scrim (::after) fotoğrafta da metin okunabilirliğini korur. */
+    .ccard-bg { position: absolute; inset: 0; transition: transform .35s ease; }
+    .ccard:hover .ccard-bg { transform: scale(1.045); }
+    .ccard-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,.88) 0%, rgba(5,5,5,.34) 55%, rgba(5,5,5,.12) 100%); }
+    .c-beef    { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(201,164,92,.12), transparent 55%), linear-gradient(135deg, #4A150C, #2A0C07); }
+    .c-lamb    { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #5C2A18, #33150B); }
+    .c-chicken { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(245,239,231,.10), transparent 55%), linear-gradient(135deg, #8A5A32, #4A2C14); }
+    .c-mince   { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #6B1F16, #3A0F0A); }
+    .c-bbq     { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(239,120,60,.14), transparent 55%), linear-gradient(135deg, #3A2412, #1C0F07); }
+    .c-family  { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.12), transparent 55%), linear-gradient(135deg, #54281E, #2B120C); }
+    .ccard-body { position: relative; padding: 20px; }
+    .ccard-body h3 { color: var(--text); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+    .ccard-body p { color: var(--muted); font-size: .875rem; line-height: 1.7; margin-top: 6px; }
+    .ccard-cta {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      color: var(--gold); font-size: .75rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      transition: color .15s ease;
+    }
+    .ccard:hover .ccard-cta { color: #E8D5AC; }
+
+    /* MEAT BOX CARDS */
+    .bcard {
+      background: var(--surface); border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(0,0,0,.35), 0 14px 36px rgba(0,0,0,.28);
+      display: flex; flex-direction: column;
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, border-color .2s ease;
+    }
+    .bcard:hover { transform: translateY(-4px); border-color: rgba(201,164,92,.30); box-shadow: 0 8px 22px rgba(0,0,0,.45), 0 22px 56px rgba(0,0,0,.40); }
+    .bimg { position: relative; aspect-ratio: 4 / 3; }
+    /* Placeholder degrade görsel alanı — gerçek kutu fotoğrafı gelince
+       ilgili b-* sınıfına background-image eklemek yeterli */
+    .b-everyday { background: radial-gradient(ellipse 130% 90% at 20% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #5A241A, #2E100A); }
+    .b-bbq      { background: radial-gradient(ellipse 130% 90% at 80% 0%, rgba(239,120,60,.13), transparent 55%), linear-gradient(135deg, #3C2410, #1B0E06); }
+    .b-family   { background: radial-gradient(ellipse 130% 90% at 20% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #6B2A1C, #38130C); }
+    .b-steak    { background: radial-gradient(ellipse 130% 90% at 80% 0%, rgba(201,164,92,.16), transparent 55%), linear-gradient(135deg, #4A1510, #240A07); }
+    .bimg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,.55) 0%, transparent 55%); }
+    .bbadge {
+      position: absolute; top: 10px; inset-inline-start: 10px; z-index: 2;
+      background: rgba(5,5,5,.72); color: var(--gold);
+      border: 1px solid rgba(201,164,92,.38);
+      font-size: .6875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 9px; border-radius: 999px;
+    }
+    .bbody { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+    .bbody h3 { color: var(--text); font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em; }
+    .bbody p { color: var(--muted); font-size: .875rem; line-height: 1.7; margin-top: 6px; }
+    /* .bbody p kuralından daha yüksek özgüllük gerekir; yoksa margin-top:auto ezilir */
+    .bbody .bprice { margin-top: auto; padding-top: 14px; color: var(--muted); font-size: .875rem; font-weight: 500; }
+
+    /* İkincil (ghost) buton: henüz sipariş edilemeyen kutular, ürünlerdeki
+       bordo satın alma butonundan bilinçli olarak ayrışır */
+    .btn-ghost {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; min-height: 46px; margin-top: 10px;
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(201,164,92,.35); border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: .875rem; cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1);
+    }
+    :lang(ar) .btn-ghost { font-family: 'Cairo', sans-serif; }
+    .btn-ghost:hover { background: rgba(201,164,92,.08); border-color: var(--gold); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .btn-ghost:active { transform: translateY(1px); }
+
+    /* BUILD YOUR BOX */
+    .byb-panel {
+      position: relative; overflow: hidden;
+      background: var(--surface); border: 1px solid rgba(201,164,92,.14); border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35), 0 24px 60px rgba(0,0,0,.30);
+    }
+    .byb-panel::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 120% 70% at 85% -10%, rgba(201,164,92,.08), transparent 55%);
+    }
+    .byb-label { font-size: .6875rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .byb-step { display: flex; align-items: baseline; gap: 12px; }
+    .byb-step .n { font-family: 'Playfair Display', serif; color: var(--gold); font-weight: 700; font-size: 1.125rem; }
+    :lang(ar) .byb-step .n { font-family: 'Cairo', sans-serif; }
+
+    /* Seçilebilir kesim çipleri (çoklu seçim) */
+    .chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(245,239,231,.04); color: var(--muted);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 9px 14px; min-height: 40px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: .8125rem; font-weight: 500;
+      transition: color .15s ease, border-color .15s ease, background .15s ease, transform .18s cubic-bezier(.34,1.56,.64,1);
+    }
+    :lang(ar) .chip { font-family: 'Cairo', sans-serif; }
+    .chip:hover { color: var(--text); border-color: rgba(201,164,92,.35); }
+    .chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .chip:active { transform: scale(.97); }
+    .chip .tick {
+      width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(245,239,231,.25);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: .5625rem; color: transparent;
+      transition: color .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip.on { color: var(--text); border-color: rgba(201,164,92,.55); background: rgba(201,164,92,.08); }
+    .chip.on .tick { background: var(--gold); border-color: var(--gold); color: #1A120B; }
+
+    /* Kutu boyu seçici (tekli seçim) */
+    .seg {
+      flex: 1; min-height: 42px; cursor: pointer; border-radius: 10px;
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--line);
+      font-family: 'Inter', sans-serif; font-size: .8125rem; font-weight: 600;
+      transition: color .15s ease, background .15s ease, border-color .15s ease;
+    }
+    :lang(ar) .seg { font-family: 'Cairo', sans-serif; }
+    .seg:hover { color: var(--text); border-color: rgba(201,164,92,.35); }
+    .seg:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .seg.on { background: var(--primary); border-color: var(--primary); color: #F5EFE7; }
+    .byb-sum {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: .875rem;
+    }
+
+    /* DELIVERY CHECKER */
+    .dchk-btn { width: 100%; }
+    /* .btn-primary'nin width:100%'ü stylesheet'te daha sonra geldiği için
+       burada çift sınıfla özgüllük yükseltmek gerekir */
+    @media (min-width: 640px) { .btn-primary.dchk-btn { width: auto; padding-inline: 26px; white-space: nowrap; } }
+    .dchk-result {
+      display: none; align-items: flex-start; gap: 10px; text-align: start;
+      margin-top: 16px; padding: 12px 16px; border-radius: 12px;
+      border: 1px solid; font-size: .875rem; line-height: 1.6;
+    }
+    .dchk-result.show { display: flex; }
+    .dchk-result.ok   { background: rgba(30,92,60,.14);  border-color: rgba(147,199,164,.30); color: #B5DCC3; }
+    .dchk-result.soon { background: rgba(201,164,92,.08); border-color: rgba(201,164,92,.30);  color: #DCC9A0; }
+    .dchk-result.warn { background: rgba(196,87,74,.10);  border-color: rgba(196,87,74,.30);   color: #EBA79B; }
+    .dchk-ic { font-weight: 700; flex-shrink: 0; }
+
+    /* QUALITY PROMISE */
+    .qp-visual {
+      position: relative; overflow: hidden; border-radius: 20px;
+      min-height: 320px; height: 100%;
+      border: 1px solid rgba(201,164,92,.14);
+      /* Placeholder görsel: gerçek marka/atölye fotoğrafı geldiğinde buraya
+         background-image eklemek yeterli; alttaki scrim imzayı okunur tutar */
+      background:
+        radial-gradient(ellipse 120% 80% at 80% 10%, rgba(201,164,92,.14), transparent 55%),
+        radial-gradient(ellipse 100% 90% at 15% 90%, rgba(139,30,30,.25), transparent 60%),
+        linear-gradient(150deg, #241009, #120806 65%, #0B0504);
+      box-shadow: 0 6px 20px rgba(0,0,0,.35), 0 24px 60px rgba(0,0,0,.30);
+    }
+    .qp-visual::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: var(--grain);
+    }
+    .qp-caption {
+      position: absolute; inset-inline: 0; bottom: 0; padding: 20px;
+      background: linear-gradient(to top, rgba(5,5,5,.72), transparent);
+    }
+    .qp-num {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(201,164,92,.45); color: var(--gold);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: .875rem;
+    }
+    :lang(ar) .qp-num { font-family: 'Cairo', sans-serif; }
+
+    /* FAQ — akordeon (yeni soru eklemek için bir .faq-item bloğunu kopyalamak
+       ve faq.qN.q / faq.qN.a çeviri anahtarlarını T sözlüğüne eklemek yeterli) */
+    .faq-item {
+      border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface); overflow: hidden;
+      transition: border-color .2s ease;
+    }
+    .faq-item + .faq-item { margin-top: 12px; }
+    .faq-item:hover, .faq-item.open { border-color: rgba(201,164,92,.26); }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 18px 20px; background: none; border: none; cursor: pointer; text-align: start;
+      color: var(--text); font-family: 'Playfair Display', serif;
+      font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.01em;
+    }
+    :lang(ar) .faq-q { font-family: 'Cairo', sans-serif; }
+    .faq-q:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; border-radius: 14px; }
+    .faq-x { position: relative; width: 18px; height: 18px; flex-shrink: 0; transition: transform .25s ease; }
+    .faq-x::before, .faq-x::after { content: ''; position: absolute; inset: 0; margin: auto; background: var(--gold); }
+    .faq-x::before { width: 14px; height: 1.5px; }
+    .faq-x::after { width: 1.5px; height: 14px; }
+    .faq-item.open .faq-x { transform: rotate(45deg); } /* + işareti ×'e döner */
+    .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s cubic-bezier(.4,0,.2,1); }
+    .faq-item.open .faq-a { grid-template-rows: 1fr; }
+    .faq-a-in { overflow: hidden; }
+    .faq-a-in p { padding: 0 20px 18px; color: var(--muted); font-size: .9375rem; line-height: 1.7; max-width: 60ch; }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-a, .faq-x { transition: none; }
+    }
+
+    /* MOBILE STICKY CTA — yalnızca mobil ekranlarda görünür */
+    .mcta {
+      display: none;
+      position: fixed; inset-inline: 0; bottom: 0; z-index: 150; /* backdrop (199) altında kalır */
+      align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(10,7,6,.94);
+      border-top: 1px solid rgba(201,164,92,.18);
+      transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+    }
+    .mcta.mcta-hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
+    .mcta-sub { color: var(--muted); font-size: .75rem; line-height: 1.4; min-width: 0; }
+    .mcta-btn {
+      flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+      min-height: 46px; padding: 0 20px; border-radius: 10px;
+      background: var(--primary); color: #F5EFE7;
+      font-weight: 600; font-size: .9375rem; white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,.40), 0 8px 22px rgba(139,30,30,.26);
+      transition: background .2s ease, transform .18s cubic-bezier(.34,1.56,.64,1);
+    }
+    .mcta-btn:hover { background: var(--accent); }
+    .mcta-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .mcta-btn:active { transform: scale(.97); }
+    @media (max-width: 767px) {
+      .mcta { display: flex; }
+      /* içerik çubuğun arkasında kalmasın */
+      body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+      /* sepet FAB'ı çubuğun üstüne taşınır (body ile özgüllük artırılır:
+         bu blok, .fab'ın temel tanımından önce geldiği için kaynak sırası yetmez) */
+      body .fab { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+    }
+
+    /* Scroll reveal — yalnızca transform+opacity; reduced-motion'da JS hiç etkinleştirmez */
+    .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
+    .rv.rv-in { opacity: 1; transform: none; }
+    .hiw-step.rv:nth-child(2) { transition-delay: .12s; }
+    .hiw-step.rv:nth-child(3) { transition-delay: .24s; }
+    .ccard.rv:nth-child(2) { transition-delay: .07s; }
+    .ccard.rv:nth-child(3) { transition-delay: .14s; }
+    .ccard.rv:nth-child(4) { transition-delay: .21s; }
+    .ccard.rv:nth-child(5) { transition-delay: .28s; }
+    .ccard.rv:nth-child(6) { transition-delay: .35s; }
+    .bcard.rv:nth-child(2) { transition-delay: .07s; }
+    .bcard.rv:nth-child(3) { transition-delay: .14s; }
+    .bcard.rv:nth-child(4) { transition-delay: .21s; }
+    .qp-item.rv:nth-child(2) { transition-delay: .08s; }
+    .qp-item.rv:nth-child(3) { transition-delay: .16s; }
+    .qp-item.rv:nth-child(4) { transition-delay: .24s; }
 
     /* CART DRAWER — LTR: slides in from right */
     .drawer {
@@ -239,6 +508,16 @@
       .lang-sep { display: none; }
       .lang-btn { min-width: 30px; padding: 6px 4px; }
     }
+    /* Çok dar ekranlar (ör. 320px): daha da sık, marka alt yazısı gizlenir
+       (alt yazı HTML'de min-[380px]:block ile gizlenir) */
+    @media (max-width: 379px) {
+      .lang-btn { min-width: 22px; padding: 6px 2px; }
+      #brand { gap: 8px; }
+      #brand img { height: 32px; }
+      #brand .text-base { font-size: .875rem; }
+      #hdr-cart { padding-inline: 4px; }
+      #hdr-cart .text-xl { font-size: 1.05rem; }
+    }
 
     /* FORM ERROR */
     .ferr { display: none; color: #E5735F; font-size: .75rem; font-weight: 600; margin-top: 6px; }
@@ -266,13 +545,13 @@
   <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
 
     <!-- Logotype -->
-    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Steak Drop">
-      <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-10 w-auto rounded-xl" style="background:#F5EFE7;padding:3px" />
+    <a href="/" id="brand" class="flex items-center gap-2.5 shrink-0" aria-label="Steak Drop">
+      <img src="brand_assets/logo-icon-180.png" alt="" aria-hidden="true" class="h-10 w-auto rounded-xl" style="background:#F5EFE7;padding:3px" />
       <div class="leading-none">
         <p class="text-[#F5EFE7] text-base" style="letter-spacing:0.06em">
           <strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span>
         </p>
-        <p class="text-[#B8AFA6] text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
+        <p class="hidden min-[380px]:block text-[#B8AFA6] text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
       </div>
     </a>
 
@@ -290,7 +569,7 @@
       </div>
 
       <!-- Cart button -->
-      <button onclick="openDrawer()" class="flex items-center gap-1.5 text-[#B8AFA6] hover:text-[#C9A45C] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
+      <button onclick="openDrawer()" id="hdr-cart" class="flex items-center gap-1.5 text-[#B8AFA6] hover:text-[#C9A45C] font-medium text-sm transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-[#C9A45C]" aria-label="Sepeti aç" data-i18n-aria="a11y.cart">
         <span class="text-xl" aria-hidden="true">🛒</span>
         <span class="hidden sm:inline font-semibold" data-i18n="cart.fab">Sepet</span>
         <span id="hdr-badge" class="hidden bg-[#8B1E1E] text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center leading-none">0</span>
@@ -361,6 +640,313 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section class="py-20 sm:py-28 px-4" id="how">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="hiw.h2">Nasıl Çalışır?</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="hiw.sub">Taze helal et, üç basit adımda kapınızda.</p>
+    <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+
+      <div class="hiw-step">
+        <div class="hiw-head">
+          <span class="hiw-num fd" data-i18n="hiw.s1.n">01</span>
+          <span class="hiw-line" aria-hidden="true"></span>
+        </div>
+        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s1.h">Etinizi Seçin</h3>
+        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s1.p">Taze helal kesimler, mangal kutuları veya haftalık aile et kutuları arasından seçim yapın.</p>
+      </div>
+
+      <div class="hiw-step">
+        <div class="hiw-head">
+          <span class="hiw-num fd" data-i18n="hiw.s2.n">02</span>
+          <span class="hiw-line" aria-hidden="true"></span>
+        </div>
+        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s2.h">Taze Hazırlıyoruz</h3>
+        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s2.p">Siparişiniz hijyen ve tazelik gözetilerek özenle paketlenir.</p>
+      </div>
+
+      <div class="hiw-step">
+        <div class="hiw-head">
+          <span class="hiw-num fd" data-i18n="hiw.s3.n">03</span>
+          <span class="hiw-line" aria-hidden="true"></span>
+        </div>
+        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s3.h">Kapınıza Teslim</h3>
+        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s3.p">Etiniz tazeliğini koruyan pratik ambalajıyla evinize teslim edilir.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CATEGORIES ══════════ -->
+<section class="py-20 sm:py-28 px-4 bg-[#16100E]" id="categories">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="cat.h2">Kategorilere Göz Atın</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="cat.sub">Her öğün için taze helal kesimler ve özenle hazırlanmış et kutuları.</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-beef" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.beef.h">Dana Eti</h3>
+          <p data-i18n="cat.beef.p">Günlük yemekler ve özel sofralar için premium dana kesimleri.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-lamb" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.lamb.h">Kuzu Eti</h3>
+          <p data-i18n="cat.lamb.p">Zengin, geleneksel yemekler için taze helal kuzu kesimleri.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-chicken" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.chicken.h">Tavuk</h3>
+          <p data-i18n="cat.chicken.p">Günlük yemekler için temiz ve çok yönlü helal tavuk.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-mince" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.mince.h">Kıyma</h3>
+          <p data-i18n="cat.mince.p">Köfte, burger, makarna ve aile tarifleri için ideal.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-bbq" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.bbq.h">Mangal Kutuları</h3>
+          <p data-i18n="cat.bbq.p">Mangal geceleri için özenle seçilmiş helal et çeşitleri.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a href="#products" class="ccard">
+        <div class="ccard-bg c-family" aria-hidden="true"></div>
+        <div class="ccard-body">
+          <h3 class="fd" data-i18n="cat.family.h">Aile Kutuları</h3>
+          <p data-i18n="cat.family.p">Ev yemekleri için haftalık helal et paketleri.</p>
+          <span class="ccard-cta"><span data-i18n="cat.cta">Keşfet</span> <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MEAT BOXES ══════════ -->
+<section class="py-20 sm:py-28 px-4" id="boxes">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="box.h2">Özenle Hazırlanan Et Kutuları</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="box.sub">Haftalık yemekleriniz, mangal geceleriniz ve aile sofralarınız için hazırlanan taze helal seçkiler.</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+
+      <div class="bcard">
+        <div class="bimg b-everyday" aria-hidden="true">
+          <span class="bbadge" data-i18n="box.b1.badge">Haftanın Favorisi</span>
+        </div>
+        <div class="bbody">
+          <h3 class="fd" data-i18n="box.b1.h">Günlük Kutu</h3>
+          <p data-i18n="box.b1.p">Haftalık pratik yemekler için dengeli bir helal et seçkisi.</p>
+          <p class="bprice" data-i18n="box.soon">Yakında</p>
+          <a href="#products" class="btn-ghost"><span data-i18n="box.cta">Kutuyu İncele</span> <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bimg b-bbq" aria-hidden="true">
+          <span class="bbadge" data-i18n="box.b2.badge">Mangalın Yıldızı</span>
+        </div>
+        <div class="bbody">
+          <h3 class="fd" data-i18n="box.b2.h">Mangal Kutusu</h3>
+          <p data-i18n="box.b2.p">Hafta sonları, davetler ve yaz geceleri için mangala hazır helal kesimler.</p>
+          <p class="bprice" data-i18n="box.soon">Yakında</p>
+          <a href="#products" class="btn-ghost"><span data-i18n="box.cta">Kutuyu İncele</span> <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bimg b-family" aria-hidden="true">
+          <span class="bbadge" data-i18n="box.b3.badge">En Avantajlı</span>
+        </div>
+        <div class="bbody">
+          <h3 class="fd" data-i18n="box.b3.h">Aile Kutusu</h3>
+          <p data-i18n="box.b3.p">Ev yemekleri ve aile sofraları için pratik bir helal et paketi.</p>
+          <p class="bprice" data-i18n="box.soon">Yakında</p>
+          <a href="#products" class="btn-ghost"><span data-i18n="box.cta">Kutuyu İncele</span> <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bimg b-steak" aria-hidden="true">
+          <span class="bbadge" data-i18n="box.b4.badge">Premium</span>
+        </div>
+        <div class="bbody">
+          <h3 class="fd" data-i18n="box.b4.h">Premium Steak Kutusu</h3>
+          <p data-i18n="box.b4.p">Özel akşam yemekleri için seçilmiş premium kesimler.</p>
+          <p class="bprice" data-i18n="box.soon">Yakında</p>
+          <a href="#products" class="btn-ghost"><span data-i18n="box.cta">Kutuyu İncele</span> <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BUILD YOUR BOX ══════════
+  Görsel prototip: seçim durumları yalnızca arayüzde yaşar, sipariş oluşturmaz.
+  Gerçek işleve bağlamak için toggleChip/pickSize içindeki durumun sepete
+  yazılması ve CTA'nın checkout akışına yönlendirilmesi yeterli. -->
+<section class="py-20 sm:py-28 px-4 bg-[#16100E]" id="build">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="byb.h2">Kendi Kutunu Oluştur</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="byb.sub">Sevdiğiniz helal kesimleri seçin, mutfağınıza uyan kutuyu oluşturun.</p>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+      <!-- Sol: açıklama + adımlar + CTA -->
+      <div>
+        <p class="text-[#B8AFA6] text-base mb-8" style="line-height:1.7" data-i18n="byb.desc">Evinizde ne pişiyorsa onu seçin — hazır kalıp yok, israf yok. Kutunuz, seçiminiz.</p>
+        <div class="space-y-4 mb-10">
+          <div class="byb-step">
+            <span class="n" data-i18n="byb.n1">1</span>
+            <span class="text-[#F5EFE7] font-medium text-sm" data-i18n="byb.s1">Kesimlerinizi seçin</span>
+          </div>
+          <div class="byb-step">
+            <span class="n" data-i18n="byb.n2">2</span>
+            <span class="text-[#F5EFE7] font-medium text-sm" data-i18n="byb.s2">Kutu boyunuzu belirleyin</span>
+          </div>
+          <div class="byb-step">
+            <span class="n" data-i18n="byb.n3">3</span>
+            <span class="text-[#F5EFE7] font-medium text-sm" data-i18n="byb.s3">Teslimat bölgenizi seçin</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="max-width:260px" onclick="startBuilding()" data-i18n="byb.cta">Oluşturmaya Başla</button>
+      </div>
+
+      <!-- Sağ: "Kutunuz" mockup paneli -->
+      <div class="byb-panel">
+        <h3 class="fd text-2xl font-bold mb-5" style="letter-spacing:-0.02em" data-i18n="byb.box.h">Kutunuz</h3>
+
+        <p class="byb-label" id="byb-items-label" data-i18n="byb.items.label">Kesimler</p>
+        <div class="flex flex-wrap gap-2 mb-6" id="byb-items" role="group" aria-labelledby="byb-items-label">
+          <button class="chip on" aria-pressed="true" onclick="toggleChip(this)"><span class="tick" aria-hidden="true">✓</span><span data-i18n="byb.i1">Dana Kesimleri</span></button>
+          <button class="chip" aria-pressed="false" onclick="toggleChip(this)"><span class="tick" aria-hidden="true">✓</span><span data-i18n="byb.i2">Tavuk</span></button>
+          <button class="chip on" aria-pressed="true" onclick="toggleChip(this)"><span class="tick" aria-hidden="true">✓</span><span data-i18n="byb.i3">Kıyma</span></button>
+          <button class="chip" aria-pressed="false" onclick="toggleChip(this)"><span class="tick" aria-hidden="true">✓</span><span data-i18n="byb.i4">Kuzu</span></button>
+          <button class="chip" aria-pressed="false" onclick="toggleChip(this)"><span class="tick" aria-hidden="true">✓</span><span data-i18n="byb.i5">Mangal Seçkisi</span></button>
+        </div>
+
+        <p class="byb-label" id="byb-sizes-label" data-i18n="byb.size.label">Kutu Boyu</p>
+        <div class="flex gap-2" id="byb-sizes" role="group" aria-labelledby="byb-sizes-label">
+          <button class="seg" aria-pressed="false" data-szkey="byb.sz1" onclick="pickSize(this)" data-i18n="byb.sz1">Küçük</button>
+          <button class="seg on" aria-pressed="true" data-szkey="byb.sz2" onclick="pickSize(this)" data-i18n="byb.sz2">Orta</button>
+          <button class="seg" aria-pressed="false" data-szkey="byb.sz3" onclick="pickSize(this)" data-i18n="byb.sz3">Aile</button>
+        </div>
+
+        <p class="byb-sum"><span class="text-[#C9A45C]" aria-hidden="true">●</span><span id="byb-sum-text" aria-live="polite">2 kesim · Orta</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DELIVERY CHECK ══════════
+  Ön yüz simülasyonu: 10–14 ile başlayan 5 haneli kodlar "planlanıyor" yanıtı
+  alır; backend bağlanınca checkDelivery() içindeki kural gerçek servisle
+  değiştirilebilir. -->
+<section class="py-20 sm:py-28 px-4" id="delivery-check">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="dchk.h2">Bölgenizde Teslimatı Kontrol Edin</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="dchk.sub">Posta kodunuzu girin, taze helal et teslimatının size ulaşıp ulaşmadığını görün.</p>
+
+    <div class="byb-panel max-w-2xl mx-auto">
+      <form class="flex flex-col sm:flex-row gap-3" onsubmit="checkDelivery(event)">
+        <input class="finput" style="flex:1" type="text" id="dchk-input" inputmode="numeric" autocomplete="postal-code"
+               placeholder="Posta kodunuzu girin" data-i18n-ph="dchk.ph" aria-label="Posta kodunuzu girin" data-i18n-aria="dchk.ph" />
+        <button type="submit" class="btn-primary dchk-btn" data-i18n="dchk.btn">Teslimatı Kontrol Et</button>
+      </form>
+      <p class="text-[#B8AFA6] text-xs mt-4" data-i18n="dchk.help">Şu anda Berlin ve çevresinde teslimat hazırlıkları sürüyor.</p>
+      <div class="dchk-result" id="dchk-result" aria-live="polite">
+        <span class="dchk-ic" id="dchk-icon" aria-hidden="true">✓</span>
+        <span>
+          <span id="dchk-text"></span>
+          <a id="dchk-mail" hidden href="mailto:info@steakdrop.com?subject=Steak%20Drop%20Waiting%20List" class="underline underline-offset-2 ms-1">info@steakdrop.com</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ QUALITY PROMISE ══════════ -->
+<section class="py-20 sm:py-28 px-4 bg-[#16100E]" id="promise">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="qp.h2">Helal. Taze. Özenle Hazırlanır.</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="qp.sub">Kaliteli helal et; özenle hazırlanır, tazelik odağıyla teslim edilir.</p>
+
+    <div class="grid lg:grid-cols-5 gap-8 lg:gap-12">
+
+      <!-- Görsel kart (placeholder — marka/atölye fotoğrafıyla değiştirilebilir) -->
+      <div class="qp-visual lg:col-span-2">
+        <div class="qp-caption">
+          <div class="flex items-center gap-2.5">
+            <img src="brand_assets/logo-icon-180.png" alt="" aria-hidden="true" class="h-8 w-auto rounded-lg" style="background:#F5EFE7;padding:3px" />
+            <div class="leading-none">
+              <p class="text-white text-sm" style="letter-spacing:0.06em"><strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span></p>
+              <p class="text-white/60 text-[0.6875rem] uppercase mt-0.5" style="letter-spacing:0.10em">Fresh, Fast, Halal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 söz bloğu -->
+      <div class="lg:col-span-3 grid sm:grid-cols-2 gap-x-10 gap-y-10 content-center">
+
+        <div class="qp-item flex items-start gap-4">
+          <span class="qp-num" aria-hidden="true" data-i18n="qp.n1">1</span>
+          <div>
+            <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="qp.q1.h">Güvenilir Helal Tedarik</h3>
+            <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="qp.q1.p">Kalitenin, özenin ve güvenin önemini bilen, helal odaklı tedarikçiler ve kasaplarla çalışıyoruz.</p>
+          </div>
+        </div>
+
+        <div class="qp-item flex items-start gap-4">
+          <span class="qp-num" aria-hidden="true" data-i18n="qp.n2">2</span>
+          <div>
+            <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="qp.q2.h">Taze Hazırlık</h3>
+            <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="qp.q2.p">Her sipariş; hijyene, tazeliğe ve temiz sunuma dikkat edilerek hazırlanır.</p>
+          </div>
+        </div>
+
+        <div class="qp-item flex items-start gap-4">
+          <span class="qp-num" aria-hidden="true" data-i18n="qp.n3">3</span>
+          <div>
+            <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="qp.q3.h">Teslimat İçin Paketleme</h3>
+            <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="qp.q3.p">Etiniz, hazırlıktan kapınıza kadar tazeliğini korumasına yardımcı olacak şekilde özenle paketlenir.</p>
+          </div>
+        </div>
+
+        <div class="qp-item flex items-start gap-4">
+          <span class="qp-num" aria-hidden="true" data-i18n="qp.n4">4</span>
+          <div>
+            <h3 class="fd text-lg font-bold mb-2" style="letter-spacing:-0.02em" data-i18n="qp.q4.h">Ev Mutfağı İçin</h3>
+            <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="qp.q4.p">Haftalık yemeklerden mangal gecelerine; seçkilerimiz gerçek mutfaklar ve günlük pişirme için tasarlandı.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
@@ -492,12 +1078,87 @@
   <span class="fab-badge" id="fab-badge">0</span>
 </button>
 
+<!-- ══════════ MOBILE STICKY CTA (yalnızca mobil) ══════════ -->
+<div class="mcta mcta-hidden" id="mcta">
+  <p class="mcta-sub" data-i18n="mcta.sub">Berlin'de taze helal et teslimatı</p>
+  <a href="#build" class="mcta-btn" data-i18n="mcta.btn">Kutunu Oluştur</a>
+</div>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="py-20 sm:py-28 px-4 bg-[#16100E]" id="faq">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="faq.h2">Sık Sorulan Sorular</h2>
+    <p class="text-center text-[#B8AFA6] text-sm mb-12" data-i18n="faq.sub">Taze helal et siparişi vermeden önce bilmeniz gereken her şey.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q1.q">Et helal mi?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q1.a">Ürünlerimiz helal odaklı tedarikçilerden ve kasaplardan temin edilir. Hizmetimizi güven, kalite ve helal standartları üzerine inşa ediyoruz.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q2.q">Nereye teslimat yapıyorsunuz?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q2.a">Berlin ve çevresinde teslimat hazırlıkları sürüyor. Bölgenizin kapsamda olup olmadığını posta kodu kontrolüyle görebilirsiniz.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q3.q">Et taze mi, dondurulmuş mu?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q3.a">Hedefimiz, teslimat için özenle paketlenmiş taze helal et sunmak. Ürüne özel detaylar her ürün sayfasında yer alacak.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q4.q">Et nasıl paketleniyor?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q4.a">Siparişler; tazeliğin korunmasına yardımcı olacak ve teslimatta temiz bir sunum sağlayacak şekilde özenle paketlenir.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q5.q">Mangal kutusu sipariş edebilir miyim?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q5.a">Evet; mangal geceleri, davetler ve aile yemekleri için özenle hazırlanan mangal kutuları planlanıyor.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q6.q">Kendi kutumu oluşturabilir miyim?</span>
+        <span class="faq-x" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" aria-hidden="true"><div class="faq-a-in">
+        <p data-i18n="faq.q6.a">Evet; "Kutunu Oluştur" seçeneği, mutfağınıza uyan kesimleri ve kutu boyutunu seçebilmeniz için tasarlandı.</p>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="bg-[#16100E] border-t border-[rgba(201,164,92,0.14)]">
   <div class="max-w-6xl mx-auto px-4 py-12 grid gap-10 sm:grid-cols-3">
     <div>
       <div class="flex items-center gap-2.5 mb-3">
-        <img src="brand_assets/logo-icon.png" alt="" aria-hidden="true" class="h-9 w-auto rounded-lg" style="background:#F5EFE7;padding:3px" />
+        <img src="brand_assets/logo-icon-180.png" alt="" aria-hidden="true" class="h-9 w-auto rounded-lg" style="background:#F5EFE7;padding:3px" />
         <p class="text-white text-base" style="letter-spacing:0.06em"><strong style="font-weight:800">STEAK</strong><span style="font-weight:400"> DROP</span></p>
       </div>
       <p class="text-white/60 text-sm leading-relaxed" data-i18n="footer.tagline">Berlin içi taze, %100 helal et teslimatı. Mezbahadan kapınıza 24 saatte.</p>
@@ -601,6 +1262,75 @@ const T = {
     'footer.privacy':'Gizlilik (Datenschutz)',
     'footer.copy':'© 2026 Steak Drop — MVP prototip sürümü.',
     'legal.draft':'Taslak içerik — yayından önce tamamlanmalıdır.',
+    'hiw.h2':'Nasıl Çalışır?',
+    'hiw.sub':'Taze helal et, üç basit adımda kapınızda.',
+    'hiw.s1.n':'01','hiw.s1.h':'Etinizi Seçin',
+    'hiw.s1.p':'Taze helal kesimler, mangal kutuları veya haftalık aile et kutuları arasından seçim yapın.',
+    'hiw.s2.n':'02','hiw.s2.h':'Taze Hazırlıyoruz',
+    'hiw.s2.p':'Siparişiniz hijyen ve tazelik gözetilerek özenle paketlenir.',
+    'hiw.s3.n':'03','hiw.s3.h':'Kapınıza Teslim',
+    'hiw.s3.p':'Etiniz tazeliğini koruyan pratik ambalajıyla evinize teslim edilir.',
+    'cat.h2':'Kategorilere Göz Atın',
+    'cat.sub':'Her öğün için taze helal kesimler ve özenle hazırlanmış et kutuları.',
+    'cat.cta':'Keşfet',
+    'cat.beef.h':'Dana Eti','cat.beef.p':'Günlük yemekler ve özel sofralar için premium dana kesimleri.',
+    'cat.lamb.h':'Kuzu Eti','cat.lamb.p':'Zengin, geleneksel yemekler için taze helal kuzu kesimleri.',
+    'cat.chicken.h':'Tavuk','cat.chicken.p':'Günlük yemekler için temiz ve çok yönlü helal tavuk.',
+    'cat.mince.h':'Kıyma','cat.mince.p':'Köfte, burger, makarna ve aile tarifleri için ideal.',
+    'cat.bbq.h':'Mangal Kutuları','cat.bbq.p':'Mangal geceleri için özenle seçilmiş helal et çeşitleri.',
+    'cat.family.h':'Aile Kutuları','cat.family.p':'Ev yemekleri için haftalık helal et paketleri.',
+    'box.h2':'Özenle Hazırlanan Et Kutuları',
+    'box.sub':'Haftalık yemekleriniz, mangal geceleriniz ve aile sofralarınız için hazırlanan taze helal seçkiler.',
+    'box.cta':'Kutuyu İncele','box.soon':'Yakında',
+    'box.b1.h':'Günlük Kutu','box.b1.p':'Haftalık pratik yemekler için dengeli bir helal et seçkisi.','box.b1.badge':'Haftanın Favorisi',
+    'box.b2.h':'Mangal Kutusu','box.b2.p':'Hafta sonları, davetler ve yaz geceleri için mangala hazır helal kesimler.','box.b2.badge':'Mangalın Yıldızı',
+    'box.b3.h':'Aile Kutusu','box.b3.p':'Ev yemekleri ve aile sofraları için pratik bir helal et paketi.','box.b3.badge':'En Avantajlı',
+    'box.b4.h':'Premium Steak Kutusu','box.b4.p':'Özel akşam yemekleri için seçilmiş premium kesimler.','box.b4.badge':'Premium',
+    'byb.h2':'Kendi Kutunu Oluştur',
+    'byb.sub':'Sevdiğiniz helal kesimleri seçin, mutfağınıza uyan kutuyu oluşturun.',
+    'byb.desc':'Evinizde ne pişiyorsa onu seçin — hazır kalıp yok, israf yok. Kutunuz, seçiminiz.',
+    'byb.n1':'1','byb.n2':'2','byb.n3':'3',
+    'byb.s1':'Kesimlerinizi seçin','byb.s2':'Kutu boyunuzu belirleyin','byb.s3':'Teslimat bölgenizi seçin',
+    'byb.cta':'Oluşturmaya Başla',
+    'byb.box.h':'Kutunuz','byb.items.label':'Kesimler','byb.size.label':'Kutu Boyu',
+    'byb.i1':'Dana Kesimleri','byb.i2':'Tavuk','byb.i3':'Kıyma','byb.i4':'Kuzu','byb.i5':'Mangal Seçkisi',
+    'byb.sz1':'Küçük','byb.sz2':'Orta','byb.sz3':'Aile',
+    'byb.sum':'{n} kesim · {s}','byb.sum0':'Henüz kesim seçilmedi',
+    'dchk.h2':'Bölgenizde Teslimatı Kontrol Edin',
+    'dchk.sub':'Posta kodunuzu girin, taze helal et teslimatının size ulaşıp ulaşmadığını görün.',
+    'dchk.ph':'Posta kodunuzu girin',
+    'dchk.btn':'Teslimatı Kontrol Et',
+    'dchk.help':'Şu anda Berlin ve çevresinde teslimat hazırlıkları sürüyor.',
+    'dchk.ok':'Müjde — bölgeniz için teslimat planlanıyor.',
+    'dchk.soon':'Yakında genişliyoruz. Gelişmeler için bekleme listesine katılın:',
+    'dchk.warn':'Lütfen bir posta kodu girin.',
+    'qp.h2':'Helal. Taze. Özenle Hazırlanır.',
+    'qp.sub':'Kaliteli helal et; özenle hazırlanır, tazelik odağıyla teslim edilir.',
+    'qp.n1':'1','qp.n2':'2','qp.n3':'3','qp.n4':'4',
+    'qp.q1.h':'Güvenilir Helal Tedarik',
+    'qp.q1.p':'Kalitenin, özenin ve güvenin önemini bilen, helal odaklı tedarikçiler ve kasaplarla çalışıyoruz.',
+    'qp.q2.h':'Taze Hazırlık',
+    'qp.q2.p':'Her sipariş; hijyene, tazeliğe ve temiz sunuma dikkat edilerek hazırlanır.',
+    'qp.q3.h':'Teslimat İçin Paketleme',
+    'qp.q3.p':'Etiniz, hazırlıktan kapınıza kadar tazeliğini korumasına yardımcı olacak şekilde özenle paketlenir.',
+    'qp.q4.h':'Ev Mutfağı İçin',
+    'qp.q4.p':'Haftalık yemeklerden mangal gecelerine; seçkilerimiz gerçek mutfaklar ve günlük pişirme için tasarlandı.',
+    'mcta.btn':'Kutunu Oluştur',
+    'mcta.sub':'Berlin\'de taze helal et teslimatı',
+    'faq.h2':'Sık Sorulan Sorular',
+    'faq.sub':'Taze helal et siparişi vermeden önce bilmeniz gereken her şey.',
+    'faq.q1.q':'Et helal mi?',
+    'faq.q1.a':'Ürünlerimiz helal odaklı tedarikçilerden ve kasaplardan temin edilir. Hizmetimizi güven, kalite ve helal standartları üzerine inşa ediyoruz.',
+    'faq.q2.q':'Nereye teslimat yapıyorsunuz?',
+    'faq.q2.a':'Berlin ve çevresinde teslimat hazırlıkları sürüyor. Bölgenizin kapsamda olup olmadığını posta kodu kontrolüyle görebilirsiniz.',
+    'faq.q3.q':'Et taze mi, dondurulmuş mu?',
+    'faq.q3.a':'Hedefimiz, teslimat için özenle paketlenmiş taze helal et sunmak. Ürüne özel detaylar her ürün sayfasında yer alacak.',
+    'faq.q4.q':'Et nasıl paketleniyor?',
+    'faq.q4.a':'Siparişler; tazeliğin korunmasına yardımcı olacak ve teslimatta temiz bir sunum sağlayacak şekilde özenle paketlenir.',
+    'faq.q5.q':'Mangal kutusu sipariş edebilir miyim?',
+    'faq.q5.a':'Evet; mangal geceleri, davetler ve aile yemekleri için özenle hazırlanan mangal kutuları planlanıyor.',
+    'faq.q6.q':'Kendi kutumu oluşturabilir miyim?',
+    'faq.q6.a':'Evet; "Kutunu Oluştur" seçeneği, mutfağınıza uyan kesimleri ve kutu boyutunu seçebilmeniz için tasarlandı.',
   },
   de: {
     'hero.h1':'Premium-Halal-Fleisch, frisch geliefert',
@@ -665,6 +1395,75 @@ const T = {
     'footer.privacy':'Datenschutzerklärung',
     'footer.copy':'© 2026 Steak Drop — MVP-Prototyp.',
     'legal.draft':'Entwurf — vor Veröffentlichung zu vervollständigen.',
+    'hiw.h2':'So funktioniert’s',
+    'hiw.sub':'Frisches Halal-Fleisch in drei einfachen Schritten an Ihre Tür.',
+    'hiw.s1.n':'01','hiw.s1.h':'Fleisch auswählen',
+    'hiw.s1.p':'Wählen Sie frische Halal-Cuts, BBQ-Boxen oder wöchentliche Familien-Fleischboxen.',
+    'hiw.s2.n':'02','hiw.s2.h':'Frisch zubereitet',
+    'hiw.s2.p':'Ihre Bestellung wird sorgfältig verpackt — mit Blick auf Hygiene und Frische.',
+    'hiw.s3.n':'03','hiw.s3.h':'Bis an Ihre Tür geliefert',
+    'hiw.s3.p':'Sie erhalten Ihr Fleisch bequem nach Hause — frisch und praktisch verpackt.',
+    'cat.h2':'Nach Kategorie einkaufen',
+    'cat.sub':'Frische Halal-Cuts und kuratierte Fleischboxen für jede Mahlzeit.',
+    'cat.cta':'Entdecken',
+    'cat.beef.h':'Rind','cat.beef.p':'Premium-Rindfleisch für den Alltag und besondere Anlässe.',
+    'cat.lamb.h':'Lamm','cat.lamb.p':'Frisches Halal-Lamm für reichhaltige, traditionelle Gerichte.',
+    'cat.chicken.h':'Hähnchen','cat.chicken.p':'Sauberes, vielseitiges Halal-Hähnchen für die tägliche Küche.',
+    'cat.mince.h':'Hackfleisch','cat.mince.p':'Ideal für Köfte, Burger, Pasta und Familienrezepte.',
+    'cat.bbq.h':'BBQ-Boxen','cat.bbq.p':'Kuratierte Halal-Fleischauswahl für Grillabende.',
+    'cat.family.h':'Familien-Boxen','cat.family.p':'Wöchentliche Halal-Fleischpakete fürs Kochen zu Hause.',
+    'box.h2':'Kuratierte Fleischboxen',
+    'box.sub':'Frische Halal-Auswahlen für Ihre Wochenküche, Grillabende und Familienessen.',
+    'box.cta':'Box ansehen','box.soon':'Bald verfügbar',
+    'box.b1.h':'Alltags-Box','box.b1.p':'Eine ausgewogene Halal-Fleischauswahl für die einfache Wochenküche.','box.b1.badge':'Wochen-Favorit',
+    'box.b2.h':'BBQ-Box','box.b2.p':'Grillfertige Halal-Cuts für Wochenenden, Feiern und Sommerabende.','box.b2.badge':'Ideal zum Grillen',
+    'box.b3.h':'Familien-Box','box.b3.p':'Ein praktisches Halal-Fleischpaket für die Familienküche.','box.b3.badge':'Preis-Tipp',
+    'box.b4.h':'Premium-Steak-Box','box.b4.p':'Ausgewählte Premium-Cuts für besondere Abendessen.','box.b4.badge':'Premium',
+    'byb.h2':'Stellen Sie Ihre eigene Box zusammen',
+    'byb.sub':'Wählen Sie Ihre liebsten Halal-Cuts und stellen Sie eine Box zusammen, die zu Ihrer Küche passt.',
+    'byb.desc':'Wählen Sie genau das, was bei Ihnen gekocht wird — keine festen Pakete, keine Verschwendung. Ihre Box, Ihre Wahl.',
+    'byb.n1':'1','byb.n2':'2','byb.n3':'3',
+    'byb.s1':'Cuts auswählen','byb.s2':'Boxgröße wählen','byb.s3':'Liefergebiet auswählen',
+    'byb.cta':'Jetzt zusammenstellen',
+    'byb.box.h':'Ihre Box','byb.items.label':'Cuts','byb.size.label':'Boxgröße',
+    'byb.i1':'Rind-Cuts','byb.i2':'Hähnchen','byb.i3':'Hackfleisch','byb.i4':'Lamm','byb.i5':'BBQ-Auswahl',
+    'byb.sz1':'Klein','byb.sz2':'Mittel','byb.sz3':'Familie',
+    'byb.sum':'{n} Cuts · {s}','byb.sum0':'Noch keine Cuts ausgewählt',
+    'dchk.h2':'Liefergebiet prüfen',
+    'dchk.sub':'Geben Sie Ihre PLZ ein und sehen Sie, ob frische Halal-Fleischlieferung bei Ihnen verfügbar ist.',
+    'dchk.ph':'PLZ eingeben',
+    'dchk.btn':'Lieferung prüfen',
+    'dchk.help':'Wir bereiten die Lieferung in Berlin und Umgebung derzeit vor.',
+    'dchk.ok':'Gute Nachricht — die Lieferung ist für Ihre Gegend geplant.',
+    'dchk.soon':'Wir erweitern bald. Tragen Sie sich für Updates in die Warteliste ein:',
+    'dchk.warn':'Bitte geben Sie eine PLZ ein.',
+    'qp.h2':'Halal. Frisch. Sorgfältig zubereitet.',
+    'qp.sub':'Hochwertiges Halal-Fleisch — mit Sorgfalt zubereitet und mit Blick auf Frische geliefert.',
+    'qp.n1':'1','qp.n2':'2','qp.n3':'3','qp.n4':'4',
+    'qp.q1.h':'Vertrauensvolle Halal-Beschaffung',
+    'qp.q1.p':'Wir arbeiten mit halal-orientierten Lieferanten und Metzgern, die wissen, worauf es bei Qualität, Sorgfalt und Vertrauen ankommt.',
+    'qp.q2.h':'Frische Zubereitung',
+    'qp.q2.p':'Jede Bestellung wird mit Blick auf Hygiene, Frische und saubere Präsentation vorbereitet.',
+    'qp.q3.h':'Sorgfältig verpackt',
+    'qp.q3.p':'Ihr Fleisch wird sorgfältig verpackt, damit die Frische von der Vorbereitung bis zu Ihrer Haustür erhalten bleibt.',
+    'qp.q4.h':'Für die heimische Küche',
+    'qp.q4.p':'Von Wochengerichten bis zu Grillabenden — unsere Auswahl ist für echte Küchen und den Alltag gemacht.',
+    'mcta.btn':'Box zusammenstellen',
+    'mcta.sub':'Frisches Halal-Fleisch — geliefert in Berlin',
+    'faq.h2':'Häufige Fragen',
+    'faq.sub':'Alles, was Sie vor der Bestellung von frischem Halal-Fleisch wissen müssen.',
+    'faq.q1.q':'Ist das Fleisch halal?',
+    'faq.q1.a':'Unsere Produkte stammen von halal-orientierten Lieferanten und Metzgern. Wir bauen unseren Service auf Vertrauen, Qualität und Halal-Standards auf.',
+    'faq.q2.q':'Wohin liefern Sie?',
+    'faq.q2.a':'Wir bereiten die Lieferung in Berlin und Umgebung vor. Mit dem PLZ-Check sehen Sie, ob Ihre Gegend dabei ist.',
+    'faq.q3.q':'Ist das Fleisch frisch oder gefroren?',
+    'faq.q3.a':'Unser Ziel ist frisches Halal-Fleisch, sorgfältig für die Lieferung verpackt. Produktdetails werden auf jeder Produktseite angegeben.',
+    'faq.q4.q':'Wie wird das Fleisch verpackt?',
+    'faq.q4.a':'Bestellungen werden sorgfältig verpackt, um die Frische zu bewahren und eine saubere Präsentation bei der Lieferung sicherzustellen.',
+    'faq.q5.q':'Kann ich BBQ-Boxen bestellen?',
+    'faq.q5.a':'Ja, kuratierte BBQ-Boxen sind für Grillabende, Treffen und Familienessen geplant.',
+    'faq.q6.q':'Kann ich meine eigene Box zusammenstellen?',
+    'faq.q6.a':'Ja, die Option „Box zusammenstellen“ ist dafür gedacht, dass Sie Cuts und Boxgröße passend zu Ihrer Küche wählen.',
   },
   en: {
     'hero.h1':'Premium Halal Meat, Delivered Fresh',
@@ -729,6 +1528,75 @@ const T = {
     'footer.privacy':'Privacy Policy',
     'footer.copy':'© 2026 Steak Drop — MVP prototype.',
     'legal.draft':'Draft — must be completed before launch.',
+    'hiw.h2':'How It Works',
+    'hiw.sub':'Fresh halal meat delivered to your door in three simple steps.',
+    'hiw.s1.n':'01','hiw.s1.h':'Choose Your Meat',
+    'hiw.s1.p':'Select fresh halal cuts, BBQ boxes, or weekly family meat boxes.',
+    'hiw.s2.n':'02','hiw.s2.h':'We Prepare It Fresh',
+    'hiw.s2.p':'Your order is carefully packed with hygiene and freshness in mind.',
+    'hiw.s3.n':'03','hiw.s3.h':'Delivered to Your Door',
+    'hiw.s3.p':'Receive your meat at home, packed for freshness and convenience.',
+    'cat.h2':'Shop by Category',
+    'cat.sub':'Choose fresh halal cuts and curated meat boxes for every meal.',
+    'cat.cta':'Explore',
+    'cat.beef.h':'Beef','cat.beef.p':'Premium beef cuts for everyday cooking and special dinners.',
+    'cat.lamb.h':'Lamb','cat.lamb.p':'Fresh halal lamb cuts prepared for rich, traditional meals.',
+    'cat.chicken.h':'Chicken','cat.chicken.p':'Clean, versatile halal chicken for daily cooking.',
+    'cat.mince.h':'Minced Meat','cat.mince.p':'Perfect for köfte, burgers, pasta, and family recipes.',
+    'cat.bbq.h':'BBQ Boxes','cat.bbq.p':'Curated halal meat selections for grill nights.',
+    'cat.family.h':'Family Boxes','cat.family.p':'Weekly halal meat bundles for home cooking.',
+    'box.h2':'Curated Meat Boxes',
+    'box.sub':'Fresh halal selections prepared for your weekly meals, BBQ nights, and family dinners.',
+    'box.cta':'View Box','box.soon':'Coming soon',
+    'box.b1.h':'Everyday Box','box.b1.p':'A balanced halal meat selection for simple weekly cooking.','box.b1.badge':'Weekly Favorite',
+    'box.b2.h':'BBQ Box','box.b2.p':'Grill-ready halal cuts for weekends, gatherings, and summer nights.','box.b2.badge':'Best for Grill',
+    'box.b3.h':'Family Box','box.b3.p':'A practical halal meat bundle for home cooking and family meals.','box.b3.badge':'Best Value',
+    'box.b4.h':'Premium Steak Box','box.b4.p':'Selected premium cuts for special dinners and high-quality meals.','box.b4.badge':'Premium',
+    'byb.h2':'Build Your Own Box',
+    'byb.sub':'Choose your favorite halal cuts and create a box that fits your kitchen.',
+    'byb.desc':'Pick exactly what your household cooks — no fixed bundles, no waste. Your box, your choice.',
+    'byb.n1':'1','byb.n2':'2','byb.n3':'3',
+    'byb.s1':'Pick your cuts','byb.s2':'Choose your box size','byb.s3':'Select delivery area',
+    'byb.cta':'Start Building',
+    'byb.box.h':'Your Box','byb.items.label':'Cuts','byb.size.label':'Box Size',
+    'byb.i1':'Beef Cuts','byb.i2':'Chicken','byb.i3':'Minced Meat','byb.i4':'Lamb','byb.i5':'BBQ Selection',
+    'byb.sz1':'Small','byb.sz2':'Medium','byb.sz3':'Family',
+    'byb.sum':'{n} cuts · {s}','byb.sum0':'No cuts selected yet',
+    'dchk.h2':'Check Delivery in Your Area',
+    'dchk.sub':'Enter your postcode to see if fresh halal meat delivery is available near you.',
+    'dchk.ph':'Enter your postcode',
+    'dchk.btn':'Check Delivery',
+    'dchk.help':'Currently preparing delivery across Berlin and nearby areas.',
+    'dchk.ok':'Good news — delivery is planned for your area.',
+    'dchk.soon':'We are expanding soon. Join the waiting list for updates:',
+    'dchk.warn':'Please enter a postcode.',
+    'qp.h2':'Halal. Fresh. Carefully Prepared.',
+    'qp.sub':'Quality halal meat, prepared with care and delivered with freshness in mind.',
+    'qp.n1':'1','qp.n2':'2','qp.n3':'3','qp.n4':'4',
+    'qp.q1.h':'Trusted Halal Sourcing',
+    'qp.q1.p':'We work with halal-focused suppliers and butchers who understand the importance of quality, care, and trust.',
+    'qp.q2.h':'Fresh Preparation',
+    'qp.q2.p':'Every order is prepared with attention to hygiene, freshness, and clean presentation.',
+    'qp.q3.h':'Packed for Delivery',
+    'qp.q3.p':'Your meat is packed carefully to help preserve freshness from preparation to your doorstep.',
+    'qp.q4.h':'Made for Home Cooking',
+    'qp.q4.p':'From weekly meals to BBQ nights, our selections are designed for real kitchens and everyday cooking.',
+    'mcta.btn':'Build Your Box',
+    'mcta.sub':'Fresh halal meat delivered in Berlin',
+    'faq.h2':'Frequently Asked Questions',
+    'faq.sub':'Everything you need to know before ordering fresh halal meat.',
+    'faq.q1.q':'Is the meat halal?',
+    'faq.q1.a':'Our products are sourced from halal-focused suppliers and butchers. We are building our service around trust, quality, and halal standards.',
+    'faq.q2.q':'Where do you deliver?',
+    'faq.q2.a':'We are preparing delivery across Berlin and nearby areas. You can use the postcode checker to see if your area is included.',
+    'faq.q3.q':'Is the meat fresh or frozen?',
+    'faq.q3.a':'Our goal is to provide fresh halal meat packed carefully for delivery. Specific product details will be shown on each product page.',
+    'faq.q4.q':'How is the meat packed?',
+    'faq.q4.a':'Orders are packed carefully to help preserve freshness and ensure clean presentation during delivery.',
+    'faq.q5.q':'Can I order BBQ boxes?',
+    'faq.q5.a':'Yes, curated BBQ boxes are planned for grill nights, gatherings, and family meals.',
+    'faq.q6.q':'Can I build my own box?',
+    'faq.q6.a':'Yes, the Build Your Box option is designed to let customers choose the cuts and box size that fit their kitchen.',
   },
   ar: {
     'hero.h1':'لحوم حلال فاخرة تصلك طازجة',
@@ -793,6 +1661,75 @@ const T = {
     'footer.privacy':'سياسة الخصوصية',
     'footer.copy':'© 2026 ستيك دروب — نسخة MVP تجريبية.',
     'legal.draft':'مسودة — يجب استكمالها قبل النشر.',
+    'hiw.h2':'كيف يعمل؟',
+    'hiw.sub':'لحوم حلال طازجة تصل إلى بابك في ثلاث خطوات بسيطة.',
+    'hiw.s1.n':'٠١','hiw.s1.h':'اختر لحومك',
+    'hiw.s1.p':'اختر من القطع الحلال الطازجة أو صناديق الشواء أو صناديق اللحوم العائلية الأسبوعية.',
+    'hiw.s2.n':'٠٢','hiw.s2.h':'نحضّره طازجاً',
+    'hiw.s2.p':'يتم تجهيز طلبك وتغليفه بعناية مع مراعاة النظافة والطزاجة.',
+    'hiw.s3.n':'٠٣','hiw.s3.h':'يصل إلى بابك',
+    'hiw.s3.p':'استلم لحومك في المنزل، معبأة لتحافظ على طزاجتها وسهولة استخدامها.',
+    'cat.h2':'تسوق حسب الفئة',
+    'cat.sub':'اختر قطعاً حلالاً طازجة وصناديق لحوم منسقة لكل وجبة.',
+    'cat.cta':'استكشف',
+    'cat.beef.h':'لحم البقر','cat.beef.p':'قطع بقري فاخرة للطبخ اليومي والعزائم المميزة.',
+    'cat.lamb.h':'لحم الضأن','cat.lamb.p':'قطع ضأن حلال طازجة لأطباق غنية وتقليدية.',
+    'cat.chicken.h':'دجاج','cat.chicken.p':'دجاج حلال نظيف ومتعدد الاستخدامات للطبخ اليومي.',
+    'cat.mince.h':'لحم مفروم','cat.mince.p':'مثالي للكفتة والبرغر والمعكرونة ووصفات العائلة.',
+    'cat.bbq.h':'صناديق الشواء','cat.bbq.p':'تشكيلات لحوم حلال منسقة لليالي الشواء.',
+    'cat.family.h':'صناديق العائلة','cat.family.p':'باقات لحوم حلال أسبوعية للطبخ المنزلي.',
+    'box.h2':'صناديق لحوم منسقة',
+    'box.sub':'تشكيلات حلال طازجة مُعدّة لوجباتك الأسبوعية وليالي الشواء وعشاء العائلة.',
+    'box.cta':'عرض الصندوق','box.soon':'قريباً',
+    'box.b1.h':'الصندوق اليومي','box.b1.p':'تشكيلة لحوم حلال متوازنة للطبخ الأسبوعي البسيط.','box.b1.badge':'المفضل أسبوعياً',
+    'box.b2.h':'صندوق الشواء','box.b2.p':'قطع حلال جاهزة للشواء لعطلات نهاية الأسبوع والتجمعات وليالي الصيف.','box.b2.badge':'الأفضل للشواء',
+    'box.b3.h':'صندوق العائلة','box.b3.p':'باقة لحوم حلال عملية للطبخ المنزلي ووجبات العائلة.','box.b3.badge':'الأفضل قيمة',
+    'box.b4.h':'صندوق الستيك الفاخر','box.b4.p':'قطع فاخرة مختارة للعشاء المميز والوجبات الراقية.','box.b4.badge':'فاخر',
+    'byb.h2':'اصنع صندوقك بنفسك',
+    'byb.sub':'اختر قطعك الحلال المفضلة وأنشئ صندوقاً يناسب مطبخك.',
+    'byb.desc':'اختر ما يُطبخ في بيتك بالضبط — لا باقات جاهزة ولا هدر. صندوقك، خيارك.',
+    'byb.n1':'١','byb.n2':'٢','byb.n3':'٣',
+    'byb.s1':'اختر قطعك','byb.s2':'حدد حجم الصندوق','byb.s3':'اختر منطقة التوصيل',
+    'byb.cta':'ابدأ التجميع',
+    'byb.box.h':'صندوقك','byb.items.label':'القطع','byb.size.label':'حجم الصندوق',
+    'byb.i1':'قطع بقرية','byb.i2':'دجاج','byb.i3':'لحم مفروم','byb.i4':'ضأن','byb.i5':'تشكيلة الشواء',
+    'byb.sz1':'صغير','byb.sz2':'متوسط','byb.sz3':'عائلي',
+    'byb.sum':'{n} قطع · {s}','byb.sum0':'لم تُختر أي قطع بعد',
+    'dchk.h2':'تحقق من التوصيل في منطقتك',
+    'dchk.sub':'أدخل رمزك البريدي لمعرفة ما إذا كان توصيل اللحوم الحلال الطازجة متاحاً بالقرب منك.',
+    'dchk.ph':'أدخل الرمز البريدي',
+    'dchk.btn':'تحقق من التوصيل',
+    'dchk.help':'نستعد حالياً للتوصيل في برلين والمناطق المجاورة.',
+    'dchk.ok':'خبر سار — التوصيل مخطط له في منطقتك.',
+    'dchk.soon':'نتوسع قريباً. انضم إلى قائمة الانتظار لتصلك التحديثات:',
+    'dchk.warn':'يرجى إدخال رمز بريدي.',
+    'qp.h2':'حلال. طازج. مُحضّر بعناية.',
+    'qp.sub':'لحوم حلال عالية الجودة، تُحضّر بعناية وتُسلّم مع الحرص على الطزاجة.',
+    'qp.n1':'١','qp.n2':'٢','qp.n3':'٣','qp.n4':'٤',
+    'qp.q1.h':'مصادر حلال موثوقة',
+    'qp.q1.p':'نعمل مع مورّدين وجزّارين متخصصين في الحلال يدركون أهمية الجودة والعناية والثقة.',
+    'qp.q2.h':'تحضير طازج',
+    'qp.q2.p':'يُحضَّر كل طلب مع الاهتمام بالنظافة والطزاجة والتقديم الأنيق.',
+    'qp.q3.h':'معبأ للتوصيل',
+    'qp.q3.p':'تُعبأ لحومك بعناية للمساعدة في الحفاظ على طزاجتها من التحضير حتى باب منزلك.',
+    'qp.q4.h':'مصمم للطبخ المنزلي',
+    'qp.q4.p':'من الوجبات الأسبوعية إلى ليالي الشواء، تشكيلاتنا مصممة للمطابخ الحقيقية والطبخ اليومي.',
+    'mcta.btn':'اصنع صندوقك',
+    'mcta.sub':'لحوم حلال طازجة تصل إليك في برلين',
+    'faq.h2':'الأسئلة الشائعة',
+    'faq.sub':'كل ما تحتاج معرفته قبل طلب اللحوم الحلال الطازجة.',
+    'faq.q1.q':'هل اللحوم حلال؟',
+    'faq.q1.a':'تُورَّد منتجاتنا من مورّدين وجزّارين متخصصين في الحلال. نبني خدمتنا على الثقة والجودة ومعايير الحلال.',
+    'faq.q2.q':'أين توصلون؟',
+    'faq.q2.a':'نستعد للتوصيل في برلين والمناطق المجاورة. يمكنك استخدام فاحص الرمز البريدي لمعرفة ما إذا كانت منطقتك مشمولة.',
+    'faq.q3.q':'هل اللحوم طازجة أم مجمدة؟',
+    'faq.q3.a':'هدفنا تقديم لحوم حلال طازجة معبأة بعناية للتوصيل. ستُعرض التفاصيل الخاصة بكل منتج في صفحته.',
+    'faq.q4.q':'كيف تُعبأ اللحوم؟',
+    'faq.q4.a':'تُعبأ الطلبات بعناية للمساعدة في الحفاظ على الطزاجة وضمان تقديم نظيف أثناء التوصيل.',
+    'faq.q5.q':'هل يمكنني طلب صناديق الشواء؟',
+    'faq.q5.a':'نعم، صناديق الشواء المنسقة مخطط لها لليالي الشواء والتجمعات ووجبات العائلة.',
+    'faq.q6.q':'هل يمكنني تجميع صندوقي الخاص؟',
+    'faq.q6.a':'نعم، صُمم خيار «اصنع صندوقك» ليتيح لك اختيار القطع وحجم الصندوق بما يناسب مطبخك.',
   }
 }
 
@@ -881,6 +1818,8 @@ function setLang(lang) {
   // re-render JS content
   renderProducts()
   renderItems()
+  updateBoxSummary()
+  refreshDeliveryResult()
 }
 
 /* ── Products ────────────────────────────────────── */
@@ -1262,6 +2201,108 @@ if (SCRUB.el && SCRUB.video) {
         .catch(() => {})
     }, { once: true, passive: true })
   }
+}
+
+/* ── Teslimat bölgesi kontrolü ───────────────────── */
+// Ön yüz kuralı: 10–14 ile başlayan 5 haneli kod = Berlin/çevresi ("planlanıyor").
+function checkDelivery(e) {
+  e.preventDefault()
+  const raw = document.getElementById('dchk-input').value
+  const norm = raw.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+  const m = norm.match(/\d{5}/)
+  const box = document.getElementById('dchk-result')
+  const mail = document.getElementById('dchk-mail')
+  box.classList.remove('ok', 'soon', 'warn')
+  mail.hidden = true
+  let state
+  if (!m) state = 'warn'
+  else if (/^1[0-4]/.test(m[0])) state = 'ok'
+  else { state = 'soon'; mail.hidden = false }
+  box.dataset.key = 'dchk.' + state // dil değişiminde yeniden çevrilebilsin
+  box.classList.add('show', state)
+  const icon = document.getElementById('dchk-icon')
+  icon.textContent = state === 'ok' ? '✓' : state === 'soon' ? '→' : '!'
+  icon.classList.toggle('arr', state === 'soon')
+  document.getElementById('dchk-text').textContent = tx(box.dataset.key)
+}
+function refreshDeliveryResult() {
+  const box = document.getElementById('dchk-result')
+  if (box && box.classList.contains('show') && box.dataset.key) {
+    document.getElementById('dchk-text').textContent = tx(box.dataset.key)
+  }
+}
+
+/* ── "Kendi Kutunu Oluştur" mockup etkileşimi ────── */
+// Görsel prototip: seçimler yalnızca arayüz durumudur, sipariş oluşturmaz.
+function toggleChip(btn) {
+  btn.classList.toggle('on')
+  btn.setAttribute('aria-pressed', String(btn.classList.contains('on')))
+  updateBoxSummary()
+}
+function pickSize(btn) {
+  document.querySelectorAll('#byb-sizes .seg').forEach(b => {
+    b.classList.toggle('on', b === btn)
+    b.setAttribute('aria-pressed', String(b === btn))
+  })
+  updateBoxSummary()
+}
+function startBuilding() {
+  const first = document.querySelector('#byb-items .chip')
+  if (first) first.focus()
+}
+function updateBoxSummary() {
+  const el = document.getElementById('byb-sum-text')
+  if (!el) return
+  const n = document.querySelectorAll('#byb-items .chip.on').length
+  const szBtn = document.querySelector('#byb-sizes .seg.on')
+  const sz = szBtn ? tx(szBtn.dataset.szkey) : ''
+  el.textContent = n === 0 ? tx('byb.sum0') : tx('byb.sum').replace('{n}', n).replace('{s}', sz)
+}
+
+/* ── FAQ akordeonu ───────────────────────────────── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item')
+  const open = item.classList.toggle('open')
+  btn.setAttribute('aria-expanded', String(open))
+  item.querySelector('.faq-a').setAttribute('aria-hidden', String(!open))
+}
+
+/* ── Mobil yapışkan CTA ──────────────────────────── */
+// Hero görünürken (kendi CTA'sını örtmesin) ve hedef Build bölümü
+// ekrandayken (gereksiz tekrar olmasın) gizli kalır.
+const mctaBar = document.getElementById('mcta')
+const buildSection = document.getElementById('build')
+const heroSection = document.getElementById('hero')
+if (mctaBar && buildSection && heroSection && 'IntersectionObserver' in window) {
+  const vis = { hero: true, build: false }
+  const applyMcta = () => mctaBar.classList.toggle('mcta-hidden', vis.hero || vis.build)
+  new IntersectionObserver(en => { vis.hero = en[en.length - 1].isIntersecting; applyMcta() },
+    { threshold: 0 }).observe(heroSection)
+  new IntersectionObserver(en => { vis.build = en[en.length - 1].isIntersecting; applyMcta() },
+    { threshold: 0.15 }).observe(buildSection)
+}
+
+/* ── Scroll reveal (adımlar + kategori kartları) ─── */
+// Reduced-motion tercih edenlerde hiç etkinleşmez; JS yoksa öğeler zaten görünür.
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const revealables = document.querySelectorAll('.hiw-step, .ccard, .bcard, .byb-panel, .qp-visual, .qp-item, .faq-item')
+  revealables.forEach(el => el.classList.add('rv'))
+  const rvIO = new IntersectionObserver(entries => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue
+      const el = en.target
+      el.classList.add('rv-in')
+      rvIO.unobserve(el)
+      // Geçiş bitince rv sınıflarını kaldır: kartların kendi hover
+      // transition kuralları yeniden devreye girsin
+      el.addEventListener('transitionend', function h(e) {
+        if (e.propertyName !== 'opacity') return
+        el.removeEventListener('transitionend', h)
+        el.classList.remove('rv', 'rv-in')
+      })
+    }
+  }, { threshold: 0.25 })
+  revealables.forEach(el => rvIO.observe(el))
 }
 
 /* ── Init ────────────────────────────────────────── */
