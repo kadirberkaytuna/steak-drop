@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="40%" r="78%">
+    <stop offset="0%" stop-color="#281C15"/>
+    <stop offset="55%" stop-color="#150E0A"/>
+    <stop offset="100%" stop-color="#0A0605"/>
+  </radialGradient>
+  <radialGradient id="vig" cx="50%" cy="42%" r="72%">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.42"/>
+  </radialGradient>
+  <linearGradient id="tray" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#323236"/>
+    <stop offset="10%" stop-color="#17171A"/>
+    <stop offset="100%" stop-color="#060607"/>
+  </linearGradient>
+  <linearGradient id="trayIn" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#0C0C0E"/>
+    <stop offset="18%" stop-color="#1C1C20"/>
+    <stop offset="100%" stop-color="#0A0A0C"/>
+  </linearGradient>
+  <linearGradient id="meat" x1="0" y1="0" x2="0.8" y2="1">
+    <stop offset="0%" stop-color="#A84838"/>
+    <stop offset="55%" stop-color="#77241B"/>
+    <stop offset="100%" stop-color="#4C130E"/>
+  </linearGradient>
+  <linearGradient id="meatDeep" x1="0" y1="0" x2="0.8" y2="1">
+    <stop offset="0%" stop-color="#8E3325"/>
+    <stop offset="100%" stop-color="#3E0F0A"/>
+  </linearGradient>
+  <linearGradient id="fat" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#F0E4D1"/>
+    <stop offset="100%" stop-color="#D3BEA0"/>
+  </linearGradient>
+  <linearGradient id="chick" x1="0" y1="0" x2="0.7" y2="1">
+    <stop offset="0%" stop-color="#E7C69C"/>
+    <stop offset="60%" stop-color="#CBA070"/>
+    <stop offset="100%" stop-color="#A97E4E"/>
+  </linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#E7CD92"/>
+    <stop offset="100%" stop-color="#A57C3D"/>
+  </linearGradient>
+  <linearGradient id="boxTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#37373E"/>
+    <stop offset="100%" stop-color="#1C1C22"/>
+  </linearGradient>
+  <linearGradient id="boxFront" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1B1B20"/>
+    <stop offset="100%" stop-color="#0B0B0E"/>
+  </linearGradient>
+  <linearGradient id="boxSide" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#101014"/>
+    <stop offset="100%" stop-color="#060608"/>
+  </linearGradient>
+  <linearGradient id="glossV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#FFF" stop-opacity="0.10"/>
+    <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="blurL" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+  <filter id="blurS" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="800" height="600" fill="url(#bg)"/>
+<ellipse cx="400" cy="250" rx="480" ry="320" fill="#C9A45C" opacity="0.045"/>
+<ellipse cx="400" cy="452" rx="430" ry="115" fill="#33221668" filter="url(#blurL)"/>
+<ellipse cx="430" cy="399" rx="192.50000000000003" ry="26" fill="#000" opacity="0.55" filter="url(#blurL)"/>
+<polygon points="605,205 652.6,149 652.6,346.68 605,387" fill="url(#boxSide)"/>
+<polygon points="255,205 302.6,149 652.6,149 605,205" fill="url(#boxTop)"/>
+<polygon points="255,205 302.6,149 652.6,149 605,205" fill="none" stroke="#50505A" stroke-opacity="0.45" stroke-width="1.4"/>
+<rect x="255" y="205" width="350" height="182" rx="6" fill="url(#boxFront)"/>
+<rect x="255" y="205" width="350" height="4" fill="#000" opacity="0.5"/>
+<rect x="256" y="206" width="348" height="180" rx="5" fill="none" stroke="#42424C" stroke-opacity="0.5" stroke-width="1.4"/>
+<rect x="290" y="205" width="42" height="182" fill="url(#glossV)"/>
+<rect x="255" y="259.6" width="350" height="16" fill="url(#gold)" opacity="0.92"/>
+<rect x="255" y="275.6" width="350" height="3" fill="#000" opacity="0.4"/>
+<polygon points="269.28,188.2 619.28,188.2 624.992,181.48 274.992,181.48" fill="url(#gold)" opacity="0.55"/>
+<circle cx="430" cy="319.34000000000003" r="17" fill="none" stroke="#000" stroke-width="2" opacity="0.4"/>
+<circle cx="430" cy="317.84000000000003" r="17" fill="none" stroke="url(#gold)" stroke-width="2.2" opacity="0.9"/>
+<circle cx="430" cy="317.84000000000003" r="10.5" fill="none" stroke="url(#gold)" stroke-width="1" opacity="0.45"/>
+<circle cx="430" cy="317.84000000000003" r="4.5" fill="url(#gold)" opacity="0.9"/>
+<rect x="255" y="336" width="350" height="7" fill="url(#gold)" opacity="0.75"/>
+<g transform="translate(288 404) rotate(-6) scale(0.92)">
+  <ellipse cx="4" cy="66" rx="98" ry="18" fill="#000" opacity="0.4" filter="url(#blurS)"/>
+  <path d="M-95,10 C-88,-38 -30,-58 28,-50 C78,-43 102,-12 96,30 C90,66 40,88 -14,82 C-62,77 -101,52 -95,10 Z" fill="url(#meat)"/>
+  <path d="M-90,34 C-70,66 -20,84 30,76 C-10,88 -70,80 -90,34 Z" fill="#2A0A06" opacity="0.45"/>
+  <path d="M-88,-14 C-68,-44 -16,-56 34,-47" fill="none" stroke="url(#fat)" stroke-width="11" stroke-linecap="round" opacity="0.9"/>
+  <path d="M-95,8 C-90,-30 -50,-52 8,-52" fill="none" stroke="#F4E2CC" stroke-width="2.4" stroke-linecap="round" opacity="0.28"/>
+  <path d="M-58,14 C-38,4 -16,20 8,10 M-30,44 C-10,34 14,48 38,38 M22,-8 C42,-16 58,-2 72,8"
+        fill="none" stroke="#EADBC6" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+  <ellipse cx="-18" cy="-6" rx="52" ry="26" fill="#FFF" opacity="0.07"/>
+</g>
+<rect width="800" height="600" fill="url(#vig)"/>
+</svg>

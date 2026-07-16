@@ -161,12 +161,77 @@
     /* TRUST CARDS */
     .tcard { background: var(--surface); border-radius: 20px; overflow: hidden; border: 1px solid rgba(201,164,92,.12); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
 
-    /* HOW IT WORKS */
-    .hiw-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-    .hiw-num { font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: .02em; }
+    /* HOW IT WORKS — premium zaman çizelgesi: düğümler hattın üzerinde, kartlar altında */
+    .hiw-grid { position: relative; }
+    /* Bağlantı çizgisi düğüm merkezlerinin hizasında 1→3 uzanır; reveal ile
+       soldan sağa çizilir (yalnızca transform). JS yok / reduced-motion → direkt görünür */
+    @media (min-width: 768px) {
+      .hiw-grid::before {
+        content: ''; position: absolute; top: 28px; left: 16.6%; right: 16.6%; height: 1px;
+        background: linear-gradient(90deg, rgba(201,164,92,.55), rgba(201,164,92,.22) 50%, rgba(201,164,92,.55));
+        box-shadow: 0 0 12px rgba(201,164,92,.16);
+      }
+      .hiw-grid.hiw-armed::before { transform: scaleX(0); transform-origin: left; transition: transform 1.15s cubic-bezier(.25,.1,.25,1) .1s; }
+      [dir="rtl"] .hiw-grid.hiw-armed::before { transform-origin: right; }
+      .hiw-grid.hiw-armed.hiw-flow::before { transform: scaleX(1); }
+    }
+    .hiw-step { position: relative; display: flex; flex-direction: column; }
+    /* Mobil: istiflenen adımlar arasında dikey akış bağlacı */
+    @media (max-width: 767px) {
+      .hiw-step + .hiw-step::before {
+        content: ''; position: absolute; top: -40px; left: 50%; width: 1px; height: 40px;
+        background: linear-gradient(180deg, rgba(201,164,92,.05), rgba(201,164,92,.32));
+      }
+    }
+    .hiw-node {
+      position: relative; z-index: 1; flex: none;
+      width: 56px; height: 56px; border-radius: 50%;
+      margin: 0 auto 22px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(201,164,92,.5);
+      background: radial-gradient(circle at 35% 28%, rgba(201,164,92,.20), rgba(201,164,92,.04) 72%), #16100E;
+      box-shadow: 0 4px 18px rgba(0,0,0,.45);
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), border-color .22s ease;
+    }
+    .hiw-node::before { /* dış halka */
+      content: ''; position: absolute; inset: -7px; border-radius: 50%;
+      border: 1px solid rgba(201,164,92,.16); opacity: .8;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .22s ease;
+    }
+    .hiw-num { font-size: 1.25rem; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: .02em; transition: color .2s ease; }
     :lang(ar) .hiw-num { font-family: 'Cairo', sans-serif; }
-    .hiw-line { flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,164,92,.45), rgba(201,164,92,0)); }
-    [dir="rtl"] .hiw-line { background: linear-gradient(to left, rgba(201,164,92,.45), rgba(201,164,92,0)); }
+    .hiw-card {
+      position: relative; flex: 1;
+      display: flex; flex-direction: column; justify-content: center; /* kısa metin dikeyde ortalansın */
+      background: linear-gradient(180deg, rgba(34,25,20,.92), rgba(18,13,11,.9));
+      border: 1px solid var(--line); border-radius: 20px;
+      padding: 30px 26px 32px; text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.30), 0 14px 36px rgba(0,0,0,.24);
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), border-color .22s ease, box-shadow .22s ease;
+    }
+    .hiw-card::before { /* üst kenar altın parıltısı — üstteki düğümü yankılar */
+      content: ''; position: absolute; top: 0; left: 14%; right: 14%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,164,92,.4), transparent);
+      opacity: .55; transition: opacity .25s ease;
+    }
+    .hiw-card::after { /* hover'da üstten süzülen sıcak ışıma */
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+      background: radial-gradient(65% 55% at 50% 0%, rgba(201,164,92,.09), transparent 70%);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .hiw-step:hover .hiw-card { transform: translateY(-5px); border-color: rgba(201,164,92,.30); box-shadow: 0 10px 26px rgba(0,0,0,.42), 0 26px 60px rgba(0,0,0,.36); }
+    .hiw-step:hover .hiw-card::before, .hiw-step:hover .hiw-card::after { opacity: 1; }
+    .hiw-step:hover .hiw-node { transform: scale(1.07); border-color: rgba(201,164,92,.8); }
+    .hiw-step:hover .hiw-node::before { transform: scale(1.1); opacity: 1; }
+    .hiw-step:hover .hiw-num { color: #E5C57E; }
+    .hiw-card h3 { color: var(--text); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .hiw-card p { color: var(--muted); font-size: .9375rem; line-height: 1.7; max-width: 30ch; margin-inline: auto; }
+    /* Giriş koreografisi: kart süzülürken düğüm hafif gecikmeyle yaylanarak belirir.
+       Düğüm geçişi kartın opacity geçişinden ÖNCE biter (rv temizliği sıçratmasın) */
+    .hiw-step.rv .hiw-node { transform: scale(.4); transition: transform .5s cubic-bezier(.34,1.56,.64,1) .06s; }
+    .hiw-step.rv-in .hiw-node { transform: scale(1); }
+    .hiw-step.rv:nth-child(2) .hiw-node { transition-delay: .18s; }
+    .hiw-step.rv:nth-child(3) .hiw-node { transition-delay: .3s; }
 
     /* CATEGORY CARDS */
     .ccard {
@@ -179,18 +244,18 @@
     .ccard:hover { transform: translateY(-4px); border-color: rgba(201,164,92,.32); box-shadow: 0 8px 22px rgba(0,0,0,.45), 0 22px 56px rgba(0,0,0,.40); }
     .ccard:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     .ccard:active { transform: translateY(-1px); }
-    /* Görsel alanı: şimdilik marka tonlarında degrade placeholder.
-       Gerçek fotoğraf geldiğinde ilgili c-* sınıfına background-image eklemek yeterli;
-       üstteki scrim (::after) fotoğrafta da metin okunabilirliğini korur. */
+    /* Görsel alanı: assets/images/products/ altındaki stilize SVG sahneleri.
+       Gerçek fotoğraf geldiğinde ilk url(...) katmanını fotoğrafla değiştirmek
+       yeterli; degrade katmanı yükleme yedeğidir, scrim (::after) okunabilirliği korur. */
     .ccard-bg { position: absolute; inset: 0; transition: transform .35s ease; }
     .ccard:hover .ccard-bg { transform: scale(1.045); }
     .ccard-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,.88) 0%, rgba(5,5,5,.34) 55%, rgba(5,5,5,.12) 100%); }
-    .c-beef    { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(201,164,92,.12), transparent 55%), linear-gradient(135deg, #4A150C, #2A0C07); }
-    .c-lamb    { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #5C2A18, #33150B); }
-    .c-chicken { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(245,239,231,.10), transparent 55%), linear-gradient(135deg, #8A5A32, #4A2C14); }
-    .c-mince   { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #6B1F16, #3A0F0A); }
-    .c-bbq     { background: radial-gradient(ellipse 130% 90% at 18% 0%, rgba(239,120,60,.14), transparent 55%), linear-gradient(135deg, #3A2412, #1C0F07); }
-    .c-family  { background: radial-gradient(ellipse 130% 90% at 82% 0%, rgba(201,164,92,.12), transparent 55%), linear-gradient(135deg, #54281E, #2B120C); }
+    .c-beef    { background: url("assets/images/products/cat-beef.svg") center / cover no-repeat, linear-gradient(135deg, #4A150C, #2A0C07); }
+    .c-lamb    { background: url("assets/images/products/cat-lamb.svg") center / cover no-repeat, linear-gradient(135deg, #5C2A18, #33150B); }
+    .c-chicken { background: url("assets/images/products/cat-chicken.svg") center / cover no-repeat, linear-gradient(135deg, #8A5A32, #4A2C14); }
+    .c-mince   { background: url("assets/images/products/cat-mince.svg") center / cover no-repeat, linear-gradient(135deg, #6B1F16, #3A0F0A); }
+    .c-bbq     { background: url("assets/images/products/cat-bbq.svg") center / cover no-repeat, linear-gradient(135deg, #3A2412, #1C0F07); }
+    .c-family  { background: url("assets/images/products/cat-family.svg") center / cover no-repeat, linear-gradient(135deg, #54281E, #2B120C); }
     .ccard-body { position: relative; padding: 20px; }
     .ccard-body h3 { color: var(--text); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
     .ccard-body p { color: var(--muted); font-size: .875rem; line-height: 1.7; margin-top: 6px; }
@@ -212,12 +277,12 @@
     }
     .bcard:hover { transform: translateY(-4px); border-color: rgba(201,164,92,.30); box-shadow: 0 8px 22px rgba(0,0,0,.45), 0 22px 56px rgba(0,0,0,.40); }
     .bimg { position: relative; aspect-ratio: 4 / 3; }
-    /* Placeholder degrade görsel alanı — gerçek kutu fotoğrafı gelince
-       ilgili b-* sınıfına background-image eklemek yeterli */
-    .b-everyday { background: radial-gradient(ellipse 130% 90% at 20% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #5A241A, #2E100A); }
-    .b-bbq      { background: radial-gradient(ellipse 130% 90% at 80% 0%, rgba(239,120,60,.13), transparent 55%), linear-gradient(135deg, #3C2410, #1B0E06); }
-    .b-family   { background: radial-gradient(ellipse 130% 90% at 20% 0%, rgba(201,164,92,.10), transparent 55%), linear-gradient(135deg, #6B2A1C, #38130C); }
-    .b-steak    { background: radial-gradient(ellipse 130% 90% at 80% 0%, rgba(201,164,92,.16), transparent 55%), linear-gradient(135deg, #4A1510, #240A07); }
+    /* Görsel alanı: assets/images/products/ altındaki stilize SVG kutu sahneleri.
+       Gerçek kutu fotoğrafı gelince ilk url(...) katmanını değiştirmek yeterli. */
+    .b-everyday { background: url("assets/images/products/box-everyday.svg") center / cover no-repeat, linear-gradient(135deg, #5A241A, #2E100A); }
+    .b-bbq      { background: url("assets/images/products/box-bbq.svg") center / cover no-repeat, linear-gradient(135deg, #3C2410, #1B0E06); }
+    .b-family   { background: url("assets/images/products/box-family.svg") center / cover no-repeat, linear-gradient(135deg, #6B2A1C, #38130C); }
+    .b-steak    { background: url("assets/images/products/box-premium.svg") center / cover no-repeat, linear-gradient(135deg, #4A1510, #240A07); }
     .bimg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,.55) 0%, transparent 55%); }
     .bbadge {
       position: absolute; top: 10px; inset-inline-start: 10px; z-index: 2;
@@ -648,34 +713,31 @@
 <section class="py-20 sm:py-28 px-4" id="how">
   <div class="max-w-6xl mx-auto">
     <h2 class="fd text-3xl sm:text-4xl font-bold text-center mb-2" style="letter-spacing:-0.02em" data-i18n="hiw.h2">Nasıl Çalışır?</h2>
-    <p class="text-center text-[#B8AFA6] text-sm mb-14" data-i18n="hiw.sub">Taze helal et, üç basit adımda kapınızda.</p>
-    <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+    <p class="text-center text-[#B8AFA6] text-sm mb-16" data-i18n="hiw.sub">Taze helal et, üç basit adımda kapınızda.</p>
+    <div class="hiw-grid grid md:grid-cols-3 gap-10 md:gap-8">
 
       <div class="hiw-step">
-        <div class="hiw-head">
-          <span class="hiw-num fd" data-i18n="hiw.s1.n">01</span>
-          <span class="hiw-line" aria-hidden="true"></span>
+        <div class="hiw-node" aria-hidden="true"><span class="hiw-num fd" data-i18n="hiw.s1.n">01</span></div>
+        <div class="hiw-card">
+          <h3 class="fd" data-i18n="hiw.s1.h">Etinizi Seçin</h3>
+          <p data-i18n="hiw.s1.p">Taze helal kesimler, mangal kutuları veya aile et kutuları arasından seçim yapın.</p>
         </div>
-        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s1.h">Etinizi Seçin</h3>
-        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s1.p">Taze helal kesimler, mangal kutuları veya haftalık aile et kutuları arasından seçim yapın.</p>
       </div>
 
       <div class="hiw-step">
-        <div class="hiw-head">
-          <span class="hiw-num fd" data-i18n="hiw.s2.n">02</span>
-          <span class="hiw-line" aria-hidden="true"></span>
+        <div class="hiw-node" aria-hidden="true"><span class="hiw-num fd" data-i18n="hiw.s2.n">02</span></div>
+        <div class="hiw-card">
+          <h3 class="fd" data-i18n="hiw.s2.h">Taze Hazırlıyoruz</h3>
+          <p data-i18n="hiw.s2.p">Siparişiniz hijyen ve tazelik gözetilerek özenle paketlenir.</p>
         </div>
-        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s2.h">Taze Hazırlıyoruz</h3>
-        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s2.p">Siparişiniz hijyen ve tazelik gözetilerek özenle paketlenir.</p>
       </div>
 
       <div class="hiw-step">
-        <div class="hiw-head">
-          <span class="hiw-num fd" data-i18n="hiw.s3.n">03</span>
-          <span class="hiw-line" aria-hidden="true"></span>
+        <div class="hiw-node" aria-hidden="true"><span class="hiw-num fd" data-i18n="hiw.s3.n">03</span></div>
+        <div class="hiw-card">
+          <h3 class="fd" data-i18n="hiw.s3.h">Kapınıza Teslim</h3>
+          <p data-i18n="hiw.s3.p">Siparişiniz tazeliğini koruyan pratik ambalajıyla kapınıza teslim edilir.</p>
         </div>
-        <h3 class="fd text-xl font-bold mb-2.5" style="letter-spacing:-0.02em" data-i18n="hiw.s3.h">Kapınıza Teslim</h3>
-        <p class="text-[#B8AFA6] text-sm leading-relaxed" data-i18n="hiw.s3.p">Etiniz tazeliğini koruyan pratik ambalajıyla evinize teslim edilir.</p>
       </div>
 
     </div>
@@ -1265,11 +1327,11 @@ const T = {
     'hiw.h2':'Nasıl Çalışır?',
     'hiw.sub':'Taze helal et, üç basit adımda kapınızda.',
     'hiw.s1.n':'01','hiw.s1.h':'Etinizi Seçin',
-    'hiw.s1.p':'Taze helal kesimler, mangal kutuları veya haftalık aile et kutuları arasından seçim yapın.',
+    'hiw.s1.p':'Taze helal kesimler, mangal kutuları veya aile et kutuları arasından seçim yapın.',
     'hiw.s2.n':'02','hiw.s2.h':'Taze Hazırlıyoruz',
     'hiw.s2.p':'Siparişiniz hijyen ve tazelik gözetilerek özenle paketlenir.',
     'hiw.s3.n':'03','hiw.s3.h':'Kapınıza Teslim',
-    'hiw.s3.p':'Etiniz tazeliğini koruyan pratik ambalajıyla evinize teslim edilir.',
+    'hiw.s3.p':'Siparişiniz tazeliğini koruyan pratik ambalajıyla kapınıza teslim edilir.',
     'cat.h2':'Kategorilere Göz Atın',
     'cat.sub':'Her öğün için taze helal kesimler ve özenle hazırlanmış et kutuları.',
     'cat.cta':'Keşfet',
@@ -1398,11 +1460,11 @@ const T = {
     'hiw.h2':'So funktioniert’s',
     'hiw.sub':'Frisches Halal-Fleisch in drei einfachen Schritten an Ihre Tür.',
     'hiw.s1.n':'01','hiw.s1.h':'Fleisch auswählen',
-    'hiw.s1.p':'Wählen Sie frische Halal-Cuts, BBQ-Boxen oder wöchentliche Familien-Fleischboxen.',
+    'hiw.s1.p':'Wählen Sie frische Halal-Cuts, BBQ-Boxen oder Familien-Fleischboxen.',
     'hiw.s2.n':'02','hiw.s2.h':'Frisch zubereitet',
     'hiw.s2.p':'Ihre Bestellung wird sorgfältig verpackt — mit Blick auf Hygiene und Frische.',
     'hiw.s3.n':'03','hiw.s3.h':'Bis an Ihre Tür geliefert',
-    'hiw.s3.p':'Sie erhalten Ihr Fleisch bequem nach Hause — frisch und praktisch verpackt.',
+    'hiw.s3.p':'Sie erhalten Ihre Bestellung frisch und praktisch verpackt an Ihre Tür.',
     'cat.h2':'Nach Kategorie einkaufen',
     'cat.sub':'Frische Halal-Cuts und kuratierte Fleischboxen für jede Mahlzeit.',
     'cat.cta':'Entdecken',
@@ -1531,11 +1593,11 @@ const T = {
     'hiw.h2':'How It Works',
     'hiw.sub':'Fresh halal meat delivered to your door in three simple steps.',
     'hiw.s1.n':'01','hiw.s1.h':'Choose Your Meat',
-    'hiw.s1.p':'Select fresh halal cuts, BBQ boxes, or weekly family meat boxes.',
+    'hiw.s1.p':'Select fresh halal cuts, BBQ boxes, or family meat boxes.',
     'hiw.s2.n':'02','hiw.s2.h':'We Prepare It Fresh',
-    'hiw.s2.p':'Your order is carefully packed with hygiene and freshness in mind.',
+    'hiw.s2.p':'Your order is packed carefully with hygiene and freshness in mind.',
     'hiw.s3.n':'03','hiw.s3.h':'Delivered to Your Door',
-    'hiw.s3.p':'Receive your meat at home, packed for freshness and convenience.',
+    'hiw.s3.p':'Receive your order packed for freshness and convenience.',
     'cat.h2':'Shop by Category',
     'cat.sub':'Choose fresh halal cuts and curated meat boxes for every meal.',
     'cat.cta':'Explore',
@@ -1664,11 +1726,11 @@ const T = {
     'hiw.h2':'كيف يعمل؟',
     'hiw.sub':'لحوم حلال طازجة تصل إلى بابك في ثلاث خطوات بسيطة.',
     'hiw.s1.n':'٠١','hiw.s1.h':'اختر لحومك',
-    'hiw.s1.p':'اختر من القطع الحلال الطازجة أو صناديق الشواء أو صناديق اللحوم العائلية الأسبوعية.',
+    'hiw.s1.p':'اختر من القطع الحلال الطازجة أو صناديق الشواء أو صناديق اللحوم العائلية.',
     'hiw.s2.n':'٠٢','hiw.s2.h':'نحضّره طازجاً',
-    'hiw.s2.p':'يتم تجهيز طلبك وتغليفه بعناية مع مراعاة النظافة والطزاجة.',
+    'hiw.s2.p':'يُعبأ طلبك بعناية مع مراعاة النظافة والطزاجة.',
     'hiw.s3.n':'٠٣','hiw.s3.h':'يصل إلى بابك',
-    'hiw.s3.p':'استلم لحومك في المنزل، معبأة لتحافظ على طزاجتها وسهولة استخدامها.',
+    'hiw.s3.p':'استلم طلبك معبأً بما يحافظ على الطزاجة وسهولة الاستخدام.',
     'cat.h2':'تسوق حسب الفئة',
     'cat.sub':'اختر قطعاً حلالاً طازجة وصناديق لحوم منسقة لكل وجبة.',
     'cat.cta':'استكشف',
@@ -1823,18 +1885,15 @@ function setLang(lang) {
 }
 
 /* ── Products ────────────────────────────────────── */
-// Yerel SVG placeholder — dış servis (placehold.co) bağımlılığını kaldırır.
-// Gerçek ürün fotoğrafları hazır olduğunda img alanına dosya yolu yazmak yeterli.
-const ph = (c1, c2) => 'data:image/svg+xml,' + encodeURIComponent(
-  `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs><rect width='600' height='450' fill='url(#g)'/></svg>`
-)
-
+// Ürün görselleri: assets/images/products/ altındaki stilize SVG sahneleri.
+// Gerçek fotoğraf hazır olduğunda img alanına fotoğrafın yolunu yazmak yeterli
+// (görsel alanı 4:3 ve object-fit: cover; her oranda düzgün kırpılır).
 const PRODUCTS = [
-  { id:1, nk:'p1.name', wk:'p1.weight', price:4.99,  img: ph('#6B2318', '#48140B') },
-  { id:2, nk:'p2.name', wk:'p2.weight', price:8.99,  img: ph('#8B281B', '#5C1A10') },
-  { id:3, nk:'p3.name', wk:'p3.weight', price:3.99,  img: ph('#D8A87C', '#B07A4E') },
-  { id:4, nk:'p4.name', wk:'p4.weight', price:9.99,  img: ph('#9C4436', '#6B2318') },
-  { id:5, nk:'p5.name', wk:'p5.weight', price:5.99,  img: ph('#7B2A24', '#521815') },
+  { id:1, nk:'p1.name', wk:'p1.weight', price:4.99,  img: 'assets/images/products/prod-dana-kiyma.svg' },
+  { id:2, nk:'p2.name', wk:'p2.weight', price:8.99,  img: 'assets/images/products/prod-antrikot.svg' },
+  { id:3, nk:'p3.name', wk:'p3.weight', price:3.99,  img: 'assets/images/products/prod-tavuk-gogsu.svg' },
+  { id:4, nk:'p4.name', wk:'p4.weight', price:9.99,  img: 'assets/images/products/prod-kuzu-pirzola.svg' },
+  { id:5, nk:'p5.name', wk:'p5.weight', price:5.99,  img: 'assets/images/products/prod-dana-kusbasi.svg' },
 ]
 
 /* ── Cart ────────────────────────────────────────── */
@@ -2287,16 +2346,20 @@ if (mctaBar && buildSection && heroSection && 'IntersectionObserver' in window) 
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
   const revealables = document.querySelectorAll('.hiw-step, .ccard, .bcard, .byb-panel, .qp-visual, .qp-item, .faq-item')
   revealables.forEach(el => el.classList.add('rv'))
+  // HIW bağlantı çizgisi: hiw-armed → gizli başlar; ilk adım görünürken çizilir
+  const hiwGrid = document.querySelector('.hiw-grid')
+  if (hiwGrid) hiwGrid.classList.add('hiw-armed')
   const rvIO = new IntersectionObserver(entries => {
     for (const en of entries) {
       if (!en.isIntersecting) continue
       const el = en.target
       el.classList.add('rv-in')
+      if (hiwGrid && el.classList.contains('hiw-step')) hiwGrid.classList.add('hiw-flow')
       rvIO.unobserve(el)
       // Geçiş bitince rv sınıflarını kaldır: kartların kendi hover
       // transition kuralları yeniden devreye girsin
       el.addEventListener('transitionend', function h(e) {
-        if (e.propertyName !== 'opacity') return
+        if (e.target !== el || e.propertyName !== 'opacity') return
         el.removeEventListener('transitionend', h)
         el.classList.remove('rv', 'rv-in')
       })

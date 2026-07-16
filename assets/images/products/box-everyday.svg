@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="40%" r="78%">
+    <stop offset="0%" stop-color="#281C15"/>
+    <stop offset="55%" stop-color="#150E0A"/>
+    <stop offset="100%" stop-color="#0A0605"/>
+  </radialGradient>
+  <radialGradient id="vig" cx="50%" cy="42%" r="72%">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.42"/>
+  </radialGradient>
+  <linearGradient id="tray" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#323236"/>
+    <stop offset="10%" stop-color="#17171A"/>
+    <stop offset="100%" stop-color="#060607"/>
+  </linearGradient>
+  <linearGradient id="trayIn" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#0C0C0E"/>
+    <stop offset="18%" stop-color="#1C1C20"/>
+    <stop offset="100%" stop-color="#0A0A0C"/>
+  </linearGradient>
+  <linearGradient id="meat" x1="0" y1="0" x2="0.8" y2="1">
+    <stop offset="0%" stop-color="#A84838"/>
+    <stop offset="55%" stop-color="#77241B"/>
+    <stop offset="100%" stop-color="#4C130E"/>
+  </linearGradient>
+  <linearGradient id="meatDeep" x1="0" y1="0" x2="0.8" y2="1">
+    <stop offset="0%" stop-color="#8E3325"/>
+    <stop offset="100%" stop-color="#3E0F0A"/>
+  </linearGradient>
+  <linearGradient id="fat" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#F0E4D1"/>
+    <stop offset="100%" stop-color="#D3BEA0"/>
+  </linearGradient>
+  <linearGradient id="chick" x1="0" y1="0" x2="0.7" y2="1">
+    <stop offset="0%" stop-color="#E7C69C"/>
+    <stop offset="60%" stop-color="#CBA070"/>
+    <stop offset="100%" stop-color="#A97E4E"/>
+  </linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#E7CD92"/>
+    <stop offset="100%" stop-color="#A57C3D"/>
+  </linearGradient>
+  <linearGradient id="boxTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#37373E"/>
+    <stop offset="100%" stop-color="#1C1C22"/>
+  </linearGradient>
+  <linearGradient id="boxFront" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1B1B20"/>
+    <stop offset="100%" stop-color="#0B0B0E"/>
+  </linearGradient>
+  <linearGradient id="boxSide" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#101014"/>
+    <stop offset="100%" stop-color="#060608"/>
+  </linearGradient>
+  <linearGradient id="glossV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#FFF" stop-opacity="0.10"/>
+    <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="blurL" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+  <filter id="blurS" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="800" height="600" fill="url(#bg)"/>
+<ellipse cx="400" cy="250" rx="480" ry="320" fill="#C9A45C" opacity="0.045"/>
+<ellipse cx="400" cy="452" rx="430" ry="115" fill="#33221668" filter="url(#blurL)"/>
+<ellipse cx="400" cy="427" rx="187.00000000000003" ry="26" fill="#000" opacity="0.55" filter="url(#blurL)"/>
+<polygon points="570,225 614.2,173 614.2,377.56 570,415" fill="url(#boxSide)"/>
+<polygon points="230,225 274.2,173 614.2,173 570,225" fill="url(#boxTop)"/>
+<polygon points="230,225 274.2,173 614.2,173 570,225" fill="none" stroke="#50505A" stroke-opacity="0.45" stroke-width="1.4"/>
+<rect x="230" y="225" width="340" height="190" rx="6" fill="url(#boxFront)"/>
+<rect x="230" y="225" width="340" height="4" fill="#000" opacity="0.5"/>
+<rect x="231" y="226" width="338" height="188" rx="5" fill="none" stroke="#42424C" stroke-opacity="0.5" stroke-width="1.4"/>
+<rect x="264" y="225" width="40.8" height="190" fill="url(#glossV)"/>
+<rect x="230" y="282" width="340" height="16" fill="url(#gold)" opacity="0.92"/>
+<rect x="230" y="298" width="340" height="3" fill="#000" opacity="0.4"/>
+<polygon points="243.26,209.4 583.26,209.4 588.564,203.16 248.564,203.16" fill="url(#gold)" opacity="0.55"/>
+<circle cx="400" cy="344.3" r="17" fill="none" stroke="#000" stroke-width="2" opacity="0.4"/>
+<circle cx="400" cy="342.8" r="17" fill="none" stroke="url(#gold)" stroke-width="2.2" opacity="0.9"/>
+<circle cx="400" cy="342.8" r="10.5" fill="none" stroke="url(#gold)" stroke-width="1" opacity="0.45"/>
+<circle cx="400" cy="342.8" r="4.5" fill="url(#gold)" opacity="0.9"/>
+<rect width="800" height="600" fill="url(#vig)"/>
+</svg>
